@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <cities>
+    <!-- lat +: nord, - south, long: +:est, - ouest -->
+    <city name="Tours" lat="47.27" long="0.43" timezone ="Europe/Paris" />
+  </cities>
+</config>

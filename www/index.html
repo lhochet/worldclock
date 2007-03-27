@@ -1,45 +1,101 @@
 <html>
 <head>
-<title>Project Home Page</title>
+<title>World Clock Application</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
-
-<body bgcolor="#FFFFFF" text="#000000">
-<h1>Default project home page </h1>
-<p>Congratulations on your new java.net project! </p>
-<p>This page is the home page for your new project. This content is appearing 
-  because you have selected the option <b>Use project index.html</b>. To edit 
-  the information displayed on this page, just use CVS to check out your project's 
-  CVS repository and edit index.html in directory www. You can get more information 
-  on how to set-up your local CVS client, click on <b>Version Control</b> on the 
-  left nav bar. </p>
-<p>If you don't want to use CVS to manage your home page, click on the <b>Edit 
-  project</b> link on this page and unclick the option <b>Use project index.html</b>. 
-  Your project home page contents will be generated from the <b>Edit project</b> 
-  field <b>Description</b>. Edit the text on that field to change your home page 
-  contents. Click on <b>Submit changes</b> to save your edits. </p>
-<p>If you are looking for <a href="https://java-net.dev.java.net/ProjectPages.html#templates">sample 
-  home page templates</a>, check out the <a href="https://java-net.dev.java.net/ProjectPages.html">java.net 
-  Project Starter Kit</a>. Copy either of the templates into your project's html 
-  to get started on your project's home page. </p>
-<p>You can find lots of helpful information in the Starter Kit to get your project 
-  started. Some of the things you will find in there include:</p>
+<body>
+<h1>World Clock</h1>
+<a href="#Application">application</a> - <a href="#Screensaver">screensaver</a> - <a href="#Configuration">configuration</a> - <a href="#Panel">panel</a> - <a href="#Credits">credits</a>
+<p></p>
+<h2><a id="Application"></a>Application</h2>
+<p>A simple World Clock accessible from the system tray. Shows the time in the cities loaded from the configuration file.</p>
+<table>
+  <tr>
+    <td align="center">
+      <img alt="World Clock application main screen" src="snap-app.png"/>
+    </td>
+  </tr>
+</table>
+<h4>Download</h4>
 <ul>
-  <li>Hints on how to <a href="https://java-net.dev.java.net/ProjectPages.html#pages">set-up 
-    your project's</a> home page</li>
-  <li>Ideas on how to <a href="https://java-net.dev.java.net/ProjectPages.html#publicity">publicize 
-    your project</a> including RSS feeds</li>
-  <li>Hints on <a href="https://java-net.dev.java.net/pagedesign.html">project 
-    page HTML</a></li>
-  <li>Setting up project <a href="https://java-net.dev.java.net/ProjectPages.html#wiki">wiki 
-    pages</a></li>
-  <li>And places to go if <a href="https://java-net.dev.java.net/ProjectPages.html#feedback">you 
-    have questions</a>.</li>
+<li><b>From zip:</b>
+   <ul>
+   <li>Download the zip from Documents &amp; Files: <a href="https://worldclock-application.dev.java.net/files/documents/4685/47263/worldclock-0.5.zip">Java 6</a>, <a href="https://worldclock-application.dev.java.net/files/documents/4685/29825/worldclock-application-0.4.zip">Java 5</a></li>
+   <li>Extract the files, then to run, double click on worldclock.jar.</li>
+   </ul>
+   </li>
+<li><b>From installer:</b>
+   <ul>
+   <li>Download the installer from Documents &amp; Files: <a href="https://worldclock-application.dev.java.net/files/documents/4685/47264/worldclockapplication-setup-0.5.exe">Java 6</a>, <a href="https://worldclock-application.dev.java.net/files/documents/4685/34470/worldclockapplication-setup-0.4.exe">Java 5</a></li>
+   <li>double click and follow the instructions</li>
+   </ul>
+   </li>
+<li><b>From webstart:</b> click <a href="https://worldclock-application.dev.java.net/webstart/worldclock.jnlp"><img alt="Web start" src="http://java.sun.com/products/jfc/tsc/sightings/images/webstart.small.jpg"/></a> (requires Java 6.0+) or for <a href="https://worldclock-application.dev.java.net/webstart5/worldclock.jnlp">Java 5</a></li>    
 </ul>
-<p>Remember that you will attract more new members and your project team will 
-  work more effectively if you, as the project owner, supply sufficient information 
-  about your project for visitors to your project space. Good luck with your new 
-  project! </p>
+<p></p>
+<p></p>
+<p>To configure edit the config.xml file, right click on the tray icon, then in the Options dialog point to the edited file.</p>
+<h4>Source</h4>
+See CVS
+<p></p>
+<h2><a id="Screensaver"></a>Screen Saver</h2>
+<p>A World clock screen saver based on the <a href="https://jdic.dev.java.net/documentation/incubator/screensaver/index.html">Java SaverBean Screensaver SDK</a>. 
+  In addition to the clocks, the screen saver also allows for UFOs.</p>
+<h4>Download</h4>
+<p>Download the appropriate file from <a href="https://worldclock-application.dev.java.net/servlets/ProjectDocumentList">Documents &amp; Files</a>:</p>
+<ul>
+<li><b>worldclocksaver-unix-0.4.2.zip</b>: for "unix" plateforms, see the readme file for installation instructions</li>
+<li><b>worldclocksaver-win32-0.4.2.zip</b>: for "windows" plateforms, see the readme file for installation instructions</li>
+<li><b>worldclocksaver-setup-0.4.2.exe</b>: windows installer</li>
+</ul>
+<p>To configure edit the config.xml file, then go to the screen saver configuration options and set the planes path to the config file, also check random to have the planes showns randomly.</p>
+<h4>Source</h4>
+See CVS
+<p></p>
+<h2><a id="Configuration">Configuration File</h2>
+<p>The configuration file is a simple XML file:</p>
+<pre>
+&lt;config&gt;
+  &lt;planes&gt;
+    &lt;plane name="ufo" horizontal="gauche" vertical="haut" image="pathto/ufo.png"/&gt;
+  &lt;/planes&gt;
+  &lt;cities&gt;
+    &lt;city name="Tours" lat="47.27" long="0.43" timezone="Europe/Paris"/&gt;
+  &lt;/cities&gt;
+&lt;/config&gt;
+</pre>
+Planes:
+<ul>
+<li>name: name of the plane</li>
+<li>horizontal: direction of the horizontal movement of the plane, gauche: towards the left, droite: towards the right</li>
+<li>vertical: direction of the vertical movement of the plane, haut: towards the top, bas: towards the bottom</li>
+<li>image: plane's image path relative to the configuration file</li>
+</ul>
+Cities:
+<ul>
+<li>lat: latitude, positive values: north, negative values: south</li>
+<li>long: longitude, positive values: east, negative values: west</li>
+<li>timezone: time zone in wich the city is located (<a href="http://twiki.org/cgi-bin/xtra/tzdatepick.html">list</a>)</li>
+</ul>
+<p>See the <a href="https://worldclock-application.dev.java.net/files/documents/4685/30751/config.xml">config.xml</a> for some samples.</p>
+<p></p>
+<h2><a id="Panel"></a>Panel</h2>
+<p>A World day and night JPanel to be used in Swing applications.</p>
+<h4>Download</h4>
+<p>Download from <a href="https://worldclock-application.dev.java.net/servlets/ProjectDocumentList">Documents &amp; Files</a>.</p>
+<h4>Source</h4>
+See CVS
+<p></p>
+<h2><a id="Team">Team</h2>
+<ul>
+<li>Ludovic Hochet</li>
+<li>Guus der Kinderen</li>
+</ul>
+<h2><a id="Credits">Credits</h2>
+<ul>
+<li>Jürgen Giesen, for his <a href="http://www.geoastro.de/TNApplet/DN/index.html">Day & Night Applet</a> that serves as the base for the world clock board</li>
+<li>NASA, for the Earth pictures (more at <a href="http://visibleearth.nasa.gov/">NASA's Visible Earth</a> website)</li>
+<li>the webstart button is taken from <a href="http://java.sun.com/products/jfc/tsc/sightings/">Swing Sightings</a></li>
+</ul>
 </body>
 </html>
-

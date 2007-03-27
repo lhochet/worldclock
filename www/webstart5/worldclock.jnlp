@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jnlp href="worldclock.jnlp" spec="1.0+" codebase="https://worldclock-application.dev.java.net/webstart5/">
+  <information>
+    <title>World Clock</title>
+    <vendor>Ludovic HOCHET</vendor>
+    <homepage href="https://worldclock-application.dev.java.net/">    </homepage>
+    <description>A simple World Clock accessible from the system tray. Shows the time in the cities loaded from the configuration file.</description>
+    <description kind="short">A World Clock</description>
+    <offline-allowed/>
+    <icon href="icon32.png"/>
+    <shortcut>
+      <menu/>
+      <desktop/>
+    </shortcut>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.5+" max-heap-size="64m" initial-heap-size="32m" />
+    <jar href="lib/jdic.jar"/>
+    <jar href="lib/jdic_stub.jar"/>
+    <nativelib href="lib/jdic_native.jar"/>
+    <jar main="true" href="worldclock.jar"/>
+  </resources>
+  <application-desc main-class="lh.worldclock.WorldClock">
+    <argument>-url=https://worldclock-application.dev.java.net/webstart/config.xml</argument>
+  </application-desc>
+</jnlp>
