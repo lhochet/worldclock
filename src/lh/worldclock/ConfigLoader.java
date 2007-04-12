@@ -97,6 +97,7 @@ public class ConfigLoader
 			}
 		}
 
+		@Override
 		public void startElement(String uri, String localName, String qName,
 				Attributes attributes) 
 		{
@@ -143,6 +144,7 @@ public class ConfigLoader
 			}
 		}
 
+		@Override
 		public void endElement(String uri, String localName, String qName)
 				throws SAXException
 		{
@@ -161,6 +163,7 @@ public class ConfigLoader
 			}
 		}
 
+		@Override
 		public void endDocument() throws SAXException
 		{
 		}
