@@ -298,7 +298,7 @@ public void paintComponent(Graphics g)
     g2.drawImage(scaledEarthImageNight.getImage(), 0, 0, this);      
 
     // twilight
-    float ratio = 1.0f / ((float)nbTwilightZone / 1.5f);
+    float ratio = 1.0f / (nbTwilightZone / 1.5f);
     for (int j = 0; j < nbTwilightZone; j++)
     {
       float r = j * ratio + 0.2f; // 0.2f: arbitrary minimum of opacity
@@ -500,7 +500,7 @@ public void paintComponent(Graphics g)
     n = 365 * year + day + 31 * month - 46;
     if (month < 3)
     {
-      n = n + (int) ((year - 1) / 4);
+      n = n + (int) ((year - 1) / 4.0);
     }
     else
     {
@@ -554,7 +554,7 @@ public void paintComponent(Graphics g)
     n = 365 * year + day + 31 * month - 46;
     if (month < 3)
     {
-      n = n + (int) ((year - 1) / 4);
+      n = n + (int) ((year - 1) / 4.0);
     }
     else
     {
