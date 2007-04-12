@@ -29,15 +29,15 @@ import lh.worldclock.core.WorldClockBoard;
  */
 public class WorldClockPanel extends JPanel
 {
-  private WorldClockBoard board = null;
+  final WorldClockBoard board;
+
+  private final Timer timer;
 
   private int width;
 
   private int height;
 
   private java.util.List<City> cities = new java.util.ArrayList<City>(0);
-
-  private Timer timer;
 
   public WorldClockPanel()
   {

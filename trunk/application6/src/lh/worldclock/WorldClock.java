@@ -43,11 +43,11 @@ public class WorldClock
   public static final String APP_VERSION = "0.5";
   
   private static ImageIcon icon = null;
-  private static WorldClockFrame frame = null;
+  static WorldClockFrame frame = null;
 
   private static URL url = null;
 
-  private static ResourceBundle res = ResourceBundle
+  static ResourceBundle res = ResourceBundle
       .getBundle("lh/worldclock/worldclock");
 
   public static void main(String[] args)
@@ -134,7 +134,7 @@ public class WorldClock
 //    showWindow();
   }
 
-  private synchronized static void showWindow()
+  synchronized static void showWindow()
   {
     if (frame == null)
     {
