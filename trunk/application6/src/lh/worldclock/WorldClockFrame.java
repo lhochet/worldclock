@@ -44,7 +44,8 @@ public class WorldClockFrame extends JFrame
 
     addComponentListener(new java.awt.event.ComponentAdapter()
     {
-      public void componentResized(ComponentEvent e)
+      @Override
+	public void componentResized(ComponentEvent e)
       {
         pane.updateSize(getWidth(), getHeight());
       }

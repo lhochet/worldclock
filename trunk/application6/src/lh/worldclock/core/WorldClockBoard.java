@@ -283,7 +283,8 @@ public class WorldClockBoard extends JComponent
    * 
    * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
    */
-  public void paintComponent(Graphics g)
+  @Override
+public void paintComponent(Graphics g)
   {
     if (width == 0) return;
 
