@@ -1,12 +1,20 @@
 package lh.worldclock;
 
-import java.io.*;
-import java.util.*;
-import javax.xml.parsers.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-import java.net.*;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * <p>
