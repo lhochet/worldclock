@@ -1,9 +1,10 @@
 package lh.worldclock;
 
-import java.text.*;
-import java.util.*;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * <p>

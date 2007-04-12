@@ -1,9 +1,13 @@
 package lh.worldclock;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.net.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  * <p>
