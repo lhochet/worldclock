@@ -70,7 +70,7 @@ public class ConfigLoader
 
 	private static final int C_CITY = 4;
 
-	private class ConfigHandler extends DefaultHandler
+	class ConfigHandler extends DefaultHandler
 	{
 		private int cur = C_DOC;
 
@@ -168,7 +168,7 @@ public class ConfigLoader
 
 	}
 
-	private List<City> cities = new ArrayList<City>();
+	List<City> cities = new ArrayList<City>();
 
 	public void load(String filename)
 	{
