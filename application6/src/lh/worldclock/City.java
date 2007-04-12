@@ -24,55 +24,99 @@ import java.util.TimeZone;
  */
 public class City
 {
-  private String name;
+	private final TimeZone tz;
 
-  private String tzName;
+	private final Calendar cal;
 
-  private double latitude;
+	private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-  private double longitude;
+	private final String name;
 
-  public City(String name, double latitude, double longitude, String tzName)
-  {
-    this.name = name;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.tzName = tzName;
-  }
+	private final double latitude;
 
-  public String getName()
-  {
-    return name;
-  }
+	private final double longitude;
 
-  public double getLatitude()
-  {
-    return latitude;
-  }
+	/**
+	 * Creates a new city object.
+	 * 
+	 * @param name
+	 *          Name of the city.
+	 * @param latitude
+	 *          The distance north or south of the equator.
+	 * @param longitude
+	 *          The distance east or west of the prime meridian.
+	 * @param tzName
+	 *          Name of the timezone of this city.
+	 */
+	public City(String name, double latitude, double longitude, String tzName)
+	{
+		this.name = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
 
-  public double getLongitude()
-  {
-    return longitude;
-  }
+		tz = TimeZone.getTimeZone(tzName);
+		cal = Calendar.getInstance(tz);
+		sdf.setTimeZone(tz);
+	}
 
-  public void paint(Graphics g, int cx, int cy, boolean isFullScreen)
-  {
-    double cx2 = cx / 2.0;
-    double cy2 = cy / 2.0;
-    double lt = latitude * -1;
-    int x = (int) (cx2 * longitude / 180 + cx2);
-    int y = (int) (cy2 * lt / 90 + cy2);
+	/**
+	 * Returns the name of this city.
+	 * 
+	 * @return City name
+	 */
+	public String getName()
+	{
+		return name;
+	}
 
-    g.setColor(Color.RED);
-    g.fillOval(x - 1, y - 1, 3, 3);
-    if (isFullScreen)
-    {
-      TimeZone tz = TimeZone.getTimeZone(tzName);
-      Calendar cal = Calendar.getInstance(tz);
-      SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-      sdf.setTimeZone(tz);
-      g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
-    }
-  }
+	/**
+	 * Returns the latitude of this city. The latitude is the distance of this
+	 * city north or south of the equator.
+	 * 
+	 * @return latitude of this city.
+	 */
+	public double getLatitude()
+	{
+		return latitude;
+	}
+
+	/**
+	 * Returns the longitude of this city. The longitude is the distance east or
+	 * west of the prime meridian.
+	 * 
+	 * @return longitude of this city
+	 */
+	public double getLongitude()
+	{
+		return longitude;
+	}
+
+	/**
+	 * Draws this city on the graphics object specified.
+	 * 
+	 * @param g
+	 *          Graphics object on which this city instance is being drawed.
+	 * @param width
+	 *          Pixel width of the Graphics object.
+	 * @param height
+	 *          Pixel height of the Graphics object.
+	 * @param isFullScreen
+	 *          ''true'' if the Graphics object fills the entire screen.
+	 */
+	public void paint(Graphics g, int width, int height, boolean isFullScreen)
+	{
+		final double cx2 = width / 2.0;
+		final double cy2 = height / 2.0;
+		final double lt = latitude * -1;
+		final int x = (int) (cx2 * longitude / 180 + cx2);
+		final int y = (int) (cy2 * lt / 90 + cy2);
+
+		g.setColor(Color.RED);
+		g.fillOval(x - 1, y - 1, 3, 3);
+		if (isFullScreen)
+		{
+			g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
+		}
+	}
 
 }
