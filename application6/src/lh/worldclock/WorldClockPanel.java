@@ -93,7 +93,8 @@ public class WorldClockPanel extends JPanel
     cities = cl.getCities();
   }
 
-  public void paintComponent(Graphics graphics)
+  @Override
+public void paintComponent(Graphics graphics)
   {
     board.paintComponent(graphics);
 

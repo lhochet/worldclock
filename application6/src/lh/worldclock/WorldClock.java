@@ -111,7 +111,8 @@ public class WorldClock
 
     trayIcon.addMouseListener(new MouseAdapter()
     {
-      public void mouseClicked(MouseEvent e)
+      @Override
+	public void mouseClicked(MouseEvent e)
       {
         if (SwingUtilities.isLeftMouseButton(e))
         {
