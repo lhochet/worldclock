@@ -28,7 +28,7 @@ import javax.swing.WindowConstants;
  */
 public class WorldClockFrame extends JFrame
 {
-  private WorldClockPanel pane = new WorldClockPanel();
+  WorldClockPanel pane = new WorldClockPanel();
 
   public WorldClockFrame(ImageIcon icon)
   {
