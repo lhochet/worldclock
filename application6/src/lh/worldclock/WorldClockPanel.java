@@ -1,13 +1,15 @@
 package lh.worldclock;
 
-import java.io.*;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import lh.worldclock.core.*;
-import java.net.*;
+import lh.worldclock.core.WorldClockBoard;
 
 /**
  * <p>
