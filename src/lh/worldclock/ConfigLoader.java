@@ -90,7 +90,7 @@ public class ConfigLoader
 		}
 
 		public void startElement(String uri, String localName, String qName,
-				Attributes attributes) throws SAXException
+				Attributes attributes) 
 		{
 			switch (cur)
 			{
