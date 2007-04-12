@@ -684,6 +684,7 @@ public void paintComponent(Graphics g)
     }
     catch (InterruptedException e)
     {
+    	// ignore
     }
 
     // Get the image's color model
