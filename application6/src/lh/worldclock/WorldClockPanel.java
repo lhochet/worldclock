@@ -104,11 +104,11 @@ public void paintComponent(Graphics graphics)
     }
   }
 
-  public void updateSize(int width, int height)
+  public void updateSize(int newWidth, int newHeight)
   {
-    this.width = width;
-    this.height = height;
-    board.updateSizeValues(width, height);
+    this.width = newWidth;
+    this.height = newHeight;
+    board.updateSizeValues(newWidth, newHeight);
   }
 
 }
