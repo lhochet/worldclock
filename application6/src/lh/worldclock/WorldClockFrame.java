@@ -8,6 +8,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 /**
  * <p>
@@ -40,7 +41,7 @@ public class WorldClockFrame extends JFrame
     setBounds(0, 0, screenSize.width, screenSize.height);
     pane.updateSize(screenSize.width, screenSize.height);
 
-    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
     addComponentListener(new java.awt.event.ComponentAdapter()
     {
