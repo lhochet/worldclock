@@ -84,8 +84,8 @@ public class WorldClockBoard extends JComponent
   Polygon fullNightPolygon = null;
 
   // twilight
-  private final int division = 10;
-  private final int nbTwilightZone = 18 * division; // 18: number of degrees covered by the twilight zone
+  private static final int DIVISION = 10;
+  private static final int NBTWILIGHTZONE = 18 * DIVISION; // 18: number of degrees covered by the twilight zone
   Polygon[] twilightPolygons = null;
 
 
@@ -298,8 +298,8 @@ public void paintComponent(Graphics g)
     g2.drawImage(scaledEarthImageNight.getImage(), 0, 0, this);      
 
     // twilight
-    float ratio = 1.0f / (nbTwilightZone / 1.5f);
-    for (int j = 0; j < nbTwilightZone; j++)
+    float ratio = 1.0f / (NBTWILIGHTZONE / 1.5f);
+    for (int j = 0; j < NBTWILIGHTZONE; j++)
     {
       float r = j * ratio + 0.2f; // 0.2f: arbitrary minimum of opacity
       if (r > 0.99f) r = 0.99f; // make sure this doesn't go to 1.0, which is for full night only
@@ -384,14 +384,14 @@ public void paintComponent(Graphics g)
 
 
     final int nbPoints = 360 + 1; // + 1 to duplicate the first point at the other side of the screen
-    final int fullNightIndex = nbTwilightZone;
+    final int fullNightIndex = NBTWILIGHTZONE;
     final int nbOffsets = fullNightIndex + 1;  // +1 to include the full night in the index
     int[][] xs = new int[nbOffsets][nbPoints];
     int[][] ys = new int[nbOffsets][nbPoints];
     int[] offsets = new int[nbOffsets];
 
     // initialise offsets
-    final float yOneDegreeDivision = (float)yOneDegree / (float)division;
+    final float yOneDegreeDivision = (float)yOneDegree / (float)DIVISION;
     for (int j = 0; j < nbOffsets; j++)
     {
       offsets[j] =  (int)(j * yOneDegreeDivision);
