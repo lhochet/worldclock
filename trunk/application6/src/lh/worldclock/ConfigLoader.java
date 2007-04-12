@@ -13,7 +13,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -146,7 +145,6 @@ public class ConfigLoader
 
 		@Override
 		public void endElement(String uri, String localName, String qName)
-				throws SAXException
 		{
 			switch (cur)
 			{
@@ -164,7 +162,7 @@ public class ConfigLoader
 		}
 
 		@Override
-		public void endDocument() throws SAXException
+		public void endDocument()
 		{
 		}
 
