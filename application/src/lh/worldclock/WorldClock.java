@@ -30,15 +30,16 @@ import org.jdesktop.jdic.tray.*;
 public class WorldClock
 {
   public static final String APP_NAME = "World Clock";
+
   public static final String APP_VERSION = "0.4";
-  
+
   private static ImageIcon icon = null;
+
   private static WorldClockFrame frame = null;
 
   private static URL url = null;
 
-  private static ResourceBundle res = ResourceBundle
-      .getBundle("lh/worldclock/worldclock");
+  private static ResourceBundle res = ResourceBundle.getBundle("lh/worldclock/worldclock");
 
   public static void main(String[] args)
   {
@@ -50,11 +51,13 @@ public class WorldClock
     }
     catch (Exception e)
     {
-      // ignore any problems. The program will run fine, even
-      // if the system look and feel can't be used.
+    // ignore any problems. The program will run fine, even
+    // if the system look and feel can't be used.
     }
 
-    // extract url param
+    boolean showWindowOnStart = false;
+
+    // handle parameters
     for (String arg : args)
     {
       if (arg.toUpperCase().startsWith("-URL="))
@@ -67,8 +70,12 @@ public class WorldClock
         catch (MalformedURLException ex)
         {
           ex.printStackTrace();
-          // keeps the url null
+        // keeps the url null
         }
+      }
+      else if (arg.equalsIgnoreCase("-show"))
+      {
+        showWindowOnStart = true;
       }
     }
 
@@ -101,6 +108,10 @@ public class WorldClock
     SystemTray systemTray = SystemTray.getDefaultSystemTray();
     systemTray.addTrayIcon(trayIcon);
 
+    if (showWindowOnStart)
+    {
+      showWindow();
+    }
   }
 
   private synchronized static void showWindow()
@@ -143,7 +154,7 @@ public class WorldClock
         ConfigPanel panel = new ConfigPanel();
         panel.setConfigPath(props.getConfigPath());
         if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, panel,
-            res.getString("OPTIONS_LBL"), JOptionPane.OK_CANCEL_OPTION))
+          res.getString("OPTIONS_LBL"), JOptionPane.OK_CANCEL_OPTION))
         {
           props.setConfigPath(panel.getConfigPath());
           props.save();
@@ -158,8 +169,7 @@ public class WorldClock
     {
       public void actionPerformed(ActionEvent e)
       {
-        JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res
-            .getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
       }
     });
     popup.add(mnuiAbout);
