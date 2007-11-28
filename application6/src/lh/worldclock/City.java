@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -115,6 +116,7 @@ public class City
 		g.fillOval(x - 1, y - 1, 3, 3);
 		if (isFullScreen)
 		{
+      cal.setTime(new Date());
 			g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
 		}
 	}
