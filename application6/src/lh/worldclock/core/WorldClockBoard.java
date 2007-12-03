@@ -137,6 +137,43 @@ public class WorldClockBoard extends JComponent
   {
     return showLines;
   }
+  
+  /**
+   * Determine if the paint code should paint a shade of the specialColour or the night image with progressive transparency level
+   * for the twilight zone
+   * @param special true if the paint code should paint the twillight of the specialColour
+   */
+  public void setSpecial(boolean special)
+  {
+    this.special = special;
+  }
+  
+  /**
+   * Returns the status of the special flag
+   * @return status of the special flag
+   */
+  public boolean isSpecial()
+  {
+    return special;
+  }
+  
+  /**
+   * Set the twilight colour (which is painted only when the 'special' flag is set to true
+   * @param specialColour twilight colour
+   */
+  public void setSpecialColour(Color specialColour)
+  {
+    this.specialColour = specialColour;
+  }
+  
+  /**
+   * Returns the 'special' twilight colour
+   * @return 'special' twilight colour
+   */
+  public Color getSpecialColour()
+  {
+    return specialColour;
+  }
 
   /**
    * Updates the content of this component to the size of this component.
@@ -260,22 +297,6 @@ public class WorldClockBoard extends JComponent
 
     // update twilitght/night polygons
     computePolygons();
-
-    special = !special;
-
-    // fun
-    if (day == 17 && month == Calendar.MARCH)
-    {
-      special = true;
-      specialColour = Color.GREEN;
-    }
-    else if (day == 14 && month == Calendar.FEBRUARY)
-    {
-//      special = true;
-      specialColour = Color.RED;
-    }
-    
-//    special = false;
   }
 
   /*
