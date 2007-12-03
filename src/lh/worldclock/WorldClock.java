@@ -146,7 +146,7 @@ public class WorldClock
 
       // if there is no system tray, then closig the window should also exit the application
       // otherwise keeps the default (hide on close)
-      if (SystemTray.isSupported())
+      if (!SystemTray.isSupported())
       {
         frame.setExitOnClose(true);
       }
