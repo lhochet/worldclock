@@ -46,12 +46,24 @@ public class WorldClockFrame extends JFrame
     addComponentListener(new java.awt.event.ComponentAdapter()
     {
       @Override
-	public void componentResized(ComponentEvent e)
+      public void componentResized(ComponentEvent e)
       {
         pane.updateSize(getWidth(), getHeight());
       }
     });
 
+  }
+  
+  public void setExitOnClose(boolean shouldExitOnClose)
+  {
+    if (shouldExitOnClose)
+    {
+      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+    else
+    {
+      setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+    }
   }
 
   public void loadConfig(String path)
