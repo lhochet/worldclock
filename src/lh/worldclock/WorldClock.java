@@ -127,14 +127,17 @@ public class WorldClock
       }
     });
 
-    SystemTray systemTray = SystemTray.getSystemTray();
-    try
+    if (SystemTray.isSupported())
     {
-      systemTray.add(trayIcon);
-    }
-    catch (AWTException ex)
-    {
-      ex.printStackTrace();
+      SystemTray systemTray = SystemTray.getSystemTray();
+      try
+      {
+        systemTray.add(trayIcon);
+      }
+      catch (AWTException ex)
+      {
+        ex.printStackTrace();
+      }
     }
 
     if (showWindowOnStart)
@@ -148,6 +151,14 @@ public class WorldClock
     if (frame == null)
     {
       frame = new WorldClockFrame(icon);
+      
+      // if there is no system tray, then closig the window should also exit the application
+      // otherwise keeps the default (hide on close)
+      if (SystemTray.isSupported())
+      {
+        frame.setExitOnClose(true);
+      }
+      
       if (url == null)
       {
         frame.loadConfig(PropsManager.getInstance().getConfigPath());
