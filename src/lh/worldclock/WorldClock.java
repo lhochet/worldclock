@@ -65,7 +65,7 @@ public class WorldClock
     }
 
     boolean showWindowOnStart = false;
-    
+
     // handle parameters
     for (String arg : args)
     {
@@ -101,34 +101,26 @@ public class WorldClock
       System.err.println("Failed to load user specific settings.");
       ex.printStackTrace();
     }
-    PopupMenu popup = createPopup();
-    TrayIcon trayIcon = new TrayIcon(icon.getImage(), APP_NAME, popup);
-    trayIcon.setImageAutoSize(true);
-//    trayIcon.addActionListener(new ActionListener()
-//    {
-//      public void actionPerformed(ActionEvent e)
-//      {
-//        if ("PressAction".equals(e.getActionCommand()))
-//        {
-//          showWindow();
-//        }
-//      }
-//    });
-
-    trayIcon.addMouseListener(new MouseAdapter()
-    {
-      @Override
-      public void mouseClicked(MouseEvent e)
-      {
-        if (SwingUtilities.isLeftMouseButton(e))
-        {
-          showWindow();
-        }
-      }
-    });
-
+    
+    // only adds the tray entry if the environment supports it...
     if (SystemTray.isSupported())
     {
+      PopupMenu popup = createPopup();
+      TrayIcon trayIcon = new TrayIcon(icon.getImage(), APP_NAME, popup);
+      trayIcon.setImageAutoSize(true);
+
+      trayIcon.addMouseListener(new MouseAdapter()
+      {
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+          if (SwingUtilities.isLeftMouseButton(e))
+          {
+            showWindow();
+          }
+        }
+      });
+
       SystemTray systemTray = SystemTray.getSystemTray();
       try
       {
@@ -151,14 +143,14 @@ public class WorldClock
     if (frame == null)
     {
       frame = new WorldClockFrame(icon);
-      
+
       // if there is no system tray, then closig the window should also exit the application
       // otherwise keeps the default (hide on close)
       if (SystemTray.isSupported())
       {
         frame.setExitOnClose(true);
       }
-      
+
       if (url == null)
       {
         frame.loadConfig(PropsManager.getInstance().getConfigPath());
