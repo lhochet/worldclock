@@ -17,7 +17,7 @@ import java.awt.font.*;
  *
  * <p>Description: Screen Saver class</p>
  *
- * <p>Copyright: Copyright (c) 2004-2006 Ludovic HOCHET</p>
+ * <p>Copyright: Copyright (c) 2004-2007 Ludovic HOCHET</p>
  *
  * @author Ludovic HOCHET
  * @version $Revision$ $Date$
@@ -385,6 +385,7 @@ public class WorldClockSaver extends SimpleScreensaver
       lastMinutesCount = currentMinutesCount;
 
       board.updateTimeValues();
+      xmas();
       board.paintComponent(offScreenBoardGraphics);
 
       renderOffscreenStatic(offScreenStaticGraphics);
@@ -397,6 +398,11 @@ public class WorldClockSaver extends SimpleScreensaver
 
     move();
     renderPlaneOffscreen(offScreenPainterGraphics);
+  }
+  
+  private void xmas()
+  {
+    
   }
 
   /** 
