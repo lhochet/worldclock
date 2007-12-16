@@ -402,7 +402,66 @@ public class WorldClockSaver extends SimpleScreensaver
   
   private void xmas()
   {
-    
+    int i = (int)(Math.random() * 14);
+    switch (i)
+    {
+      case 0: // normal
+        board.setSpecial(false);
+        break;
+      case 1:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.BLACK);
+        break;
+      case 2:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.BLUE);
+        break;
+      case 3:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.CYAN);
+        break;
+      case 4:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.DARK_GRAY);
+        break;
+      case 5:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.GRAY);
+        break;
+      case 6:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.GREEN);
+        break;
+      case 7:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.LIGHT_GRAY);
+        break;
+      case 8:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.MAGENTA);
+        break;
+      case 9:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.ORANGE);
+        break;
+      case 10:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.PINK);
+        break;
+      case 11:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.RED);
+        break;
+      case 12:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.WHITE);
+        break;
+      case 13:
+        board.setSpecial(true);
+        board.setSpecialColour(Color.YELLOW);
+        break;
+    }
+     
   }
 
   /** 
