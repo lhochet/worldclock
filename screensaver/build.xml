@@ -32,7 +32,7 @@
     <property name="screensaver.class" value="lh.worldclock.saver.WorldClockSaver"/>
     <!-- Values for the Windows installer -->
     <property name="productName" value="World Clock Screensaver"/>
-    <property name="productVersion" value="0.4.2"/>
+    <property name="productVersion" value="0.6"/>
     <property name="productPublisher" value="Ludovic HOCHET"/>
     <property name="productWebSite" value="https://worldclock-application.dev.java.net/"/>
   </target>
@@ -67,7 +67,7 @@
   <target name="init" depends="properties,check,define"/>
   <target name="compile" depends="init" description="Compile the screensaver">
     <mkdir dir="${build}/share"/>
-    <javac debug="on" destdir="${build}/share" srcdir="${src}/java" classpath="${saverbeans.path}/saverbeans-api.jar" source="1.5" target="1.5"/>
+    <javac debug="on" destdir="${build}/share" srcdir="${src}/java" classpath="${saverbeans.path}/saverbeans-api.jar" source="1.6" target="1.6"/>
     <copy todir="${build}/share">
       <fileset dir="${src}/java">
         <exclude name="**/CVS"/>
