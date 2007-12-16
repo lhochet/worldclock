@@ -33,7 +33,7 @@ import javax.swing.JComponent;
  * <p>
  * Description: Draws the Earth day and night
  * </p>
- * This part is directly based on Jï¿½rgen Giesen's <a
+ * This part is directly based on Jürgen Giesen's <a
  * href="http://www.geoastro.de/TNApplet/DN/index.html">Day & Night Applet</a><br/>
  * Images are from <a href="http://visibleearth.nasa.gov/">NASA's Visible Earth</a>
  * website !
@@ -84,8 +84,8 @@ public class WorldClockBoard extends JComponent
   Polygon fullNightPolygon = null;
 
   // twilight
-  private final int division = 10;
-  private final int nbTwilightZone = 18 * division; // 18: number of degrees covered by the twilight zone
+  private static final int DIVISION = 10;
+  private static final int NBTWILIGHTZONE = 18 * DIVISION; // 18: number of degrees covered by the twilight zone
   Polygon[] twilightPolygons = null;
 
 
@@ -136,6 +136,43 @@ public class WorldClockBoard extends JComponent
   public boolean isShowLines()
   {
     return showLines;
+  }
+  
+  /**
+   * Determine if the paint code should paint a shade of the specialColour or the night image with progressive transparency level
+   * for the twilight zone
+   * @param special true if the paint code should paint the twillight of the specialColour
+   */
+  public void setSpecial(boolean special)
+  {
+    this.special = special;
+  }
+  
+  /**
+   * Returns the status of the special flag
+   * @return status of the special flag
+   */
+  public boolean isSpecial()
+  {
+    return special;
+  }
+  
+  /**
+   * Set the twilight colour (which is painted only when the 'special' flag is set to true
+   * @param specialColour twilight colour
+   */
+  public void setSpecialColour(Color specialColour)
+  {
+    this.specialColour = specialColour;
+  }
+  
+  /**
+   * Returns the 'special' twilight colour
+   * @return 'special' twilight colour
+   */
+  public Color getSpecialColour()
+  {
+    return specialColour;
   }
 
   /**
@@ -260,22 +297,6 @@ public class WorldClockBoard extends JComponent
 
     // update twilitght/night polygons
     computePolygons();
-
-    special = !special;
-
-    // fun
-    if (day == 17 && month == Calendar.MARCH)
-    {
-      special = true;
-      specialColour = Color.GREEN;
-    }
-    else if (day == 14 && month == Calendar.FEBRUARY)
-    {
-//      special = true;
-      specialColour = Color.RED;
-    }
-
-//    special = false;
   }
 
   /*
@@ -283,7 +304,8 @@ public class WorldClockBoard extends JComponent
    * 
    * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
    */
-  public void paintComponent(Graphics g)
+  @Override
+public void paintComponent(Graphics g)
   {
     if (width == 0) return;
 
@@ -297,8 +319,8 @@ public class WorldClockBoard extends JComponent
     g2.drawImage(scaledEarthImageNight.getImage(), 0, 0, this);      
 
     // twilight
-    float ratio = 1.0f / ((float)nbTwilightZone / 1.5f);
-    for (int j = 0; j < nbTwilightZone; j++)
+    float ratio = 1.0f / (NBTWILIGHTZONE / 1.5f);
+    for (int j = 0; j < NBTWILIGHTZONE; j++)
     {
       float r = j * ratio + 0.2f; // 0.2f: arbitrary minimum of opacity
       if (r > 0.99f) r = 0.99f; // make sure this doesn't go to 1.0, which is for full night only
@@ -383,21 +405,21 @@ public class WorldClockBoard extends JComponent
 
 
     final int nbPoints = 360 + 1; // + 1 to duplicate the first point at the other side of the screen
-    final int fullNightIndex = nbTwilightZone;
+    final int fullNightIndex = NBTWILIGHTZONE;
     final int nbOffsets = fullNightIndex + 1;  // +1 to include the full night in the index
     int[][] xs = new int[nbOffsets][nbPoints];
     int[][] ys = new int[nbOffsets][nbPoints];
     int[] offsets = new int[nbOffsets];
 
     // initialise offsets
-    final float yOneDegreeDivision = (float)yOneDegree / (float)division;
+    final float yOneDegreeDivision = (float)yOneDegree / (float)DIVISION;
     for (int j = 0; j < nbOffsets; j++)
     {
       offsets[j] =  (int)(j * yOneDegreeDivision);
     }
 
     final boolean isDeclinationNegative = declination < 0;
-
+    
     // compute the polygon point locations
     for (int i = -xSun360, k = 0; k < nbPoints; i++, k++)
     {
@@ -461,20 +483,20 @@ public class WorldClockBoard extends JComponent
   /**
    * Calculates the declination of the sun on a specific date and time.
    * 
-   * In astronomy, declination (abbrev. dec or Î´) is one of the two coordinates
+   * In astronomy, declination (abbrev. dec or ?) is one of the two coordinates
    * of the equatorial coordinate system, the other being either right ascension
    * or hour angle. Dec is comparable to latitude, projected onto the celestial
    * sphere, and is measured in degrees north and south of the celestial
    * equator. Therefore, points north of the celestial equator have positive
    * declination, while those to the south have negative declination.
    * 
-   * An object on the celestial equator has a dec of 0Â°. An object above the
-   * north pole has a dec of +90Â°. An object above the south pole has a dec of
-   * âˆ’90Â°.
+   * An object on the celestial equator has a dec of 0°. An object above the
+   * north pole has a dec of +90°. An object above the south pole has a dec of
+   * ?90°.
    * 
-   * The declination of the Sun (Î´) is the angle between the rays of the sun and
+   * The declination of the Sun (?) is the angle between the rays of the sun and
    * the plane of the earth equator. Since the angle between the earth axis and
-   * the plane of the earth orbit is nearly constant, Î´ varies with the seasons
+   * the plane of the earth orbit is nearly constant, ? varies with the seasons
    * and its period is one year, that is the time needed by the earth to
    * complete its revolution around the sun.
    * 
@@ -499,7 +521,7 @@ public class WorldClockBoard extends JComponent
     n = 365 * year + day + 31 * month - 46;
     if (month < 3)
     {
-      n = n + (int) ((year - 1) / 4);
+      n = n + (int) ((year - 1) / 4.0);
     }
     else
     {
@@ -553,7 +575,7 @@ public class WorldClockBoard extends JComponent
     n = 365 * year + day + 31 * month - 46;
     if (month < 3)
     {
-      n = n + (int) ((year - 1) / 4);
+      n = n + (int) ((year - 1) / 4.0);
     }
     else
     {
@@ -683,6 +705,7 @@ public class WorldClockBoard extends JComponent
     }
     catch (InterruptedException e)
     {
+    	// ignore
     }
 
     // Get the image's color model
