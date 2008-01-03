@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ResourceBundle;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import lh.worldclock.City;
 import lh.worldclock.WorldClockPanel;
 import lh.worldclock.core.*;
 import org.glossitope.desklet.DeskletContainer;
@@ -23,18 +25,15 @@ import org.glossitope.desklet.test.DeskletTester;
  */
 public class WorldclockDesklet extends org.glossitope.desklet.Desklet
 {
+
   public static final String APP_NAME = "World Clock Desklet";
-
   public static final String APP_VERSION = "0.2";
-  
   private static final String FILE_PATH = "FILE_PATH";
-
   private ResourceBundle res = ResourceBundle.getBundle("lh/worldclock/worldclock");
-
   private WorldClockPanel pane = new WorldClockPanel();
-  
+  private JLabel sidePane = new JLabel();
   private DeskletConfigPanel configPane = new DeskletConfigPanel();
-  
+
   /** Creates a new instance of WorldclockDesklet */
   public WorldclockDesklet()
   {
@@ -62,16 +61,25 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
   {
     configPane.setConfigPath(getContext().getPreference(FILE_PATH, ""));
     pane.loadConfig(configPane.getConfigPath());
-//    DeskletContainer main = getContext().getContainer();
-//    main.setVisible(true);
+    
+    StringBuilder sb = new StringBuilder();
+    sb.append("<html><body>");
+    for (City city: pane.getCities())
+    {
+      sb.append(city.getName()).append(": ").append(city.getCurrentFormattedTime()).append("<br>");
+    }
+    sb.append("</body></html>");
+    sidePane.setText(sb.toString());
+    
   }
-  
+
   private JPopupMenu createMenu()
   {
     final JPopupMenu mnu = new JPopupMenu();
     JMenuItem configItem = new JMenuItem(res.getString("OPTIONS_LBL"));
-    configItem.addActionListener(new ActionListener() 
+    configItem.addActionListener(new ActionListener()
     {
+
       public void actionPerformed(ActionEvent e)
       {
         mnu.setVisible(false);
@@ -80,10 +88,11 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
       }
     });
     mnu.add(configItem);
-    
+
     JMenuItem aboutItem = new JMenuItem(res.getString("ABOUT_LBL"));
-    aboutItem.addActionListener(new ActionListener() 
+    aboutItem.addActionListener(new ActionListener()
     {
+
       public void actionPerformed(ActionEvent e)
       {
         mnu.setVisible(false);
@@ -91,7 +100,7 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
       }
     });
     mnu.add(aboutItem);
-    
+
     return mnu;
   }
 
@@ -102,9 +111,10 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
     main.setContent(pane);
     Dimension d = new Dimension(600, 400);
     pane.setSize(d);
-    
+
     pane.addMouseListener(new MouseAdapter()
     {
+
       private JPopupMenu menu = createMenu();
 
       @Override
@@ -119,20 +129,19 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
           menu.setVisible(true);
         }
       }
-      
     });
-    
+
     main.setSize(d);
 
-  // This is the configuration ui for setting preferences, etc.
+    // This is the configuration ui for setting preferences, etc.
     DeskletContainer config = getContext().getConfigurationContainer();
     config.setContent(configPane);
     configPane.setContainer(config);
     configPane.setWorldClockPane(pane);
 
-  // This is the ui for your desklet on the dock bar.
-//              DeskletContainer dock = getContext().getDockingContainer();
-
+    // This is the ui for your desklet on the dock bar.
+    DeskletContainer dock = getContext().getDockingContainer();
+    dock.setContent(sidePane);
   }
 
   /**
