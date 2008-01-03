@@ -86,6 +86,7 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
     {
       public void actionPerformed(ActionEvent e)
       {
+        mnu.setVisible(false);
         JOptionPane.showMessageDialog(pane, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
       }
     });
