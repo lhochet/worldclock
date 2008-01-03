@@ -57,6 +57,7 @@
     <module>panel</module>
     <module>application</module>
     <module>application6</module>
+    <module>desklet</module>
   </modules>
   
   <dependencies>
