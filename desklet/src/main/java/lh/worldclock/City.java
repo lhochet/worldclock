@@ -91,6 +91,11 @@ public class City
 	{
 		return longitude;
 	}
+  
+  public String getCurrentFormattedTime()
+  {
+    return sdf.format(cal.getTime());
+  }
 
 	/**
 	 * Draws this city on the graphics object specified.
@@ -117,7 +122,7 @@ public class City
 		if (isFullScreen)
 		{
       cal.setTime(new Date());
-			g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
+			g.drawString(name + " " + getCurrentFormattedTime(), x + 3, y + 1);
 		}
 	}
 

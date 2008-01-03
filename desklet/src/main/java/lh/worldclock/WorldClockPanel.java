@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -30,14 +31,11 @@ import lh.worldclock.core.WorldClockBoard;
  */
 public class WorldClockPanel extends JPanel
 {
+
   final WorldClockBoard board;
-
   private final Timer timer;
-
   private int width;
-
   private int height;
-
   private java.util.List<City> cities = new java.util.ArrayList<City>(0);
 
   public WorldClockPanel()
@@ -46,6 +44,7 @@ public class WorldClockPanel extends JPanel
 
     timer = new javax.swing.Timer(250, new ActionListener()
     {
+
       private long last = 0;
 
       public void actionPerformed(ActionEvent e)
@@ -70,12 +69,18 @@ public class WorldClockPanel extends JPanel
   public void loadConfig(String path)
   {
     if (path == null)
+    {
       return;
+    }
     if (path.equals(""))
+    {
       return;
+    }
     File f = new File(path);
     if (!f.exists())
+    {
       return;
+    }
 
     ConfigLoader cl = new ConfigLoader();
     cl.load(path);
@@ -86,7 +91,9 @@ public class WorldClockPanel extends JPanel
   public void loadConfig(URL url)
   {
     if (url == null)
+    {
       return;
+    }
 
     ConfigLoader cl = new ConfigLoader();
     cl.load(url);
@@ -94,8 +101,13 @@ public class WorldClockPanel extends JPanel
     cities = cl.getCities();
   }
 
+  public List<City> getCities()
+  {
+    return cities;
+  }
+
   @Override
-public void paintComponent(Graphics graphics)
+  public void paintComponent(Graphics graphics)
   {
     board.paintComponent(graphics);
 
@@ -104,8 +116,8 @@ public void paintComponent(Graphics graphics)
       city.paint(graphics, width, height, true);
     }
   }
-  
-/* */
+
+  /* */
   @Override
   public void setSize(int width, int height)
   {
@@ -113,13 +125,12 @@ public void paintComponent(Graphics graphics)
     super.setSize(width, height);
     updateSize(width, height);
   }
- /* */
- 
+  /* */
+
   public void updateSize(int newWidth, int newHeight)
   {
     this.width = newWidth;
     this.height = newHeight;
     board.updateSizeValues(newWidth, newHeight);
   }
-
 }
