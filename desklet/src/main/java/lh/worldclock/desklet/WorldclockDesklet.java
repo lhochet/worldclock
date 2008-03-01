@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import lh.worldclock.City;
+import lh.worldclock.ConfigPanel;
 import lh.worldclock.WorldClockPanel;
 import lh.worldclock.core.*;
 import org.glossitope.desklet.DeskletContainer;
@@ -27,12 +28,13 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
 {
 
   public static final String APP_NAME = "World Clock Desklet";
-  public static final String APP_VERSION = "0.2";
+  public static final String APP_VERSION = "0.3";
   private static final String FILE_PATH = "FILE_PATH";
   private ResourceBundle res = ResourceBundle.getBundle("lh/worldclock/worldclock");
   private WorldClockPanel pane = new WorldClockPanel();
   private JLabel sidePane = new JLabel();
-  private DeskletConfigPanel configPane = new DeskletConfigPanel();
+  private ConfigPanel configPane = new ConfigPanel();
+
 
   /** Creates a new instance of WorldclockDesklet */
   public WorldclockDesklet()
@@ -44,7 +46,6 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
     if (configPane != null)
     {
       getContext().setPreference(FILE_PATH, configPane.getConfigPath());
-      configPane.destroy();
     }
   }
 
@@ -60,7 +61,13 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
   public void start() throws Exception
   {
     configPane.setConfigPath(getContext().getPreference(FILE_PATH, ""));
+    loadConfig();
+  }
+  
+  private void loadConfig()
+  {
     pane.loadConfig(configPane.getConfigPath());
+    pane.repaint();
     
     StringBuilder sb = new StringBuilder();
     sb.append("<html><body>");
@@ -70,7 +77,6 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
     }
     sb.append("</body></html>");
     sidePane.setText(sb.toString());
-    
   }
 
   private JPopupMenu createMenu()
@@ -83,8 +89,13 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
       public void actionPerformed(ActionEvent e)
       {
         mnu.setVisible(false);
-        DeskletContainer config = getContext().getConfigurationContainer();
-        config.setVisible(true);
+        configPane.setConfigPath(getContext().getPreference(FILE_PATH, ""));
+        if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(pane, configPane,
+          res.getString("OPTIONS_LBL"), JOptionPane.OK_CANCEL_OPTION))
+        {
+          getContext().setPreference(FILE_PATH, configPane.getConfigPath());
+          loadConfig();
+        }
       }
     });
     mnu.add(configItem);
@@ -134,10 +145,7 @@ public class WorldclockDesklet extends org.glossitope.desklet.Desklet
     main.setSize(d);
 
     // This is the configuration ui for setting preferences, etc.
-    DeskletContainer config = getContext().getConfigurationContainer();
-    config.setContent(configPane);
-    configPane.setContainer(config);
-    configPane.setWorldClockPane(pane);
+//    DeskletContainer config = getContext().getConfigurationContainer();
 
     // This is the ui for your desklet on the dock bar.
     DeskletContainer dock = getContext().getDockingContainer();

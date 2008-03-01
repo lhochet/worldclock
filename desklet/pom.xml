@@ -9,9 +9,9 @@
   </parent>
   -->
   <groupId>lh.worldclock</groupId>
-  <artifactId>desklet</artifactId>
+  <artifactId>worldclock-desklet</artifactId>
   <name>Worldclock Desklet</name>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.3</version>
   <description>A Worldclock Desklet for Glossitope</description>
   <url>https://worldclock-application.dev.java.net/#Desklet</url>
   <build>
