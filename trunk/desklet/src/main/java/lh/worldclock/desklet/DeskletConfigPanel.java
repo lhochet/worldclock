@@ -11,7 +11,9 @@ import org.glossitope.desklet.DeskletContainer;
 /**
  *
  * @author  Ludovic
+ * @deprecated TBRMV
  */
+@Deprecated
 public class DeskletConfigPanel extends javax.swing.JPanel
 {
   private DeskletContainer container = null;

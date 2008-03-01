@@ -37,12 +37,7 @@ public class ConfigPanel extends JPanel
   {
     try
     {
-      jbInit();
-      
-      // glossitope freeze when attempting to create a JFileChooser
-      // so hide the button for now
-      btnBrowse.setVisible(false);
-      
+      jbInit();      
     }
     catch (Exception ex)
     {
