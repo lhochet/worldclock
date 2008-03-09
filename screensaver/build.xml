@@ -32,7 +32,7 @@
     <property name="screensaver.class" value="lh.worldclock.saver.WorldClockSaver"/>
     <!-- Values for the Windows installer -->
     <property name="productName" value="World Clock Screensaver"/>
-    <property name="productVersion" value="0.6"/>
+    <property name="productVersion" value="0.7"/>
     <property name="productPublisher" value="Ludovic HOCHET"/>
     <property name="productWebSite" value="https://worldclock-application.dev.java.net/"/>
   </target>
