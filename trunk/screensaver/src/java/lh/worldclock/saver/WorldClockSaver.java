@@ -32,6 +32,13 @@ public class WorldClockSaver extends SimpleScreensaver
   {
     return logger;
   }
+  private static enum Special
+  {
+    NOTHING,
+    XMAS,
+    STPADDY
+  
+  }
 
   private WorldClockBoard board = null;
 
@@ -59,6 +66,7 @@ public class WorldClockSaver extends SimpleScreensaver
   private boolean isRandom = false; // random next plane
   private boolean isShowingPlaneInfo = false; // shows the plane information (ie the name of the current plane and of plane being loaded
   private boolean isDebug = false; // shows the debug information (the time between 2 frames)
+  private Special special = Special.NOTHING; // special 'effects' (currently only the shadow has such 'effect'), default is no special 'effect'
 
   private int sleep = 100; // time to sleep between frames (decrease CPU usage)
 
@@ -101,6 +109,7 @@ public class WorldClockSaver extends SimpleScreensaver
   /**
    * Initialise the screen saver. In particular load the cities and planes as well as creates the off screen images (also create the log file in ~/.saverbeans/)
    */
+  @Override
   public void init()
   {
     // prevent multiple calls
@@ -138,6 +147,7 @@ public class WorldClockSaver extends SimpleScreensaver
     // hack to make sure a mouse move ends the screen saver
     component.addMouseMotionListener(new MouseMotionAdapter()
     {
+      @Override
       public void mouseMoved(MouseEvent e)
       {
         try
@@ -213,6 +223,18 @@ public class WorldClockSaver extends SimpleScreensaver
           isDebug = true;
         }
         logger.info("isDebug: " + isDebug);
+        
+        // check for special 'effects'
+        special = Special.NOTHING;
+        if (null != settings.getProperty("xmas"))
+        {
+          special = Special.XMAS;
+        }
+        else if (null != settings.getProperty("stpaddy"))
+        {
+          special = Special.STPADDY;
+        }
+        logger.info("special: " + special.toString());
 
         // set the elements location on the board
         board.updateSizeValues(width, height);
@@ -385,7 +407,19 @@ public class WorldClockSaver extends SimpleScreensaver
       lastMinutesCount = currentMinutesCount;
 
       board.updateTimeValues();
-      xmas();
+      
+      switch (special)
+      {
+        case NOTHING:
+          break;
+        case XMAS:
+          xmas();
+          break;
+        case STPADDY:
+          stpaddy();
+          break;
+      }
+
       board.paintComponent(offScreenBoardGraphics);
 
       renderOffscreenStatic(offScreenStaticGraphics);
@@ -462,6 +496,23 @@ public class WorldClockSaver extends SimpleScreensaver
         break;
     }
      
+  }
+
+  private static int nbstpaddychimes = 0;
+  private void stpaddy()
+  {
+    if (nbstpaddychimes == 5)
+    {
+        board.setSpecial(true);
+        board.setSpecialColour(Color.ORANGE);
+        nbstpaddychimes = 0;
+    }
+    else if (nbstpaddychimes > 3)
+    {
+        board.setSpecial(true);
+        board.setSpecialColour(Color.GREEN);
+    }
+    nbstpaddychimes++;
   }
 
   /** 
