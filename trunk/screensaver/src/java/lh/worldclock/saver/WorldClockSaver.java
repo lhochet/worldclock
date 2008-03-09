@@ -17,7 +17,7 @@ import java.awt.font.*;
  *
  * <p>Description: Screen Saver class</p>
  *
- * <p>Copyright: Copyright (c) 2004-2007 Ludovic HOCHET</p>
+ * <p>Copyright: Copyright (c) 2004-2008 Ludovic HOCHET</p>
  *
  * @author Ludovic HOCHET
  * @version $Revision$ $Date$
@@ -36,8 +36,9 @@ public class WorldClockSaver extends SimpleScreensaver
   {
     NOTHING,
     XMAS,
-    STPADDY
-  
+    STPADDY,
+    DEBUG
+ 
   }
 
   private WorldClockBoard board = null;
@@ -77,7 +78,10 @@ public class WorldClockSaver extends SimpleScreensaver
   // used to calculate if the static board needs to be upated (every minutes or so -- calculation being made to see if the minute has changed since the last call)
   private long lastMinutesCount = 0;
   private long currentMinutesCount = 0;
-  
+
+  // flag to indicate to the paint code that the board has been updated by its renderer thread
+  private boolean boardUpdated = false;
+
   // index of the next plane in the planes array
   private int nextPlaneIndex = 0;
   
@@ -96,6 +100,31 @@ public class WorldClockSaver extends SimpleScreensaver
   // debug, used to calculate the time taken to paint a frame
   private long prevFrame = System.currentTimeMillis();
   private long nowFrame = prevFrame;
+  private long lastBoardUpdate = System.currentTimeMillis();
+  
+  // renders the board in a separate thread every 30s (this is for the 'special effects' rather than to update the daylight which could be less often)
+  private Runnable asynchRenderer = new Runnable()
+  {
+    private boolean isRunning = true;
+    public void run()
+    {
+      while (isRunning)
+      {
+        try
+        {
+          Thread.sleep(30000);
+        } 
+        catch (InterruptedException ex)
+        {
+          logger.log(Level.FINE, null, ex);
+        }
+
+        updateBoard();
+        lastBoardUpdate = System.currentTimeMillis();
+        boardUpdated = true;
+      }
+    }
+  };
   
   /**
    * Constructor, creates the world clock board object
@@ -133,7 +162,7 @@ public class WorldClockSaver extends SimpleScreensaver
 
     try
     {
-      FileHandler fh = new FileHandler("%h/.saverbeans/worldclocksaver.log");
+      FileHandler fh = new FileHandler("%h/.worldclocksaver/worldclocksaver.log");
       logger.addHandler(fh);
     }
     catch (Exception ex)
@@ -234,6 +263,10 @@ public class WorldClockSaver extends SimpleScreensaver
         {
           special = Special.STPADDY;
         }
+        else if (null != settings.getProperty("debugshadow"))
+        {
+          special = Special.DEBUG;
+        }
         logger.info("special: " + special.toString());
 
         // set the elements location on the board
@@ -257,6 +290,9 @@ public class WorldClockSaver extends SimpleScreensaver
         logger.info("static board loaded");
         isLoaded = true;
         isLoading = false;
+        
+        Thread asynchRendererThread = new Thread(asynchRenderer);
+        asynchRendererThread.start();
 
       }
     };
@@ -332,7 +368,7 @@ public class WorldClockSaver extends SimpleScreensaver
       }
 
       // paint the frame
-      updatePainter();
+      paintFrame();
       
       // paint additional info
       offScreenPainterGraphics.setColor(Color.RED);
@@ -361,7 +397,7 @@ public class WorldClockSaver extends SimpleScreensaver
 
       if (isDebug)
       {
-        String str = String.format(frameTemplate, nowFrame - prevFrame);
+        String str = String.format(frameTemplate, nowFrame - prevFrame, (System.currentTimeMillis() - lastBoardUpdate) / 1000, toggledebug ? "*" : "");
         int mx = 1 + (int)(new TextLayout(str, offScreenPainterGraphics.getFont(), offScreenPainterGraphics.getFontRenderContext())).getBounds().getWidth();
         if (mx > infoMaxX) infoMaxX = mx;
         offScreenPainterGraphics.drawString(str, offInfoX, infoY);
@@ -393,35 +429,20 @@ public class WorldClockSaver extends SimpleScreensaver
       throw ex;
     }
   }
-
+  
   /**
    * Update the off screen image. Every time the minutes count change, repaint the board and cities to reflect the time change, 
    * unpaint the current plane, moves it and paint the plane at the new position
    */
-  private void updatePainter()
+  private void paintFrame()
   {
     // check if the static image should be updated
     currentMinutesCount = System.currentTimeMillis() / 60000;
-    if (currentMinutesCount > lastMinutesCount)
+    if (boardUpdated || currentMinutesCount > lastMinutesCount)
     {
+      boardUpdated = false;
       lastMinutesCount = currentMinutesCount;
-
-      board.updateTimeValues();
       
-      switch (special)
-      {
-        case NOTHING:
-          break;
-        case XMAS:
-          xmas();
-          break;
-        case STPADDY:
-          stpaddy();
-          break;
-      }
-
-      board.paintComponent(offScreenBoardGraphics);
-
       renderOffscreenStatic(offScreenStaticGraphics);
       offScreenPainterGraphics.drawImage(offScreenStatic, 0, 0, null);
     }
@@ -434,6 +455,34 @@ public class WorldClockSaver extends SimpleScreensaver
     renderPlaneOffscreen(offScreenPainterGraphics);
   }
   
+  /**
+   * updates the board applying 'special effects'
+   */
+  private void updateBoard()
+  {
+      board.updateTimeValues();
+       
+      switch (special)
+      {
+        case NOTHING:
+          break;
+        case XMAS:
+          xmas();
+          break;
+        case STPADDY:
+          stpaddy();
+          break;
+        case DEBUG:
+          debug();
+          break;
+      }
+
+      board.paintComponent(offScreenBoardGraphics);
+  }
+  
+  /**
+   * 'Xmas tree' effect
+   */
   private void xmas()
   {
     int i = (int)(Math.random() * 14);
@@ -498,7 +547,12 @@ public class WorldClockSaver extends SimpleScreensaver
      
   }
 
+  // counter for the St Patrick's effect
   private static int nbstpaddychimes = 0;
+  
+  /**
+   * St Patrick's effect (3 normal, 2 green, 1 orange)
+   */
   private void stpaddy()
   {
     if (nbstpaddychimes == 5)
@@ -507,14 +561,38 @@ public class WorldClockSaver extends SimpleScreensaver
         board.setSpecialColour(Color.ORANGE);
         nbstpaddychimes = 0;
     }
-    else if (nbstpaddychimes > 3)
+    else if (nbstpaddychimes > 2)
     {
         board.setSpecial(true);
         board.setSpecialColour(Color.GREEN);
     }
+    else
+    {
+        board.setSpecial(false);
+    }
     nbstpaddychimes++;
   }
 
+  // toggle for the debug effect
+  private static boolean toggledebug = false;
+  
+  /**
+   * debug effect, used to check when the shadow is repainted
+   */
+  private void debug()
+  {
+    toggledebug = !toggledebug;
+    if (toggledebug)
+    {
+        board.setSpecial(true);
+        board.setSpecialColour(Color.GREEN);
+    }
+    else
+    {
+        board.setSpecial(false);
+    }
+  }
+  
   /** 
    * Renders the static part of the image (board and cities)
    */
@@ -578,6 +656,7 @@ public class WorldClockSaver extends SimpleScreensaver
   /**
    * Destroy the screen saver (clean up resources) 
    */
+  @Override
   protected void destroy()
   {
     // dispose graphics

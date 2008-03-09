@@ -37,5 +37,6 @@
     <option id="nothing" _label="Nothing" />
     <option id="xmas" _label="Xmas" arg-set="-xmas" />
     <option id="stpaddy" _label="St Patrick's" arg-set="-stpaddy" />
+    <option id="debugshadow" _label="Debug" arg-set="-debugshadow" />
   </select>
 </screensaver>
