@@ -22,7 +22,7 @@
   - file in the xscreensaver distribution, copied here for convenience:
   - https://jdic.dev.java.net/documentation/incubator/screensaver/xscreensaver-config.txt
 -->
-<screensaver name="worldclocksaver" _label="LH World Clock Saver 0.4">
+<screensaver name="worldclocksaver" _label="LH World Clock Saver 0.7">
   <command arg="-root"/>
   <command arg="-jar worldclocksaver.jar"/>
   <command arg="-class lh.worldclock.saver.WorldClockSaver"/>
@@ -33,4 +33,9 @@
   <boolean id="random" _label="Random" arg-set="-random"/>
   <boolean id="info" _label="Show extra planes information" arg-set="-info"/>
   <boolean id="debug" _label="Show debug information" arg-set="-debug"/>
+  <select id="special">
+    <option id="nothing" _label="Nothing" />
+    <option id="xmas" _label="Xmas" arg-set="-xmas" />
+    <option id="stpaddy" _label="St Patrick's" arg-set="-stpaddy" />
+  </select>
 </screensaver>
