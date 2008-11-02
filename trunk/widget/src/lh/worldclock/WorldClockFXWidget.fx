@@ -21,6 +21,7 @@ import javafx.ext.swing.*;
 
 var cx = 320;
 var cy = 200;
+
 var board = new WorldClockPanel(cx, cy);
 //board.updateSize(cx, cy);
 var fxBoard = Component.fromJComponent(board);
@@ -28,7 +29,11 @@ var fxBoard = Component.fromJComponent(board);
 /**/
 Widget
 {
-    resizable: false
+    resizable: true
+    onResize: function (ncx, ncy):Void
+    {
+      board.updateSize(ncx, ncy); 
+    }
     stage: Stage 
     {
         width: cx
@@ -43,8 +48,13 @@ Widget
 
 /** /
 import javafx.application.*;
+
+ 
         Frame {
-            visible: true, width: cx, height: cy;
+            visible: true
+            width: cx
+            height: cy
+            
             stage: Stage { content:  ComponentView 
         {
             //visible: true
