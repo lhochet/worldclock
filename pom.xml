@@ -5,37 +5,23 @@
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
-    <version>0.6-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>application6</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Application (Java6)</name>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.7-SNAPSHOT</version>
   
   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+      </resource>
+    </resources>
   </build>
   
-  
-  
-  <dependencies>
-<!--
-    <dependency>
-      <groupId>lh.worldclock.lib</groupId>
-      <artifactId>jdic</artifactId>
-      <version>1.0</version>
-    </dependency>
--->    
-
-  </dependencies>
 </project>
