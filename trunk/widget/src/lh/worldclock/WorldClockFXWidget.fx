@@ -22,27 +22,38 @@ import javafx.ext.swing.*;
 var cx = 320;
 var cy = 200;
 
-var board = new WorldClockPanel(cx, cy);
-//board.updateSize(cx, cy);
+var board = new WorldClockPanel();
 var fxBoard = Component.fromJComponent(board);
 
 /**/
 Widget
 {
+    // hack to set the initial board height based on its width
+    var ratio = 320.0 / 200.0;
+    var isFirstDock = true;
+    private attribute widgetWidth: Integer = bind cx on replace
+    {
+      if (isFirstDock)
+      {
+          cy = (widgetWidth / ratio) as Integer;
+          board.updateSize(widgetWidth, cy);
+      }
+    }
+
     resizable: true
     onResize: function (ncx, ncy):Void
     {
+      isFirstDock = false;
       board.updateSize(ncx, ncy); 
     }
     stage: Stage 
     {
-        width: cx
-        height: cy
-        content: ComponentView 
-        {
-            component: fxBoard 
-            
-        }
+      width: bind cx with inverse
+      height: bind cy with inverse
+      content: ComponentView 
+      {
+        component: fxBoard 
+      }
     }    
 }
 
