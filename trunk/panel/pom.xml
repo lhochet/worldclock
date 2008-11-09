@@ -5,24 +5,14 @@
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
-    <version>0.6-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+  
   <groupId>lh.worldclock</groupId>
   <artifactId>panel</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Panel</name>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.7-SNAPSHOT</version>
     
-  
-  <dependencies>
-<!--
-    <dependency>
-      <groupId>lh.worldclock.lib</groupId>
-      <artifactId>jdic</artifactId>
-      <version>1.0</version>
-    </dependency>
--->    
-
-  </dependencies>
 </project>
