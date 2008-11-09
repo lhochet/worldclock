@@ -2,19 +2,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
+  <!--
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
     <version>0.6-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+  -->
   <groupId>lh.worldclock</groupId>
   <artifactId>application</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Application (Java5)</name>
   <version>0.6-SNAPSHOT</version>
-    
-  
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
 <!--
  JDIC is not (to the best of my knowledge in any repository,
@@ -22,7 +43,7 @@
  mvn install:install-file -DgroupId=lh.worldclock.lib -DartifactId=jdic -Dversion=1.0 -Dpackaging=jar -Dfile=D:\\java-net\\worldclock-application\\application\\lib\\jdic.jar
  mvn install:install-file -DgroupId=lh.worldclock.lib -DartifactId=jdic_native -Dversion=1.0 -Dpackaging=jar -Dfile=D:\\java-net\\worldclock-application\\application\\lib\\jdic_native.jar
  mvn install:install-file -DgroupId=lh.worldclock.lib -DartifactId=jdic_stub -Dversion=1.0 -Dpackaging=jar -Dfile=D:\\java-net\\worldclock-application\\application\\lib\\jdic_stub.jar
--->    
+-->
     <dependency>
       <groupId>lh.worldclock.lib</groupId>
       <artifactId>jdic</artifactId>
@@ -38,6 +59,5 @@
       <artifactId>jdic_stub</artifactId>
       <version>1.0</version>
     </dependency>
-
   </dependencies>
 </project>
