@@ -7,10 +7,11 @@
 package lh.worldclock;
 
 import org.widgetfx.*;
-import javafx.application.Stage;
+import javafx.scene.control.Skin;
+import javafx.scene.Scene;
 import lh.worldclock.core.WorldClockPanel;
-import javafx.application.Frame;
 import javafx.ext.swing.*;
+import javax.swing.*;
 
 /**
  * @author Ludovic
@@ -19,60 +20,71 @@ import javafx.ext.swing.*;
 
 // place your code here
 
-var cx = 320;
-var cy = 200;
+var cx: Number = 320;
+var cy: Number = 200;
+def ratio = 320.0 / 200.0;
 
-var board = new WorldClockPanel();
-var fxBoard = Component.fromJComponent(board);
+var board = new WorldClockPanel(cx, cy);
+var fxBoard = SwingComponent.wrap(board);
 
 /**/
+
+//board.updateSize(320, 200);
+//board.setPreferredSize(new java.awt.Dimension(320, 200));
+
+
 Widget
 {
+    width : bind cx with inverse
+    height : bind cy with inverse
     // hack to set the initial board height based on its width
-    var ratio = 320.0 / 200.0;
+    
     var isFirstDock = true;
-    private attribute widgetWidth: Integer = bind cx on replace
+//    aspectRatio: ratio;
+    var widgetWidth: Number = bind cx on replace
     {
       if (isFirstDock)
       {
-          cy = (widgetWidth / ratio) as Integer;
-          board.updateSize(widgetWidth, cy);
+          var lcy = widgetWidth / ratio;
+          board.updateSize(widgetWidth, lcy);
+          fxBoard.width = widgetWidth;
+          fxBoard.height = lcy;
       }
     }
 
-    resizable: true
-    onResize: function (ncx, ncy):Void
+//    resizable: false
+    
+    onResize: function (cx, cy):Void
     {
       isFirstDock = false;
-      board.updateSize(ncx, ncy); 
+      board.updateSize(cx.intValue(), cy.intValue());
+      fxBoard.width = cx;
+      fxBoard.height = cy;
     }
-    stage: Stage 
+
+    skin : Skin
     {
-      width: bind cx with inverse
-      height: bind cy with inverse
-      content: ComponentView 
-      {
-        component: fxBoard 
-      }
+
+      scene: fxBoard
     }    
 }
 
 /** /
-import javafx.application.*;
+import javafx.stage.*;
 
- 
-        Frame {
+java.lang.System.out.println(ratio+1);
+ board.updateSize(cx, cy);
+
+        Stage
+        {
             visible: true
             width: cx
             height: cy
             
-            stage: Stage { content:  ComponentView 
-        {
-            //visible: true
-            scaleX: 0.96
-            scaleY: 0.85
-            component: fxBoard 
+            scene: Scene
+            {
+                content: fxBoard
+            }
             
-        }  }
         }
  /**/          
