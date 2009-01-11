@@ -7,6 +7,7 @@
 package lh.worldclock;
 
 import org.widgetfx.*;
+import org.widgetfx.config.*;
 import javafx.scene.control.Skin;
 import javafx.scene.Scene;
 import lh.worldclock.core.WorldClockPanel;
@@ -26,6 +27,17 @@ def ratio = 320.0 / 200.0;
 
 var board = new WorldClockPanel(cx, cy);
 var fxBoard = SwingComponent.wrap(board);
+var keepRatio: Boolean = true  on replace
+    {
+        if (keepRatio)
+        {
+            widget.aspectRatio = ratio
+        }
+        else
+        {
+            widget.aspectRatio = 0
+        }
+    }
 
 /**/
 
@@ -33,14 +45,33 @@ var fxBoard = SwingComponent.wrap(board);
 //board.setPreferredSize(new java.awt.Dimension(320, 200));
 
 
-Widget
+var widget: Widget = Widget
 {
     width : bind cx with inverse
     height : bind cy with inverse
-    // hack to set the initial board height based on its width
     
+    configuration: Configuration
+    {
+        properties: [
+            BooleanProperty {
+                name: "keepRatio"
+                value: bind keepRatio with inverse
+            }
+        ]
+
+        scene: Scene
+        {
+            content: SwingCheckBox
+            {
+                text: " Keep aspect ratio "
+                selected: bind keepRatio with inverse
+            }
+        }
+    }
+
+    // hack to set the initial board height based on its width
     var isFirstDock = true;
-//    aspectRatio: ratio;
+    aspectRatio: ratio;
     var widgetWidth: Number = bind cx on replace
     {
       if (isFirstDock)
@@ -51,8 +82,6 @@ Widget
           fxBoard.height = lcy;
       }
     }
-
-//    resizable: false
     
     onResize: function (cx, cy):Void
     {
@@ -64,7 +93,6 @@ Widget
 
     skin : Skin
     {
-
       scene: fxBoard
     }    
 }
