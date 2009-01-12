@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<jnlp href="jdic.jnlp" spec="1.0+" codebase="https://rssnotifier.dev.java.net/webstart/">
+  <information>
+    <title>JDIC</title>
+    <vendor>JDIC Team</vendor>
+    <offline-allowed />
+  </information>
+  <security>
+    <all-permissions />
+  </security>
+  <resources>
+    <j2se version="1.5+" max-heap-size="64m" initial-heap-size="32m" />
+    <jar href="lib/jdic.jar"/>
+    <jar href="lib/jdic_stub.jar"/>
+    <nativelib href="lib/jdic_native.jar"/>
+  </resources>
+  <component-desc/>
+</jnlp>
