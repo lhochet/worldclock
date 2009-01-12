@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<jnlp href="jdic.jnlp" spec="1.0+" codebase="https://rssnotifier.dev.java.net/webstart/">
+<jnlp href="jdic.jnlp" spec="1.0+" codebase="https://worldclock-application.dev.java.net/webstart5/">
   <information>
     <title>JDIC</title>
     <vendor>JDIC Team</vendor>
