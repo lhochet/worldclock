@@ -18,9 +18,7 @@
   </security>
   <resources>
     <j2se version="1.5+" max-heap-size="64m" initial-heap-size="32m" />
-    <jar href="lib/jdic.jar"/>
-    <jar href="lib/jdic_stub.jar"/>
-    <nativelib href="lib/jdic_native.jar"/>
+    <extension href="jdic.jnlp"/>
     <jar main="true" href="worldclock.jar"/>
   </resources>
   <application-desc main-class="lh.worldclock.WorldClock">
