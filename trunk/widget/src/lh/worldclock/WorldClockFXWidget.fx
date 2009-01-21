@@ -48,6 +48,7 @@ var configFilePath: String = "" on replace
   {
     board.loadConfig(configFilePath);
   }
+  board.repaint();
 }
 
 var browseButton:SwingButton = SwingButton {
