@@ -118,7 +118,7 @@ public class City
 		if (isFullScreen)
 		{
       cal.setTime(new Date());
-			g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
+			g.drawString(sdf.format(cal.getTime()) + " " + name, x + 3, y + 1);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class City
   public String getNameTimeString()
   {
     cal.setTime(new Date());
-		return name + " " + sdf.format(cal.getTime());
+		return sdf.format(cal.getTime()) + " " + name;
 
   }
 
