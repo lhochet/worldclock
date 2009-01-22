@@ -105,7 +105,7 @@ public class City
 	 * @param isFullScreen
 	 *          ''true'' if the Graphics object fills the entire screen.
 	 */
-	public void paint(Graphics g, int width, int height, boolean isFullScreen)
+	public void paint(Graphics g, int width, int height, Color colour, boolean isFullScreen)
 	{
 		final double cx2 = width / 2.0;
 		final double cy2 = height / 2.0;
@@ -113,7 +113,7 @@ public class City
 		final int x = (int) (cx2 * longitude / 180 + cx2);
 		final int y = (int) (cy2 * lt / 90 + cy2);
 
-		g.setColor(Color.RED);
+		g.setColor(colour);
 		g.fillOval(x - 1, y - 1, 3, 3);
 		if (isFullScreen)
 		{

@@ -1,5 +1,6 @@
 package lh.worldclock;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -39,6 +40,7 @@ public class WorldClockPanel extends JPanel
   private int height;
   private boolean isFullScreen = true;
   private java.util.List<City> cities = new java.util.ArrayList<City>(0);
+  private Color textColour = Color.RED;
 
   public WorldClockPanel()
   {
@@ -105,6 +107,11 @@ public class WorldClockPanel extends JPanel
     cities = cl.getCities();
   }
 
+  public void setColour(Color textcolour)
+  {
+    this.textColour = textcolour;
+  }
+
   public void clearCities()
   {
     cities.clear();
@@ -120,7 +127,7 @@ public class WorldClockPanel extends JPanel
 
     for (City city : cities)
     {
-      city.paint(graphics, width, height, isFullScreen);
+      city.paint(graphics, width, height, textColour, isFullScreen);
     }
 
     graphics.setFont(f);
