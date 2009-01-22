@@ -14,6 +14,7 @@ import javafx.ext.swing.*;
 import javax.swing.*;
 import org.jfxtras.scene.layout.*;
 import javafx.scene.text.*;
+import java.awt.Color;
 
 /**
  * @author Ludovic
@@ -24,6 +25,7 @@ import javafx.scene.text.*;
 var cx: Number = 320;
 var cy: Number = 200;
 def ratio = 320.0 / 200.0;
+
 
 var board = new WorldClockPanel(); //cx, cy);
 var fxBoard = SwingComponent.wrap(board);
@@ -50,6 +52,30 @@ var configFilePath: String = "" on replace
   }
   board.repaint();
 }
+var colourString: String = "Red" on replace
+{
+  var colour: Color; // = Color.RED;
+
+  if ("Red".equals(colourString)) colour = Color.RED
+  else if ("White".equals(colourString)) colour = Color.WHITE
+  else if ("Light Gray".equals(colourString)) colour = Color.LIGHT_GRAY
+  else if ("Gray".equals(colourString)) colour = Color.GRAY
+  else if ("Dark Gray".equals(colourString)) colour = Color.DARK_GRAY
+  else if ("Black".equals(colourString)) colour = Color.BLACK
+  else if ("Pink".equals(colourString)) colour = Color.PINK
+  else if ("Orange".equals(colourString)) colour = Color.ORANGE
+  else if ("Yellow".equals(colourString)) colour = Color.YELLOW
+  else if ("Green".equals(colourString)) colour = Color.GREEN
+  else if ("Magenta".equals(colourString)) colour = Color.MAGENTA
+  else if ("Cyan".equals(colourString)) colour = Color.CYAN
+  else if ("Blue".equals(colourString)) colour = Color.BLUE;
+
+  java.lang.System.out.println("colourString = {colourString}");
+  java.lang.System.out.println("colour = {colour}");
+  board.setColour(colour);
+  board.repaint();
+}
+
 
 var browseButton:SwingButton = SwingButton {
   text: "Browse...";
@@ -78,8 +104,18 @@ var widget: Widget = Widget
       StringProperty {
         name: "configFilePath"
         value: bind configFilePath with inverse
+      },
+      StringProperty {
+        name: "textColour"
+        value: bind colourString with inverse
+        autoSave: true
       }
     ]
+
+    onLoad: function()
+    {
+  java.lang.System.out.println("OLcolourString = {colourString}");
+    }
 
     scene: Scene {
       content: Grid {
@@ -88,6 +124,27 @@ var widget: Widget = Widget
             cells: [SwingCheckBox {
                 text: " Keep aspect ratio ",
                 selected: bind keepRatio with inverse }]
+          }
+          Row {
+            cells: [Text {content: "Text colour:"},
+                    SwingComboBox {
+                      items: [
+                        SwingComboBoxItem { text: "Red", value: Color.RED},
+                        SwingComboBoxItem { text: "White", value: Color.WHITE},
+                        SwingComboBoxItem { text: "Light Gray", value: Color.LIGHT_GRAY},
+                        SwingComboBoxItem { text: "Gray", value: Color.GRAY},
+                        SwingComboBoxItem { text: "Dark Gray", value: Color.DARK_GRAY},
+                        SwingComboBoxItem { text: "Black", value: Color.BLACK},
+                        SwingComboBoxItem { text: "Pink", value: Color.PINK},
+                        SwingComboBoxItem { text: "Orange", value: Color.ORANGE},
+                        SwingComboBoxItem { text: "Yellow", value: Color.YELLOW},
+                        SwingComboBoxItem { text: "Green", value: Color.GREEN},
+                        SwingComboBoxItem { text: "Magenta", value: Color.MAGENTA},
+                        SwingComboBoxItem { text: "Cyan", value: Color.CYAN},
+                        SwingComboBoxItem { text: "Blue", value: Color.BLUE}
+                      ]
+                      text: bind colourString with inverse
+                    }]
           }
           Row {
             cells: [Text {
