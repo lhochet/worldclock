@@ -127,10 +127,10 @@ public class City
 		final double cx2 = width / 2.0;
 		final double cy2 = height / 2.0;
 		final double lt = latitude * -1;
-		final int x = (int) (cx2 * longitude / 180 + cx2) - 1;
-		final int y = (int) (cy2 * lt / 90 + cy2) - 1;
+		final int x = (int) (cx2 * longitude / 180 + cx2) - 2;
+		final int y = (int) (cy2 * lt / 90 + cy2) - 2;
 
-    return p.x > x && p.x < x + 3 && p.y > y && p.y < y + 3;
+    return p.x >= x && p.x <= x + 4 && p.y >= y && p.y <= y + 4;
   }
 
   public String getNameTimeString()
