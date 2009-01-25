@@ -27,7 +27,7 @@ var cy: Number = 200;
 def ratio = 320.0 / 200.0;
 
 
-var board = new WorldClockPanel(); //cx, cy);
+var board = new WorldClockPanel();
 var fxBoard = SwingComponent.wrap(board);
 var keepRatio: Boolean = true  on replace
 {
@@ -52,28 +52,92 @@ var configFilePath: String = "" on replace
   }
   board.repaint();
 }
-var colourString: String = "Red" on replace
+var colourString: String = "Red";
+var colourIndex: Integer = 0 on replace
 {
-  var colour: Color; // = Color.RED;
+  updateColourForIndex(colourIndex);
+}
 
-  if ("Red".equals(colourString)) colour = Color.RED
-  else if ("White".equals(colourString)) colour = Color.WHITE
-  else if ("Light Gray".equals(colourString)) colour = Color.LIGHT_GRAY
-  else if ("Gray".equals(colourString)) colour = Color.GRAY
-  else if ("Dark Gray".equals(colourString)) colour = Color.DARK_GRAY
-  else if ("Black".equals(colourString)) colour = Color.BLACK
-  else if ("Pink".equals(colourString)) colour = Color.PINK
-  else if ("Orange".equals(colourString)) colour = Color.ORANGE
-  else if ("Yellow".equals(colourString)) colour = Color.YELLOW
-  else if ("Green".equals(colourString)) colour = Color.GREEN
-  else if ("Magenta".equals(colourString)) colour = Color.MAGENTA
-  else if ("Cyan".equals(colourString)) colour = Color.CYAN
-  else if ("Blue".equals(colourString)) colour = Color.BLUE;
+function updateColour(colStr: String)
+{
+  var colour: Color;
+  if ("Red".equals(colStr)) colour = Color.RED
+  else if ("White".equals(colStr)) colour = Color.WHITE
+  else if ("Light Gray".equals(colStr)) colour = Color.LIGHT_GRAY
+  else if ("Gray".equals(colStr)) colour = Color.GRAY
+  else if ("Dark Gray".equals(colStr)) colour = Color.DARK_GRAY
+  else if ("Black".equals(colStr)) colour = Color.BLACK
+  else if ("Pink".equals(colStr)) colour = Color.PINK
+  else if ("Orange".equals(colStr)) colour = Color.ORANGE
+  else if ("Yellow".equals(colStr)) colour = Color.YELLOW
+  else if ("Green".equals(colStr)) colour = Color.GREEN
+  else if ("Magenta".equals(colStr)) colour = Color.MAGENTA
+  else if ("Cyan".equals(colStr)) colour = Color.CYAN
+  else if ("Blue".equals(colStr)) colour = Color.BLUE;
 
-  java.lang.System.out.println("colourString = {colourString}");
-  java.lang.System.out.println("colour = {colour}");
   board.setColour(colour);
   board.repaint();
+}
+
+function updateColourForIndex(index: Integer)
+{
+  var colour: Color = Color.RED;
+  if (index == 0) colour = Color.RED
+  else if (index == 1) colour = Color.WHITE
+  else if (index == 2) colour = Color.LIGHT_GRAY
+  else if (index == 3) colour = Color.GRAY
+  else if (index == 4) colour = Color.DARK_GRAY
+  else if (index == 5) colour = Color.BLACK
+  else if (index == 6) colour = Color.PINK
+  else if (index == 7) colour = Color.ORANGE
+  else if (index == 8) colour = Color.YELLOW
+  else if (index == 9) colour = Color.GREEN
+  else if (index == 10) colour = Color.MAGENTA
+  else if (index == 11) colour = Color.CYAN
+  else if (index == 12) colour = Color.BLUE;
+
+  board.setColour(colour);
+  board.repaint();
+}
+
+function toColourString(index: Integer)
+{
+  var colour: String = "Red";
+  if (index == 0) colour = "Red"
+  else if (index == 1) colour = "White"
+  else if (index == 2) colour = "Light Gray"
+  else if (index == 3) colour = "Gray"
+  else if (index == 4) colour = "Dark Gray"
+  else if (index == 5) colour = "Black"
+  else if (index == 6) colour = "Pink"
+  else if (index == 7) colour = "Orange"
+  else if (index == 8) colour = "Yellow"
+  else if (index == 9) colour = "Green"
+  else if (index == 10) colour = "Magenta"
+  else if (index == 11) colour = "Cyan"
+  else if (index == 12) colour = "Blue";
+
+  return colour;
+}
+
+function toIndex(colStr: String): Integer
+{
+  var ret: Integer = 0;
+  if ("Red".equals(colStr)) ret = 0
+  else if ("White".equals(colStr)) ret = 1
+  else if ("Light Gray".equals(colStr)) ret = 2
+  else if ("Gray".equals(colStr)) ret = 3
+  else if ("Dark Gray".equals(colStr)) ret = 4
+  else if ("Black".equals(colStr)) ret = 5
+  else if ("Pink".equals(colStr)) ret = 6
+  else if ("Orange".equals(colStr)) ret = 7
+  else if ("Yellow".equals(colStr)) ret = 8
+  else if ("Green".equals(colStr)) ret = 9
+  else if ("Magenta".equals(colStr)) ret = 10
+  else if ("Cyan".equals(colStr)) ret = 11
+  else if ("Blue".equals(colStr)) ret = 12;
+
+  return ret;
 }
 
 
@@ -102,19 +166,23 @@ var widget: Widget = Widget
         value: bind keepRatio with inverse
       },
       StringProperty {
-        name: "configFilePath"
-        value: bind configFilePath with inverse
-      },
-      StringProperty {
         name: "textColour"
         value: bind colourString with inverse
-        autoSave: true
+      },
+      StringProperty {
+        name: "configFilePath"
+        value: bind configFilePath with inverse
       }
     ]
 
     onLoad: function()
     {
-  java.lang.System.out.println("OLcolourString = {colourString}");
+      updateColour(colourString);
+      colourIndex = toIndex(colourString);
+    }
+    onSave: function()
+    {
+      colourString = toColourString(colourIndex);
     }
 
     scene: Scene {
@@ -143,7 +211,8 @@ var widget: Widget = Widget
                         SwingComboBoxItem { text: "Cyan", value: Color.CYAN},
                         SwingComboBoxItem { text: "Blue", value: Color.BLUE}
                       ]
-                      text: bind colourString with inverse
+                      selectedIndex: bind colourIndex with inverse
+                      //text: bind colourStringForDlg with inverse
                     }]
           }
           Row {
