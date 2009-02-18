@@ -15,20 +15,46 @@ import javax.swing.*;
 import org.jfxtras.scene.layout.*;
 import javafx.scene.text.*;
 import java.awt.Color;
+import javafx.scene.input.MouseEvent;
+import javafx.animation.*;
 
 /**
  * @author Ludovic
  * @since 5 oct. 2008, 21:48:41
  */
 
+var hoverString: String = "WorldClock Widget 0.6";
 
 var cx: Number = 320;
 var cy: Number = 200;
 def ratio = 320.0 / 200.0;
 
-
-var board = new WorldClockPanel();
+var onBoard: Boolean = false;
+var board: WorldClockPanel = new WorldClockPanel();
 var fxBoard = SwingComponent.wrap(board);
+fxBoard.onMouseMoved = function (e: MouseEvent): Void
+{
+  if (onBoard)
+  {
+    var lhoverString = board.getCityNameTimeString(e.x.intValue(), e.y.intValue());
+    if (not lhoverString.equals(""))
+    {
+      hoverString = lhoverString;
+    }
+  }
+}
+fxBoard.onMouseEntered = function (e: MouseEvent): Void
+{
+  updateCityTime.pause();
+  onBoard = true;
+}
+fxBoard.onMouseExited = function (e: MouseEvent): Void
+{
+  onBoard = false;
+  hoverString = board.getCurrentCityNameTime();
+  updateCityTime.play();
+}
+
 var keepRatio: Boolean = true  on replace
 {
   if (keepRatio)
@@ -56,6 +82,13 @@ var colourString: String = "Red";
 var colourIndex: Integer = 0 on replace
 {
   updateColourForIndex(colourIndex);
+}
+
+function updateBoardSize(lcx: Number, lcy: Number): Void
+{
+    board.updateSize(lcx.intValue(), lcy.intValue());
+    fxBoard.width = lcx;
+    fxBoard.height = lcy ;
 }
 
 function updateColour(colStr: String)
@@ -153,6 +186,41 @@ var browseButton:SwingButton = SwingButton {
   }
 }
 
+var hoverLabel = SwingLabel {
+  translateY: bind fxBoard.height
+  text: bind hoverString
+  width: bind cx
+}
+
+Timeline {
+  keyFrames: [
+    KeyFrame {
+      time: 10s
+      action: function(): Void
+      {
+        hoverString = board.getCurrentCityNameTime();
+        if (not updateCityTime.paused)
+        {
+          updateCityTime.play();
+        }
+      }
+    }
+  ]
+}.playFromStart();
+
+
+var updateCityTime = Timeline {
+  repeatCount: Timeline.INDEFINITE
+  keyFrames: [
+    KeyFrame {
+      time: 1s
+      action: function(): Void
+      {
+        hoverString = board.getCurrentCityNameTime();
+      }
+    }
+  ]
+}
 
 var widget: Widget = Widget
 {
@@ -212,7 +280,6 @@ var widget: Widget = Widget
                         SwingComboBoxItem { text: "Blue", value: Color.BLUE}
                       ]
                       selectedIndex: bind colourIndex with inverse
-                      //text: bind colourStringForDlg with inverse
                     }]
           }
           Row {
@@ -233,23 +300,25 @@ var widget: Widget = Widget
   {
     if (isFirstDock)
     {
-      var lcy = widgetWidth / ratio;
-          board.updateSize(widgetWidth, lcy);
-      fxBoard.width = widgetWidth;
-      fxBoard.height = lcy;
+      var lcy = widgetWidth / ratio - hoverLabel.height;
+      updateBoardSize(widgetWidth, lcy);
     }
   }
     
-  onResize: function (cx, cy):Void
+  onResize: function (lcx, lcy):Void
   {
     isFirstDock = false;
-      board.updateSize(cx.intValue(), cy.intValue());
-    fxBoard.width = cx;
-    fxBoard.height = cy;
+    var lcy2 = lcy - hoverLabel.height;
+    updateBoardSize(cx, lcy2);
   }
 
   skin: Skin
   {
-    scene: fxBoard
+    scene: Group {
+        content: [
+          fxBoard
+          hoverLabel
+        ]
+    }
   }
 }
