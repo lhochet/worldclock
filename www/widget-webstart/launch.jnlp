@@ -18,6 +18,7 @@
         <extension name="JavaFX Runtime" href="http://dl.javafx.com/javafx-rt.jnlp"/>
         <jar href="WorldClockFXWidget.jar" main="true"/>
         <jar href="lib/WidgetFX-API.jar"/>
+        <jar href="lib/JFXtras-0.3.jar"/>
         <jar href="lib/panel-0.7-SNAPSHOT.jar"/>
     </resources>
     <application-desc main-class="lh.worldclock.WorldClockFXWidget"/>
