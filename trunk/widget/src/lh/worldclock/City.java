@@ -133,7 +133,7 @@ public class City
     return p.x >= x && p.x <= x + 4 && p.y >= y && p.y <= y + 4;
   }
 
-  public String getNameTimeString()
+  public String getTimeNameString()
   {
     cal.setTime(new Date());
 		return sdf.format(cal.getTime()) + " " + name;
