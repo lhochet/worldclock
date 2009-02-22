@@ -176,34 +176,29 @@ public class WorldClockPanel extends JPanel
 //      {
 //        if (city.contains(event.getPoint(), width, height))
 //        {
-//          return city.getNameTimeString();
+//          return city.getTimeNameString();
 //        }
 //      }
 //    }
 //    return super.getToolTipText(event);
 //  }
 
-  public String getCityNameTimeString(int x, int y)
+  public City getCity(int x, int y)
   {
       final Point p = new Point(x, y);
       for (City city : cities)
       {
         if (city.contains(p, width, height))
         {
-          return city.getNameTimeString();
+          return city;
         }
       }
-      return "";
+      return null;
   }
 
-  public String getCurrentCityNameTime()
+  public City getCurrentCity()
   {
-    String ret = "";
-    if (currentCity != null)
-    {
-      ret = currentCity.getNameTimeString();
-    }
-    return ret;
+    return currentCity;
   }
 
   private void nextCity()
