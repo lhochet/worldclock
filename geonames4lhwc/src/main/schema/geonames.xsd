@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+          This document defines a basic schema for the XML returned by the geonames webservice (http://www.geonames.org/export/geonames-search.html).
+          The schema is only targetted for the use within WorldClock editor
+          
+          1.0, 2009-06-03: initial version
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="geonames">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="geoname" maxOccurs="unbounded" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="name">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:string"/>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="lat">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:decimal"/>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="lng">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:decimal"/>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="countryName">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:string"/>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="timezone">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:string"/>
+                                </xsd:simpleType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+
+
+
+
+
+
+
+
+
+
