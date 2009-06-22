@@ -37,5 +37,7 @@
   <!--
     <module>application</module>
   -->
+    <module>config</module>
+    <module>geonames4lhwc</module>
   </modules>
 </project>
