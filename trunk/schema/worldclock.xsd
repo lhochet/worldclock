@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+          This document defines the format of a valid worldclock configuration file.
+          
+          1.0, 2009-05-19: initial version
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:simpleType name="horizontalDirection">
+        <xsd:annotation>
+            <xsd:documentation>
+              This type defines the different horizontal direction a plane can take.
+              Values are:
+                gauche: plane is going towards the left
+                neutre: the direction is undefined
+                droite: plane is going toward the right
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="gauche"/>
+        <xsd:enumeration value="neutre"/>
+        <xsd:enumeration value="droite"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="verticalDirection">
+        <xsd:annotation>
+            <xsd:documentation>
+              This type defines the different vertical direction a plane can take.
+              Values are:
+                haut: plane is going towards the top
+                neutre: the direction is undefined
+                bas: plane is going toward the bottom
+            </xsd:documentation>
+        </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="haut"/>
+        <xsd:enumeration value="neutre"/>
+        <xsd:enumeration value="bas"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="plane">
+        <xsd:attribute name="name" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Displayed name of the plane, eg. A380, my UFO,..</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="horizontal" type="horizontalDirection" default="neutre">
+            <xsd:annotation>
+                <xsd:documentation>Horizontal direction of the plane</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="vertical" type="verticalDirection" default="neutre">
+            <xsd:annotation>
+                <xsd:documentation>Vertical direction of the plane</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="image" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Path to the plane's image relative to the configuration file, eg. path/to/ufo.png</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="city">
+        <xsd:attribute name="name" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Displayed name of the city, eg. Tours</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="lat" type="xsd:decimal" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Latitude of the city, positive values: north, negative values: south, eg. 47.27 (Tours) or -30.47 (Pretoria)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="long" type="xsd:decimal" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Longitude of the city, positive values: east, negative values: west, eg. 0.43 (Tours) or -122.26 (San Francisco)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="timezone" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Time zone in which the city is located, eg. Europe/Paris (see http://twiki.org/cgi-bin/xtra/tzdatepick.html however valid values are those accected by the JVM)</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="config">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="planes">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="plane" minOccurs="0" maxOccurs="unbounded" type="plane" />
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="cities">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="city" minOccurs="0" maxOccurs="unbounded" type="city" />
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+
+
+
+
+
+
+
+
