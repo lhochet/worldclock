@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="https://worldclock-application.dev.java.net/editor-webstart/" href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>WorldClock Editor</title>
+        <vendor>Ludovic HOCHET</vendor>
+        <homepage href="https://worldclock-application.dev.java.net"/>
+        <description>An editor for the WorldClock configuration files</description>
+        <description kind="short">WorldClock Editor</description>
+
+
+    <offline-allowed/>
+</information>
+<security>
+<all-permissions/>
+</security>
+    <resources>
+<j2se version="1.6+"/>
+<jar eager="true" href="editor.jar" main="true"/>
+
+
+    <jar href="lib/appframework-1.0.3.jar"/>
+<jar href="lib/swing-worker-1.1.jar"/>
+<jar href="lib/config-1.0-SNAPSHOT.jar"/>
+<jar href="lib/geonames4lhwc-1.0-SNAPSHOT.jar"/>
+</resources>
+    <application-desc main-class="lh.worldclock.editor.EditorApp">
+
+    </application-desc>
+</jnlp>
