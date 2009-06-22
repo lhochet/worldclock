@@ -167,7 +167,7 @@ public class EditorPane extends javax.swing.JPanel
       if (c instanceof JLabel)
       {
         JLabel l = (JLabel)c;
-        l.setToolTipText("<html><body><img src = '" + toURLString((String)value) + "' width=600 height=250></body></html>");
+        l.setToolTipText("<html><body><img src = '" + toURLString((String)value) + "' width=600 height=250><br>(use a path relative to the configuration file)</body></html>");
       }
 
       return c;
