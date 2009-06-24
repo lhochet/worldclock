@@ -448,12 +448,9 @@ var widget: Widget = Widget {
   configuration: configuration
   aspectRatio: ratio;
     
-  skin: Skin  {
-    scene: Group {
       content: [
-        fxBoard
+        fxBoard,
         hoverLabel
       ]
-    }
-  }
+  
 }
