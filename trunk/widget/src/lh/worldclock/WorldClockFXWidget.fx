@@ -17,6 +17,10 @@ import javafx.scene.text.*;
 import java.awt.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.animation.*;
+import javafx.stage.Stage;
+import javafx.stage.Screen;
+
+
 
 /**
  * @author Ludovic
@@ -29,9 +33,28 @@ def defaultWidth: Number = 320.0;
 def defaultHeight: Number = 200.0;
 def ratio = defaultWidth / defaultHeight;
 
-var onBoard: Boolean = false;
+//var onBoard: Boolean = false;
 var board: WorldClockPanel = new WorldClockPanel();
 var fxBoard = SwingComponent.wrap(board);
+
+//
+// full screen pop up
+//
+def popupdefaultWidth: Number = Screen.primary.bounds.width;
+def popupdefaultHeight: Number = Screen.primary.bounds.height;
+var popupboard: WorldClockPanel = new WorldClockPanel();
+var popupfxBoard = SwingComponent.wrap(popupboard);
+
+var popupStage: Stage = Stage {
+  visible: false
+  fullScreen: true
+  scene: Scene {
+    //width: popupdefaultWidth
+    //height: popupdefaultHeight
+    //fill: javafx.scene.paint.Color.BLACK
+    content: popupfxBoard
+  }
+}
 
 //
 // Widget animation
@@ -129,10 +152,12 @@ var configFilePath: String = "" on replace
   if ((configFilePath == null) or ("".equals(configFilePath)))
   {
     board.clearCities();
+    popupboard.clearCities();
   }
     else
   {
     board.loadConfig(configFilePath);
+    popupboard.loadConfig(configFilePath);
   }
   board.repaint();
 }
@@ -172,6 +197,7 @@ function updateColour(colStr: String) {
   colour = Color.BLUE;
 
   board.setColour(colour);
+  popupboard.setColour(colour);
   board.repaint();
 }
 
@@ -205,6 +231,7 @@ function updateColourForIndex(index: Integer) {
   colour = Color.BLUE;
 
   board.setColour(colour);
+  popupboard.setColour(colour);
   board.repaint();
 }
 
@@ -426,6 +453,24 @@ function doLayoutFct() : Void {
   updateBoardSize(widget.width, lcy);
 }
 
+var popupSized: Boolean = false;
+function doMousePressed(evt :MouseEvent):Void
+{
+  if (not popupSized)
+  {
+    popupboard.updateSize(popupdefaultWidth, popupdefaultHeight);
+    popupfxBoard.width = popupdefaultWidth;
+    popupfxBoard.height = popupdefaultHeight;
+    popupSized = true;
+  }
+  popupStage.visible = true;
+}
+
+function doMouseReleased(evt :MouseEvent):Void
+{
+  popupStage.visible = false;
+}
+
 var widget: Widget = Widget {
   launchHref: "WorldClockFXWidget.jnlp"
   width: defaultWidth
@@ -434,6 +479,9 @@ var widget: Widget = Widget {
   aspectRatio: ratio;
 
   onLayout: doLayoutFct
+  onMousePressed: doMousePressed
+  onMouseReleased: doMouseReleased
+
   content: [
     fxBoard,
     hoverLabel
