@@ -414,16 +414,16 @@ function updateBoardSize(lcx: Number, lcy: Number): Void {
 }
 
 function doLayoutFct() : Void {
+  var lcy;
   if (keepRatio)
   {
-    var lcy = widget.width / ratio - hoverLabel.height;
-    updateBoardSize(widget.width, lcy);
+    lcy = widget.width / ratio - hoverLabel.height;
   }
   else
   {
-    var lcy = widget.height - hoverLabel.height;
-    updateBoardSize(widget.width, lcy);
+    lcy = widget.height - hoverLabel.height;
   }
+  updateBoardSize(widget.width, lcy);
 }
 
 var widget: Widget = Widget {
