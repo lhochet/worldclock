@@ -23,7 +23,7 @@ import javafx.animation.*;
  * @since 5 oct. 2008, 21:48:41
  */
 
-var hoverString: String = "WorldClock Widget 0.6";
+var hoverString: String = "WorldClock Widget 0.7";
 
 def defaultWidth: Number = 320.0;
 def defaultHeight: Number = 200.0;
@@ -140,12 +140,6 @@ var colourString: String = "Red";
 var colourIndex: Integer = 0 on replace
 {
   updateColourForIndex(colourIndex);
-}
-
-function updateBoardSize(lcx: Number, lcy: Number): Void {
-  board.updateSize(lcx.intValue(), lcy.intValue());
-  fxBoard.width = lcx;
-  fxBoard.height = lcy ;
 }
 
 function updateColour(colStr: String) {
@@ -413,44 +407,36 @@ var hoverLabel = SwingLabel {
   width: bind widget.width
 }
 
-// delay the board size update on resize
-var updateSize = Timeline {
-  keyFrames: [
-    KeyFrame {
-      time: 150ms
-      action: function(): Void {
-        if (keepRatio)
-        {
-          var lcy = cx / ratio - hoverLabel.height;
-          updateBoardSize(cx, lcy);
-        }
-        else
-        {
-          var lcy = widget.height - hoverLabel.height;
-          updateBoardSize(cx, lcy);
-        }
-      }
-    }
-  ]
+function updateBoardSize(lcx: Number, lcy: Number): Void {
+  board.updateSize(lcx.intValue(), lcy.intValue());
+  fxBoard.width = lcx;
+  fxBoard.height = lcy;
 }
 
-// handle resize
-var cx = defaultWidth on replace
-{
-  updateSize.playFromStart();
+function doLayoutFct() : Void {
+  if (keepRatio)
+  {
+    var lcy = widget.width / ratio - hoverLabel.height;
+    updateBoardSize(widget.width, lcy);
+  }
+  else
+  {
+    var lcy = widget.height - hoverLabel.height;
+    updateBoardSize(widget.width, lcy);
+  }
 }
-
 
 var widget: Widget = Widget {
   launchHref: "WorldClockFXWidget.jnlp"
-  width: bind cx with inverse
-  height: defaultHeight + hoverLabel.height
+  width: defaultWidth
+  height: defaultHeight;// + hoverLabel.height
   configuration: configuration
   aspectRatio: ratio;
-    
-      content: [
-        fxBoard,
-        hoverLabel
-      ]
-  
+
+  onLayout: doLayoutFct
+  content: [
+    fxBoard,
+    hoverLabel
+  ]
+
 }
