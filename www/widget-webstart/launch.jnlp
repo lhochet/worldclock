@@ -16,6 +16,7 @@
         <property name="jnlp.packEnabled" value="true"/>
         <property name="jnlp.versionEnabled" value="true"/>
         <extension name="JavaFX Runtime" href="http://dl.javafx.com/1.2/javafx-rt.jnlp"/>
+        <jar href="WorldClockFXWidget.jar" main="true"/>
         <jar href="lib/panel-0.7-SNAPSHOT.jar"/>
         <jar href="lib/JFXtras-0.5.jar"/>
         <jar href="lib/jnlp.jar"/>
