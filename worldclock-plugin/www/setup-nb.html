@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Setting up World Clock Module</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<h1>Installing World Clock Module</h1>
+<h3>Installing the NBM directly</h3>
+<ol>
+  <li>Download the <a href="https://worldclock-plugin.dev.java.net/files/documents/4684/29824/lh-worldclockmodule.nbm">module's nbm</a></li>
+  <li>In Netbeans go to Tools|Update Center</li>
+  <li>Select "Install Manually Downloaded Modules (.nbm Files)"</li>
+  <li>Add the downloaded nbm</li>
+  <li>Continue the wizard until the module is installed</li>
+  <li>Select WorldClock in the Window menu</li>
+</ol>
+<h3>Installing from the Update Centre</h3>
+<ol>
+  <li>In Netbeans go to Tools|Update Center</li>
+  <li>Select the World Clock Module Update Center</li>
+  <li>Select the world clock module</li>
+  <li>Continue the wizard until the module is installed</li>
+  <li>Select WorldClock in the Window menu</li>
+</ol>
+<h1>Installing the World Clock Module Update Center</h1>
+<h3>Adding the update centre manually</h3>
+<ol>
+  <li>Go to Tools|Options</li>
+  <li>Switch to the advanced view</li>
+  <li>Go to IDE Configuration|System|Autoupdates Types</li>
+  <li>Right click, New|General Update Center</li>
+  <li>In the wizard type the name: "World Clock Module Update Center"</li>
+  <li>In the newly added update center properties, type the server URL: "https://worldclock-plugin.dev.java.net/nonav/nbupdates/updates.xml"</li>
+  <li>Close and you're done</li>
+</ol>
+<h3>Adding the update centre though the Update Centre NBM</h3>
+<ol>
+  <li>Download the <a href="https://worldclock-plugin.dev.java.net/files/documents/4684/33495/lh-worlclockupdatesite.nbm">update centre module's nbm</a></li>
+  <li>In Netbeans go to Tools|Update Center</li>
+  <li>Select "Install Manually Downloaded Modules (.nbm Files)"</li>
+  <li>Add the downloaded nbm</li>
+  <li>Continue the wizard until the module is installed</li>
+</ol>
+<h1>Configuring World Clock Module</h1>
+<ol>
+  <li>Go to the World Clock options page (Tools|Options|Miscellanous|World Clock)</li>
+  <li>Select or type the path to the cities configuration file (See the description of the file in the
+  <a href="https://worldclock-application.dev.java.net/">worldclock-application</a>
+  project)</li>
+  <li>Restart Netbeans</li>
+</ol>
+<h1>Uninstalling World Clock Module</h1>
+<ol>
+  <li>Go to Tools|Module Manager, Toys then select worldclockmodule</li>
+  <li>Click Uninstall</li>
+</ol>
+</body>
+</html>

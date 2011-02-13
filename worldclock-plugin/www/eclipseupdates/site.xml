@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="https://worldclock-plugin.dev.java.net/nonav/eclipseupdates">
+      World Clock plugin update site
+   </description>
+   <feature url="features/worldclockfeature_1.0.0.jar" id="worldclockfeature" version="1.0.0">
+      <category name="worldclock"/>
+   </feature>
+   <category-def name="worldclock" label="World Clock"/>
+</site>
