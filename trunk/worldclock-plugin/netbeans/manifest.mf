@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: lh.worldclockmodule/1
+OpenIDE-Module-Layer: lh/worldclockmodule/layer.xml
+OpenIDE-Module-Localizing-Bundle: lh/worldclockmodule/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
