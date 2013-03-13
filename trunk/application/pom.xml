@@ -9,19 +9,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>lh.worldclock</groupId>
-  <artifactId>application6</artifactId>
+  <artifactId>application</artifactId>
   <packaging>jar</packaging>
-  <name>Worldclock Application (Java6)</name>
+  <name>Worldclock Application</name>
   <version>0.7-SNAPSHOT</version>
-  
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test</testSourceDirectory>
-    <resources>
-      <resource>
-        <directory>src</directory>
-      </resource>
-    </resources>
-  </build>
-  
+    
 </project>
