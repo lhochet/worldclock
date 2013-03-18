@@ -1,0 +1,1 @@
+this directory is here solely to work arround an issue probably in the makewin32installscript ant task which checks for its existence for some reason (ignoring passed properties)
