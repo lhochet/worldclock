@@ -14,6 +14,10 @@
   <name>Worldclock Application</name>
   <version>0.7-SNAPSHOT</version>
     
+  <properties>
+    <nsis-path>C:/Program Files (x86)/NSIS</nsis-path> <!-- for win64, for win32 see the profile below -->
+  </properties>
+    
   <build>
     <plugins>
       <plugin>
@@ -47,9 +51,75 @@
               <goal>single</goal>
             </goals>
           </execution>
+          <execution>
+            <id>setup-assembly</id>
+            <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
+              <finalName>setup-tmp</finalName>
+              <formats>
+                <format>dir</format>
+              </formats>
+              <descriptors>
+                <descriptor>src/main/assembly/assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>ant-installer-exe</id>
+            <phase>package</phase>
+            <configuration>
+              <tasks>                
+                <exec executable="${nsis-path}/makensis.exe" failonerror="true">
+                  <arg line="worldclock.nsi"/>
+                </exec>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <executable>java</executable>
+          <mainClass>org.jdesktop.jdic.screensaver.ScreensaverFrame</mainClass>
+          <classpathScope>compile</classpathScope>
+          <arguments>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>org.jdesktop.jdic.screensaver.ScreensaverFrame</argument>
+            <argument>lh.worldclock.saver.WorldClockSaver</argument>
+          </arguments>
+        </configuration>
+      </plugin>      
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>win32</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <properties>
+        <nsis-path>C:/Program Files/NSIS</nsis-path>
+      </properties>
+    </profile>
+  </profiles>
 </project>
