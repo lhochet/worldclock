@@ -2,9 +2,9 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "World Clock"
-!define PRODUCT_VERSION "0.6.2"
-!define PRODUCT_PUBLISHER "Ludovic HOCHET"
-!define PRODUCT_WEB_SITE "https://worldclock-application.dev.java.net/"
+!define PRODUCT_VERSION "0.7"
+!define PRODUCT_PUBLISHER "WorldClock Team"
+!define PRODUCT_WEB_SITE "http://worldclock-application.java.net//"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -89,7 +89,7 @@ FunctionEnd
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "worldclockapplication-setup-${PRODUCT_VERSION}.exe"
+OutFile "target\worldclockapplication-${PRODUCT_VERSION}-setup.exe"
 InstallDir "$PROGRAMFILES\worldclock"
 ShowInstDetails show
 ShowUnInstDetails show
@@ -98,10 +98,7 @@ Section "WorldClock" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
 
-  File "worldclock.jar"
-  File "icon32.ico"
-  File "icon32.png"
-  
+  File /r "target\setup-tmp\*.*"  
 SectionEnd
 
 
