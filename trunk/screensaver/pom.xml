@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>worldclock-application-parent</artifactId>
+    <groupId>lh.worldclock</groupId>
+    <version>0.7-SNAPSHOT</version>
+  </parent>
+  <groupId>lh.worldclock</groupId>
+  <artifactId>worldclocksaver</artifactId>
+  <version>0.7.2-SNAPSHOT</version>
+  <name>WorldClock Screensaver</name>
+
+  <properties>
+    <saverbeans-lib-path>${basedir}/lib</saverbeans-lib-path>
+    <saverbeans-api-path>${saverbeans-lib-path}/saverbeans-api.jar</saverbeans-api-path>
+    <nsis-path>C:/Program Files (x86)/NSIS</nsis-path> <!-- for win64, for win32 see the profile below -->
+  </properties>
+    
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>dist-assembly</id>
+            <configuration>
+              <outputDirectory>${project.build.directory}/dist</outputDirectory>
+              <descriptors>
+                <descriptor>src/main/assembly/win32.xml</descriptor>
+                <descriptor>src/main/assembly/unix.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>win32-assembly</id>
+            <configuration>
+              <outputDirectory>${project.build.directory}/native-tmp</outputDirectory>
+              <formats>
+                <format>dir</format>
+              </formats>
+              <descriptors>
+                <descriptor>src/main/assembly/win32.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>ant-create-native-plugs</id>
+            <phase>prepare-package</phase>
+            <configuration>
+              <tasks>
+                <taskdef name="foreachscreensaver" classname="org.jdesktop.jdic.screensaver.autogen.ForEachScreensaver" classpath="${saverbeans-lib-path}/saverbeans-ant.jar"/>
+                
+                <mkdir dir="${project.build.directory}/native-tmp/unix"/>
+                <foreachscreensaver confDir="src/main/conf" outDir="${project.build.directory}/native-tmp/unix" os="unix" />
+                
+                <mkdir dir="${project.build.directory}/native-tmp/win32"/>
+                <foreachscreensaver confDir="src/main/conf" outDir="${project.build.directory}/native-tmp/win32" os="win32"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>ant-installer-exe</id>
+            <phase>package</phase>
+            <configuration>
+              <tasks>
+                <taskdef name="makewin32installscript" classname="org.jdesktop.jdic.screensaver.autogen.NsiGeneratorTask" classpath="${saverbeans-lib-path}/saverbeans-ant.jar"/>
+                
+                <mkdir dir="${project.build.directory}/native-tmp/win32-installer"/>
+                
+                <makewin32installscript
+                  productName="${project.name}"
+                  productVersion="${project.version}"
+                  productPublisher="${project.organization.name}"
+                  productWebSite="${project.organization.url}"
+                  licenseFile="${basedir}/COPYING"
+                  outputFilename="${project.build.directory}/dist/${project.build.finalName}-setup.exe"
+                  saverbeansSdkPath="${saverbeans-lib-path}"
+                  outFile="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi"
+                  jarDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32"
+                  scrDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32">
+                  <fileset dir="src/main/conf" includes="*.xml"/>
+                </makewin32installscript>
+                
+                <exec executable="${nsis-path}/makensis.exe" failonerror="true">
+                  <arg line="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi"/>
+                </exec>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <executable>java</executable>
+          <mainClass>org.jdesktop.jdic.screensaver.ScreensaverFrame</mainClass>
+          <classpathScope>compile</classpathScope>
+          <arguments>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>org.jdesktop.jdic.screensaver.ScreensaverFrame</argument>
+            <argument>lh.worldclock.saver.WorldClockSaver</argument>
+          </arguments>
+        </configuration>
+      </plugin>      
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <!-- can't have dependencies other than the jdic saverbean api as the loader will only load the main jar, the api jar and the jogl jar -->
+    
+    <dependency>
+      <groupId>local</groupId>
+      <artifactId>saverbeans-api</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${saverbeans-api-path}</systemPath>
+    </dependency>
+  </dependencies>
+  
+  <profiles>
+    <profile>
+      <id>win32</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <properties>
+        <nsis-path>C:/Program Files/NSIS</nsis-path>
+      </properties>
+    </profile>
+  </profiles>
+</project>
