@@ -16,6 +16,10 @@
   
   <files>
     <file>
+      <source>${project.build.directory}/${project.build.finalName}.jar</source>
+      <destName>worldclockeditor.jar</destName>
+    </file>
+    <file>
       <source>src/main/assembly/icon32.ico</source>
     </file>
     <file>
