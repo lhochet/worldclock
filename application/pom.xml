@@ -37,7 +37,6 @@
             <id>dist-assembly</id>
             <configuration>
               <appendAssemblyId>false</appendAssemblyId>
-              <!--<outputDirectory>${project.build.directory}/dist</outputDirectory>-->
               <descriptors>
                 <descriptor>src/main/assembly/assembly.xml</descriptor>
               </descriptors>
