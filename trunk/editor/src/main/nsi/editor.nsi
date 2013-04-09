@@ -105,7 +105,7 @@ SectionEnd
 
 Section -AdditionalIcons
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
-  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\World Clock Editor.lnk" "$INSTDIR\worldclock.jar" "" "$INSTDIR\icon32.ico"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\World Clock Editor.lnk" "$INSTDIR\worldclockeditor.jar" "" "$INSTDIR\icon32.ico"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninst.exe"
 SectionEnd
 
