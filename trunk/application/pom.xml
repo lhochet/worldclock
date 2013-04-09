@@ -14,12 +14,6 @@
   <name>Worldclock Application</name>
   <version>0.7-SNAPSHOT</version>
 
-    <!--    
-  <properties>
-    <nsis-path>C:/Program Files (x86)/NSIS</nsis-path> <! - - for win64, for win32 see the profile below - - >
-  </properties>
-  -->
-    
   <build>
     <plugins>
       <plugin>
