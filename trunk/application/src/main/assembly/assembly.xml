@@ -17,6 +17,10 @@
   
   <files>
     <file>
+      <source>${project.build.directory}/${project.build.finalName}.jar</source>
+      <destName>worldclock.jar</destName>
+    </file>
+    <file>
       <source>src/main/assembly/icon32.ico</source>
     </file>
     <file>
