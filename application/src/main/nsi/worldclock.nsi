@@ -4,7 +4,7 @@
 !define PRODUCT_NAME "World Clock"
 !define PRODUCT_VERSION "0.7"
 !define PRODUCT_PUBLISHER "WorldClock Team"
-!define PRODUCT_WEB_SITE "http://worldclock-application.java.net//"
+!define PRODUCT_WEB_SITE "http://worldclock-application.java.net/"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -72,7 +72,7 @@ FunctionEnd
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-!insertmacro MUI_PAGE_LICENSE "lgpl.txt"
+!insertmacro MUI_PAGE_LICENSE "..\assembly\lgpl.txt"
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -89,7 +89,7 @@ FunctionEnd
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "target\worldclockapplication-${PRODUCT_VERSION}-setup.exe"
+OutFile "..\..\..\target\worldclockapplication-${PRODUCT_VERSION}-setup.exe"
 InstallDir "$PROGRAMFILES\worldclock"
 ShowInstDetails show
 ShowUnInstDetails show
@@ -98,7 +98,7 @@ Section "WorldClock" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
 
-  File /r "target\setup-tmp\*.*"  
+  File /r "..\..\..\target\setup-tmp\*.*"  
 SectionEnd
 
 

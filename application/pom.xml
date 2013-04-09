@@ -79,7 +79,7 @@
             <configuration>
               <tasks>                
                 <exec executable="${nsis-path}/makensis.exe" failonerror="true">
-                  <arg line="worldclock.nsi"/>
+                  <arg line="src/main/nsi/worldclock.nsi"/>
                 </exec>
               </tasks>
             </configuration>
@@ -95,13 +95,12 @@
         <version>1.2.1</version>
         <configuration>
           <executable>java</executable>
-          <mainClass>org.jdesktop.jdic.screensaver.ScreensaverFrame</mainClass>
+          <mainClass>lh.worldclock.WorldClock</mainClass>
           <classpathScope>compile</classpathScope>
           <arguments>
             <argument>-classpath</argument>
             <classpath/>
-            <argument>org.jdesktop.jdic.screensaver.ScreensaverFrame</argument>
-            <argument>lh.worldclock.saver.WorldClockSaver</argument>
+            <argument>lh.worldclock.WorldClock</argument>
           </arguments>
         </configuration>
       </plugin>      

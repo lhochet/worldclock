@@ -17,13 +17,13 @@
   
   <files>
     <file>
-      <source>icon32.ico</source>
+      <source>src/main/assembly/icon32.ico</source>
     </file>
     <file>
-      <source>icon32.png</source>
+      <source>src/main/assembly/icon32.png</source>
     </file>
     <file>
-      <source>lgpl.txt</source>
+      <source>src/main/assembly/lgpl.txt</source>
     </file>
   </files>
   
