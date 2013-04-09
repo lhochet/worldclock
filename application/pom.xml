@@ -13,6 +13,14 @@
   <packaging>jar</packaging>
   <name>Worldclock Application</name>
   <version>0.7-SNAPSHOT</version>
+  
+  <dependencies>
+    <dependency>
+      <groupId>lh.worldclock</groupId>
+      <artifactId>panel</artifactId>
+      <version>0.7-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -24,6 +32,7 @@
           <archive>
             <manifest>
               <mainClass>lh.worldclock.WorldClock</mainClass>
+              <addClasspath>true</addClasspath>
             </manifest>
           </archive>
         </configuration>
