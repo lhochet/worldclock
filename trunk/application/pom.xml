@@ -13,10 +13,12 @@
   <packaging>jar</packaging>
   <name>Worldclock Application</name>
   <version>0.7-SNAPSHOT</version>
-    
+
+    <!--    
   <properties>
-    <nsis-path>C:/Program Files (x86)/NSIS</nsis-path> <!-- for win64, for win32 see the profile below -->
+    <nsis-path>C:/Program Files (x86)/NSIS</nsis-path> <! - - for win64, for win32 see the profile below - - >
   </properties>
+  -->
     
   <build>
     <plugins>
@@ -51,42 +53,6 @@
               <goal>single</goal>
             </goals>
           </execution>
-          <execution>
-            <id>setup-assembly</id>
-            <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
-              <finalName>setup-tmp</finalName>
-              <formats>
-                <format>dir</format>
-              </formats>
-              <descriptors>
-                <descriptor>src/main/assembly/assembly.xml</descriptor>
-              </descriptors>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>ant-installer-exe</id>
-            <phase>package</phase>
-            <configuration>
-              <tasks>                
-                <exec executable="${nsis-path}/makensis.exe" failonerror="true">
-                  <arg line="src/main/nsi/worldclock.nsi"/>
-                </exec>
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -119,6 +85,68 @@
       <properties>
         <nsis-path>C:/Program Files/NSIS</nsis-path>
       </properties>
+    </profile>
+    <profile>
+      <id>win64</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <nsis-path>C:/Program Files (x86)/NSIS</nsis-path>
+      </properties>
+    </profile>
+    <profile>
+      <id>setup</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+              <execution>
+                <id>setup-assembly</id>
+                <configuration>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <finalName>setup-tmp</finalName>
+                  <formats>
+                    <format>dir</format>
+                  </formats>
+                  <descriptors>
+                    <descriptor>src/main/assembly/assembly.xml</descriptor>
+                  </descriptors>
+                </configuration>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>ant-installer-exe</id>
+                <phase>package</phase>
+                <configuration>
+                  <tasks>                
+                    <exec executable="${nsis-path}/makensis.exe" failonerror="true">
+                      <arg line="src/main/nsi/worldclock.nsi"/>
+                    </exec>
+                  </tasks>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
