@@ -55,11 +55,11 @@ public class EditorPane extends javax.swing.JPanel
     implements TableCellRenderer, TableCellEditor, ActionListener
   {
 
-    private JTable table;
-    private JButton renderButton;
-    private JButton editButton;
+    private final JTable table;
+    private final JButton renderButton;
+    private final JButton editButton;
     private Object object;
-    private RowRemover rowRemover;
+    private final RowRemover rowRemover;
 
     private static void createAndSetup(JTable table, int column, RowRemover rowRemover)
     {
@@ -179,9 +179,9 @@ public class EditorPane extends javax.swing.JPanel
     implements TableCellEditor, ActionListener
   {
 
-    private JTextField tfName;
-    private JButton btnFind;
-    private JPanel pane;
+    private final JTextField tfName;
+    private final JButton btnFind;
+    private final JPanel pane;
     private City city;
     private FindCityDialog dialog = null;
 
@@ -285,7 +285,7 @@ public class EditorPane extends javax.swing.JPanel
 
   private class CitiesTableModel extends AbstractTableModel implements RowRemover
   {
-    private String[] columns = new String[] {"Name", "Latitude", "Longitude", "Timezone", "" /*delete*/};
+    private final String[] columns = new String[] {"Name", "Latitude", "Longitude", "Timezone", "" /*delete*/};
 
     @Override
     public int getRowCount()
@@ -399,7 +399,7 @@ public class EditorPane extends javax.swing.JPanel
 
   private class PlanesTableModel extends AbstractTableModel implements RowRemover
   {
-    private String[] columns = new String[] {"Name", "Horizontal", "Vertical", "Image Path", "" /* delete */};
+    private final String[] columns = new String[] {"Name", "Horizontal", "Vertical", "Image Path", "" /* delete */};
 
     @Override
     public int getRowCount()
@@ -516,9 +516,9 @@ public class EditorPane extends javax.swing.JPanel
   }
 
 
-  private lh.worldclock.config.ConfigManager mgr = new lh.worldclock.config.ConfigManager();
-  private CitiesTableModel citiesModel = new CitiesTableModel();
-  private PlanesTableModel planesModel = new PlanesTableModel();
+  private final lh.worldclock.config.ConfigManager mgr = new lh.worldclock.config.ConfigManager();
+  private final CitiesTableModel citiesModel = new CitiesTableModel();
+  private final PlanesTableModel planesModel = new PlanesTableModel();
   private File file;
 
   /** Creates new form EditorPane */

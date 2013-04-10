@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package lh.worldclock.core;
 
 import java.awt.Dimension;
@@ -26,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class WorldClockPanel extends JPanel
 {
-  private WorldClockBoard board = new WorldClockBoard();
+  private final WorldClockBoard board = new WorldClockBoard();
   
   /**
    * Construct a new panel

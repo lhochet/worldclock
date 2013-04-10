@@ -11,12 +11,9 @@
 package lh.worldclock.editor;
 
 import java.awt.Cursor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
@@ -37,7 +34,7 @@ public class FindCityPanelGeoname extends javax.swing.JPanel
 
     List<Geoname> geonames = new ArrayList<Geoname>();
 
-    private String[] columns = new String[]
+    private final String[] columns = new String[]
     {
       "Name", "Country", "Latitude", "Longitude", "Timezone"
     };
@@ -269,5 +266,5 @@ public class FindCityPanelGeoname extends javax.swing.JPanel
   private javax.swing.JTextField tfCity;
   // End of variables declaration//GEN-END:variables
 
-  private GeonamesTableModel model = new GeonamesTableModel();
+  private final GeonamesTableModel model = new GeonamesTableModel();
 }

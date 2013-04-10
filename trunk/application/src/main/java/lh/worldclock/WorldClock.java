@@ -170,6 +170,7 @@ public class WorldClock
     MenuItem mnuiShow = new MenuItem(res.getString("SHOW_LBL"));
     mnuiShow.addActionListener(new ActionListener()
     {
+      @Override
       public void actionPerformed(ActionEvent e)
       {
         showWindow();
@@ -180,6 +181,7 @@ public class WorldClock
     MenuItem mnuiShowOptions = new MenuItem(res.getString("OPTIONS_LBL"));
     mnuiShowOptions.addActionListener(new ActionListener()
     {
+      @Override
       public void actionPerformed(ActionEvent e)
       {
         PropsManager props = PropsManager.getInstance();
@@ -199,6 +201,7 @@ public class WorldClock
     MenuItem mnuiAbout = new MenuItem(res.getString("ABOUT_LBL"));
     mnuiAbout.addActionListener(new ActionListener()
     {
+      @Override
       public void actionPerformed(ActionEvent e)
       {
         JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
@@ -211,6 +214,7 @@ public class WorldClock
     MenuItem mnuiExit = new MenuItem(res.getString("EXIT_LBL"));
     mnuiExit.addActionListener(new ActionListener()
     {
+      @Override
       public void actionPerformed(ActionEvent e)
       {
         System.exit(0);

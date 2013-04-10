@@ -30,7 +30,7 @@ public class ConfigLoader
   }
 
 
-  private static final String ROOT = "config";
+//  private static final String ROOT = "config";
   private static final String PLANES = "planes";
   private static final String PLANE = "plane";
   private static final String NAME = "name";
@@ -43,7 +43,7 @@ public class ConfigLoader
   private static final String LONGITUDE = "long";
   private static final String TIMEZONE = "timezone";
   
-  private static final String NEUTRAL = "neutre";
+//  private static final String NEUTRAL = "neutre";
   private static final String TOP = "haut";
   private static final String BOTTOM = "bas";
   private static final String LEFT = "gauche";
@@ -107,9 +107,9 @@ public class ConfigLoader
       }
     }
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
     {
-//      System.out.println("start localName="+localName);
       switch (cur)
       {
         case C_DOC:
@@ -163,16 +163,7 @@ public class ConfigLoader
       }
     }
 
-//    public void characters(char[] ch, int start, int length) throws SAXException
-//    {
-//      String str = new String(ch, start, length).trim();
-//      System.out.println("str="+str);
-//      switch (cur)
-//      {
-//        default:
-//      }
-//    }
-
+    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
       System.out.println("end localName="+localName);
@@ -195,14 +186,15 @@ public class ConfigLoader
       }
     }
 
+    @Override
     public void endDocument() throws SAXException
     {
     }
 
   }
 
-  private List<Avion> planes = new ArrayList<Avion>();
-  private List<City> cities = new ArrayList<City>();
+  private final List<Avion> planes = new ArrayList<Avion>();
+  private final List<City> cities = new ArrayList<City>();
   private String filename;
 
 

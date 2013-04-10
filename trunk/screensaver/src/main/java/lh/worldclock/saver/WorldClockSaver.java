@@ -24,13 +24,13 @@ import java.awt.font.*;
  */
 public class WorldClockSaver extends SimpleScreensaver
 {
-  private static Logger logger = Logger.getLogger(WorldClockSaver.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(WorldClockSaver.class.getName());
 
-  private ResourceBundle res = ResourceBundle.getBundle("lh/worldclock/saver/saverbundle");
+  private final ResourceBundle res = ResourceBundle.getBundle("lh/worldclock/saver/saverbundle");
 
   static Logger getLogger()
   {
-    return logger;
+    return LOGGER;
   }
   private static enum Special
   {
@@ -103,9 +103,10 @@ public class WorldClockSaver extends SimpleScreensaver
   private long lastBoardUpdate = System.currentTimeMillis();
   
   // renders the board in a separate thread every 30s (this is for the 'special effects' rather than to update the daylight which could be less often)
-  private Runnable asynchRenderer = new Runnable()
+  private final Runnable asynchRenderer = new Runnable()
   {
-    private boolean isRunning = true;
+    private final boolean isRunning = true;
+    @Override
     public void run()
     {
       while (isRunning)
@@ -116,7 +117,7 @@ public class WorldClockSaver extends SimpleScreensaver
         } 
         catch (InterruptedException ex)
         {
-          logger.log(Level.FINE, null, ex);
+          LOGGER.log(Level.FINE, null, ex);
         }
 
         updateBoard();
@@ -151,7 +152,7 @@ public class WorldClockSaver extends SimpleScreensaver
     loading = res.getString("LOADING_BASE");
 
     isFullScreen = getContext().isFullScreen();
-    logger.info("isFullScreen: " + isFullScreen);
+    LOGGER.log(Level.INFO, "isFullScreen: {0}", isFullScreen);
     if (!isFullScreen)
     {
       loading = res.getString("LOADING_BASE_SHORT");
@@ -163,11 +164,11 @@ public class WorldClockSaver extends SimpleScreensaver
     try
     {
       FileHandler fh = new FileHandler("%h/.worldclocksaver/worldclocksaver.log");
-      logger.addHandler(fh);
+      LOGGER.addHandler(fh);
     }
     catch (Exception ex)
     {
-      logger.log(Level.FINE, ex.getMessage(), ex);
+      LOGGER.log(Level.FINE, ex.getMessage(), ex);
     }
 
     final ScreensaverSettings settings = getContext().getSettings();
@@ -186,7 +187,7 @@ public class WorldClockSaver extends SimpleScreensaver
         }
         catch (AWTException ex)
         {
-          logger.log(Level.FINE, ex.getMessage(), ex);
+          LOGGER.log(Level.FINE, ex.getMessage(), ex);
         }
       }
 
@@ -195,9 +196,10 @@ public class WorldClockSaver extends SimpleScreensaver
     // run the main initialisation sequence in it own thread to make the screen saver look 'responsive'
     Runnable imagesCreatorRunnable = new Runnable()
     {
+      @Override
       public void run()
       {
-        logger.info("loading...");
+        LOGGER.info("loading...");
         // init setting only when there is a valid screen
         while (width <= 0 || height <= 0)
         {
@@ -218,7 +220,7 @@ public class WorldClockSaver extends SimpleScreensaver
 
         // initialise the speed, sleep time used to delay the showing of the next frame (decrease CPU usage)
         String sspeed = settings.getProperty("speed");
-        logger.info("base speed = " + sspeed);
+        LOGGER.log(Level.INFO, "base speed = {0}", sspeed);
         if (sspeed != null && !sspeed.equals(""))
         {
           try
@@ -227,31 +229,31 @@ public class WorldClockSaver extends SimpleScreensaver
           }
           catch (NumberFormatException ex)
           {
-            logger.log(Level.FINE, ex.getMessage(), ex);
+            LOGGER.log(Level.FINE, ex.getMessage(), ex);
           }
         }
-        logger.info("sleep = " + sleep + "ms");
+        LOGGER.log(Level.INFO, "sleep = {0}ms", sleep);
 
         // random or sequencial planes
         if (null != settings.getProperty("random"))
         {
           isRandom = true;
         }
-        logger.info("isRandom: " + isRandom);
+        LOGGER.log(Level.INFO, "isRandom: {0}", isRandom);
 
         // shows current plane and loading plane names
         if (null != settings.getProperty("info"))
         {
           isShowingPlaneInfo = true;
         }
-        logger.info("isShowingPlaneInfo: " + isShowingPlaneInfo);
+        LOGGER.log(Level.INFO, "isShowingPlaneInfo: {0}", isShowingPlaneInfo);
 
         // shows debug info, time between 2 frames
         if (null != settings.getProperty("debug"))
         {
           isDebug = true;
         }
-        logger.info("isDebug: " + isDebug);
+        LOGGER.log(Level.INFO, "isDebug: {0}", isDebug);
         
         // check for special 'effects'
         special = Special.NOTHING;
@@ -267,7 +269,7 @@ public class WorldClockSaver extends SimpleScreensaver
         {
           special = Special.DEBUG;
         }
-        logger.info("special: " + special.toString());
+        LOGGER.log(Level.INFO, "special: {0}", special.toString());
 
         // set the elements location on the board
         board.updateSizeValues(width, height);
@@ -287,7 +289,7 @@ public class WorldClockSaver extends SimpleScreensaver
         renderOffscreenStatic(offScreenStaticGraphics);
         offScreenPainterGraphics.drawImage(offScreenStatic, 0, 0, null);
 
-        logger.info("static board loaded");
+        LOGGER.info("static board loaded");
         isLoaded = true;
         isLoading = false;
         
@@ -306,7 +308,7 @@ public class WorldClockSaver extends SimpleScreensaver
    */
   private void loadConfig(String path)
   {
-    logger.info("path = " + path);
+    LOGGER.log(Level.INFO, "path = {0}", path);
     if (path == null)
     {
       return;
@@ -325,7 +327,7 @@ public class WorldClockSaver extends SimpleScreensaver
     cl.load(path);
 
     java.util.List<Avion> lst = cl.getPlanes();
-    if (lst.size() == 0)
+    if (lst.isEmpty())
     {
       avions = null;
     }
@@ -342,6 +344,7 @@ public class WorldClockSaver extends SimpleScreensaver
    * Paint a frame onto the screen saver graphic
    * @param graphics screen saver graphic
    */
+  @Override
   public void paint(final Graphics graphics)
   {
     // while the static board is not loaded, paint the loading string adding a '.' each iteration
@@ -421,11 +424,11 @@ public class WorldClockSaver extends SimpleScreensaver
     }
     catch (Exception ex)
     {
-      logger.log(Level.WARNING, ex.getMessage(), ex);
+      LOGGER.log(Level.WARNING, ex.getMessage(), ex);
     }
     catch (Error ex)
     {
-      logger.log(Level.WARNING, ex.getMessage(), ex);
+      LOGGER.log(Level.WARNING, ex.getMessage(), ex);
       throw ex;
     }
   }
@@ -758,11 +761,12 @@ public class WorldClockSaver extends SimpleScreensaver
           loadingPlane = nextPlane;
           new Thread(new Runnable()
           {
+            @Override
             public void run()
             {
-              logger.info("loading " + loadingPlane.getName());
+              LOGGER.log(Level.INFO, "loading {0}", loadingPlane.getName());
               loadingPlane.loadImage(width, height);
-              logger.info("loaded " + loadingPlane.getName());
+              LOGGER.log(Level.INFO, "loaded {0}", loadingPlane.getName());
               loadingPlane = null;
               ++nbLoaded;
             }
@@ -781,11 +785,11 @@ public class WorldClockSaver extends SimpleScreensaver
           {
             if (nextPlane.isLoaded())
             {
-              logger.info("using avion = " + nextPlane.getName());
+              LOGGER.log(Level.INFO, "using avion = {0}", nextPlane.getName());
             }
             else
             {
-              logger.info("avion not loaded = " + nextPlane.getName());
+              LOGGER.log(Level.INFO, "avion not loaded = {0}", nextPlane.getName());
             }
           }
         }
@@ -795,7 +799,7 @@ public class WorldClockSaver extends SimpleScreensaver
         // if the current plane is not shown then initialise it position so that it is (shown)
         if (!avion.isShown(width, height))
         {
-          logger.info("init pos avion = " + avion.getName());
+          LOGGER.log(Level.INFO, "init pos avion = {0}", avion.getName());
           avion.initPos(width, height);
         }
         // last but not least: moves the plane
