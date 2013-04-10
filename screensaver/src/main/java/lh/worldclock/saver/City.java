@@ -17,13 +17,13 @@ import java.awt.*;
  */
 public class City
 {
-  private String name;
-  private double latitude;
-  private double longitude;
+  private final String name;
+  private final double latitude;
+  private final double longitude;
 
-  private TimeZone tz;
+  private final TimeZone tz;
   private Calendar cal;
-  private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+  private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
   
   public City(String name, double latitude, double longitude, String tzName)
   {

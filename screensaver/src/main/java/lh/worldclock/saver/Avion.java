@@ -36,7 +36,7 @@ public class Avion
   private int icy = 0;
   private Point baseDirection;
   private URL imageURL;
-  private Point pos = new Point();
+  private final Point pos = new Point();
   private Point dir = new Point();
 
 
@@ -82,7 +82,7 @@ public class Avion
      
      long start = System.currentTimeMillis();
      BufferedImage img = ImageIO.read(imageURL);
-     logger.info("loaded " + name + " = " + (System.currentTimeMillis() - start));
+     logger.log(Level.INFO, "loaded {0} = {1}", new Object[]{name, System.currentTimeMillis() - start});
      
      icx = img.getWidth();
      icy = img.getHeight();
@@ -106,7 +106,7 @@ public class Avion
      gImg.drawImage(img, 0, 0, icx, icy, null);
      gImg.dispose();
 
-     logger.info("scaled " + name + " = " + (System.currentTimeMillis() - start));
+     logger.log(Level.INFO, "scaled {0} = {1}", new Object[]{name, System.currentTimeMillis() - start});
      
      initPos(cx, cy);
    }
@@ -264,7 +264,7 @@ public class Avion
   private boolean randomBool()
   {
     long i = Math.round(Math.random());
-    return i == 0 ? false : true;
+    return i != 0;
   }
   
   public boolean isLoaded()

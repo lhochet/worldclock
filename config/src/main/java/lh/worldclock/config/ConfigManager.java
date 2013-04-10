@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package lh.worldclock.config;
 
 import java.io.File;
@@ -26,7 +22,7 @@ public class ConfigManager
 {
   private static final String JAXB_PACKAGE = Config.class.getPackage().getName();
 
-  private ObjectFactory factory;
+  private final ObjectFactory factory;
   private Config config;
 
   public ConfigManager()

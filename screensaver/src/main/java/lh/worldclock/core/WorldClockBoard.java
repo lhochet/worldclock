@@ -54,7 +54,7 @@ public class WorldClockBoard extends JComponent
 
   private final BufferedImage originalEarthImageDay, originalEarthImageNight;
 
-  private ImageIcon scaledEarthImageDay, scaledEarthImageNight;
+  private final ImageIcon scaledEarthImageDay, scaledEarthImageNight;
 
   // There's no point in persistent storing this. Its content should change with
   // every tick of the clock anyway.
@@ -63,8 +63,8 @@ public class WorldClockBoard extends JComponent
   private int height = 0;
 
   // drawing
-  private int offx = 0; // offset
-  private int offy = 0;
+  private final int offx = 0; // offset
+  private final int offy = 0;
   private int equator = 0;
   private int sunRadius = 6;
   private double xStep = 0.0;
@@ -390,8 +390,8 @@ public void paintComponent(Graphics g)
   {
     if (width == 0) return;
 
-    int x = 0;
-    int y = 0;
+    int x;
+    int y;
 
     int yMinShadow = 0; // top/bottom border of the screen that is in the night
     if (declination > 0)

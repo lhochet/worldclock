@@ -47,6 +47,7 @@ public class WorldClockPanel extends JPanel
     {
       private long last = 0;
 
+      @Override
       public void actionPerformed(ActionEvent e)
       {
         long now = System.currentTimeMillis() / 60000;
@@ -94,7 +95,7 @@ public class WorldClockPanel extends JPanel
   }
 
   @Override
-public void paintComponent(Graphics graphics)
+  public void paintComponent(Graphics graphics)
   {
     board.paintComponent(graphics);
 

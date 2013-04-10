@@ -47,7 +47,7 @@ public class GeonamesWSWrapper
   
   private static final GeonamesWSWrapper instance = new GeonamesWSWrapper();
 
-  private ObjectFactory factory = new ObjectFactory();
+  private final ObjectFactory factory = new ObjectFactory();
   private Geonames geonames = null;
 
   private GeonamesWSWrapper()
