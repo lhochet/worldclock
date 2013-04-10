@@ -49,7 +49,7 @@ public class WorldClockSaver extends SimpleScreensaver
   private Avion[] avions = null;
   private Avion avion = null;
 
-  private java.util.List<City> cities = new java.util.ArrayList<City>(0);
+  private java.util.List<City> cities = new java.util.ArrayList<>(0);
 
   private Component component = null;
   
@@ -166,7 +166,7 @@ public class WorldClockSaver extends SimpleScreensaver
       FileHandler fh = new FileHandler("%h/.worldclocksaver/worldclocksaver.log");
       LOGGER.addHandler(fh);
     }
-    catch (Exception ex)
+    catch (IOException | SecurityException ex)
     {
       LOGGER.log(Level.FINE, ex.getMessage(), ex);
     }

@@ -32,7 +32,7 @@ public class FindCityPanelGeoname extends javax.swing.JPanel
   private class GeonamesTableModel extends AbstractTableModel
   {
 
-    List<Geoname> geonames = new ArrayList<Geoname>();
+    List<Geoname> geonames = new ArrayList<>();
 
     private final String[] columns = new String[]
     {

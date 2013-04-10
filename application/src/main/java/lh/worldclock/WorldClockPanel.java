@@ -37,7 +37,7 @@ public class WorldClockPanel extends JPanel
 
   private int height;
 
-  private java.util.List<City> cities = new java.util.ArrayList<City>(0);
+  private java.util.List<City> cities = new java.util.ArrayList<>(0);
 
   public WorldClockPanel()
   {

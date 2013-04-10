@@ -193,8 +193,8 @@ public class ConfigLoader
 
   }
 
-  private final List<Avion> planes = new ArrayList<Avion>();
-  private final List<City> cities = new ArrayList<City>();
+  private final List<Avion> planes = new ArrayList<>();
+  private final List<City> cities = new ArrayList<>();
   private String filename;
 
 

@@ -30,7 +30,7 @@ import javax.swing.JTextField;
  */
 public class ConfigPanel extends JPanel
 {
-	private ResourceBundle res = ResourceBundle
+	private final ResourceBundle res = ResourceBundle
 			.getBundle("lh/worldclock/worldclock");
 
 	public ConfigPanel()
@@ -54,6 +54,7 @@ public class ConfigPanel extends JPanel
 		btnBrowse.setText("...");
 		btnBrowse.addActionListener(new ActionListener()
 		{
+      @Override
 			public void actionPerformed(ActionEvent e)
 			{
 				btnBrowse_actionPerformed(e);
@@ -64,13 +65,13 @@ public class ConfigPanel extends JPanel
 		this.add(btnBrowse);
 	}
 
-	private JLabel jLabel1 = new JLabel();
+	private final JLabel jLabel1 = new JLabel();
 
-	private FlowLayout flowLayout1 = new FlowLayout();
+	private final FlowLayout flowLayout1 = new FlowLayout();
 
-	private JTextField tfPath = new JTextField();
+	private final JTextField tfPath = new JTextField();
 
-	private JButton btnBrowse = new JButton();
+	private final JButton btnBrowse = new JButton();
 
 	public void btnBrowse_actionPerformed(ActionEvent e)
 	{
