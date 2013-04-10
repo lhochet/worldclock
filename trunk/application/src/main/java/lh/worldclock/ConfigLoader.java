@@ -3,16 +3,19 @@ package lh.worldclock;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -104,14 +107,15 @@ public class ConfigLoader
 			{
 			case C_DOC:
 				{
-					if (localName.equals(PLANES))
-					{
-						cur = C_PLANES;
-					}
-					else if (localName.equals(CITIES))
-					{
-						cur = C_CITIES;
-					}
+          switch (localName)
+          {
+            case PLANES:
+              cur = C_PLANES;
+              break;
+            case CITIES:
+              cur = C_CITIES;
+              break;
+          }
 					break;
 				}
 			case C_PLANES:
@@ -169,7 +173,7 @@ public class ConfigLoader
 
 	}
 
-	List<City> cities = new ArrayList<City>();
+	List<City> cities = new ArrayList<>();
 
 	public void load(String filename)
 	{
@@ -186,7 +190,7 @@ public class ConfigLoader
 			parser.parse(new InputSource(new FileReader(new File(filename))),
 					new ConfigHandler());
 		}
-		catch (Exception ex)
+		catch (ParserConfigurationException | SAXException | IOException ex)
 		{
 			ex.printStackTrace();
 		}
@@ -208,7 +212,7 @@ public class ConfigLoader
 			parser.parse(new InputSource(new BufferedInputStream(conn
 					.getInputStream())), new ConfigHandler());
 		}
-		catch (Exception ex)
+		catch (IOException | ParserConfigurationException | SAXException ex)
 		{
 			ex.printStackTrace();
 		}

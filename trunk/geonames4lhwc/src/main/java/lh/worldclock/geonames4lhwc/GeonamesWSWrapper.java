@@ -86,11 +86,7 @@ public class GeonamesWSWrapper
     {
       load(new URL(sb.toString()).openStream());
     }
-    catch (JAXBException ex)
-    {
-      Logger.getLogger(GeonamesWSWrapper.class.getName()).log(Level.FINE, null, ex);
-    }
-    catch (IOException ex)
+    catch (JAXBException | IOException ex)
     {
       Logger.getLogger(GeonamesWSWrapper.class.getName()).log(Level.FINE, null, ex);
     }

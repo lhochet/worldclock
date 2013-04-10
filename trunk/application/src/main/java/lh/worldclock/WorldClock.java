@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * <p>
@@ -58,10 +59,10 @@ public class WorldClock
     {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
-    catch (Exception e)
+    catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e)
     {
-    // ignore any problems. The program will run fine, even
-    // if the system look and feel can't be used.
+      // ignore any problems. The program will run fine, even
+      // if the system look and feel can't be used.
     }
 
     boolean showWindowOnStart = false;

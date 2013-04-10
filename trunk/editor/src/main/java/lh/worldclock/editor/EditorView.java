@@ -69,36 +69,35 @@ public class EditorView extends FrameView
       public void propertyChange(java.beans.PropertyChangeEvent evt)
       {
         String propertyName = evt.getPropertyName();
-        if ("started".equals(propertyName))
+        switch (propertyName)
         {
-          if (!busyIconTimer.isRunning())
-          {
-            statusAnimationLabel.setIcon(busyIcons[0]);
-            busyIconIndex = 0;
-            busyIconTimer.start();
-          }
-          progressBar.setVisible(true);
-          progressBar.setIndeterminate(true);
-        }
-        else if ("done".equals(propertyName))
-        {
-          busyIconTimer.stop();
-          statusAnimationLabel.setIcon(idleIcon);
-          progressBar.setVisible(false);
-          progressBar.setValue(0);
-        }
-        else if ("message".equals(propertyName))
-        {
-          String text = (String) (evt.getNewValue());
-          statusMessageLabel.setText((text == null) ? "" : text);
-          messageTimer.restart();
-        }
-        else if ("progress".equals(propertyName))
-        {
-          int value = (Integer) (evt.getNewValue());
-          progressBar.setVisible(true);
-          progressBar.setIndeterminate(false);
-          progressBar.setValue(value);
+          case "started":
+            if (!busyIconTimer.isRunning())
+            {
+              statusAnimationLabel.setIcon(busyIcons[0]);
+              busyIconIndex = 0;
+              busyIconTimer.start();
+            }
+            progressBar.setVisible(true);
+            progressBar.setIndeterminate(true);
+            break;
+          case "done":
+            busyIconTimer.stop();
+            statusAnimationLabel.setIcon(idleIcon);
+            progressBar.setVisible(false);
+            progressBar.setValue(0);
+            break;
+          case "message":
+            String text = (String) (evt.getNewValue());
+            statusMessageLabel.setText((text == null) ? "" : text);
+            messageTimer.restart();
+            break;
+          case "progress":
+            int value = (Integer) (evt.getNewValue());
+            progressBar.setVisible(true);
+            progressBar.setIndeterminate(false);
+            progressBar.setValue(value);
+            break;
         }
       }
     });
