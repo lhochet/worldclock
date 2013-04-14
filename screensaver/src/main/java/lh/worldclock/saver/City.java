@@ -50,10 +50,10 @@ public class City
     return longitude;
   }
   
-  public void paint(Graphics g, int cx, int cy, boolean isFullScreen)
+  public void paint(Graphics g, int width, int height, boolean isFullScreen)
   {
-    double cx2 = cx / 2;
-    double cy2 = cy / 2;
+    double cx2 = width / 2;
+    double cy2 = height / 2;
     double lt = latitude * -1;
     int x = (int)(cx2 * longitude / 180 + cx2);
     int y = (int)(cy2 * lt / 90 + cy2);
@@ -63,7 +63,21 @@ public class City
     if (isFullScreen)
     {
       cal = Calendar.getInstance(tz);
-      g.drawString(name + " " + sdf.format(cal.getTime()), x + 3, y + 1);
+      final String time = sdf.format(cal.getTime());
+      final StringBuilder sb = new StringBuilder(name.length() + 1 + time.length());
+      final String stringToDraw = sb.append(name).append(' ').append(time).toString();
+      
+      // basic attempt at repositioning the city string if it goes outside of the window
+      final FontMetrics fm = g.getFontMetrics();
+      final int stringWidth = fm.stringWidth(stringToDraw);     
+      // + 10 to avoid the screen/window edge
+      if (x + 3 + stringWidth + 10> width)
+      {
+        x = x - (x + 25 + stringWidth - width);
+        y = y - 5;
+      }      
+      
+			g.drawString(stringToDraw, x + 3, y + 1);
     }
   }
 
