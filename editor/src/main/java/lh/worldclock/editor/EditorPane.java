@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractCellEditor;
@@ -141,13 +143,13 @@ public class EditorPane extends javax.swing.JPanel
   {
     private String toURLString(String path)
     {
-      if (file == null) return "";
-      if (path == null || path.equals("")) return "";
+      if (path == null) return "";
+      if (path.equals("")) return "";
       
-      File f = new File(file.getParentFile(), path);
+      Path p = Paths.get(path);
       try
       {
-        String ret = f.toURI().toURL().toString();
+        String ret = p.toUri().toURL().toString();
 //        System.out.println("ret = " + ret);
         return ret;
       }
@@ -519,7 +521,7 @@ public class EditorPane extends javax.swing.JPanel
   private final lh.worldclock.config.ConfigManager mgr = new lh.worldclock.config.ConfigManager();
   private final CitiesTableModel citiesModel = new CitiesTableModel();
   private final PlanesTableModel planesModel = new PlanesTableModel();
-  private File file;
+  private Path path;
 
   /** Creates new form EditorPane */
   public EditorPane()
@@ -687,12 +689,12 @@ public class EditorPane extends javax.swing.JPanel
 
   }
 
-  public void openFile(File f)
+  public void openFile(Path path)
   {
     try
     {
-      mgr.load(f);
-      file = f;
+      mgr.load(path);
+      this.path = path;
     }
     catch (JAXBException ex)
     {
@@ -705,19 +707,20 @@ public class EditorPane extends javax.swing.JPanel
 
   void save()
   {
-    if (file == null)
+    if (path == null)
     {
       JFileChooser jfc = new JFileChooser();
       if (jfc.showSaveDialog(EditorApp.getApplication().getMainFrame()) == JFileChooser.APPROVE_OPTION)
       {
-        file = jfc.getSelectedFile();
+        File file = jfc.getSelectedFile();
         if (file == null) return;
+        path = file.toPath();
       }
     }
 
     try
     {
-      mgr.save(file);
+      mgr.save(path);
     }
     catch (JAXBException ex)
     {
