@@ -10,6 +10,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -232,7 +233,11 @@ public class EditorView extends FrameView
       JFileChooser jfc = new JFileChooser();
       if (jfc.showOpenDialog(EditorApp.getApplication().getMainFrame()) == JFileChooser.APPROVE_OPTION)
       {
-        editorPane1.openFile(jfc.getSelectedFile());
+        File file = jfc.getSelectedFile();
+        if (file != null)
+        {
+          editorPane1.openFile(file.toPath());
+        }
       }
 }//GEN-LAST:event_mnuiOpenActionPerformed
 
