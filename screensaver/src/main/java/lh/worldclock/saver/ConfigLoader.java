@@ -8,6 +8,10 @@ import java.util.List;
 import javax.xml.parsers.*;
 
 import java.awt.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
@@ -73,11 +77,21 @@ public class ConfigLoader
     private int getCodeFromString(String string)
     {
       int ret = Avion.NEUTRE;
-//      if (NEUTRAL.equals(string)) ret = Avion.NEUTRE;
-      if (TOP.equals(string)) ret = Avion.HAUT;
-      if (BOTTOM.equals(string)) ret = Avion.BAS;
-      if (LEFT.equals(string)) ret = Avion.GAUCHE;
-      if (RIGHT.equals(string)) ret = Avion.DROITE;
+      switch(string)
+      {
+        case TOP:
+          ret = Avion.HAUT;
+          break;
+        case BOTTOM:
+          ret = Avion.BAS;
+          break;
+        case LEFT:
+          ret = Avion.GAUCHE;
+          break;
+        case RIGHT:
+          ret = Avion.DROITE;
+          break;
+      }
       return ret;
     }
     
@@ -85,11 +99,11 @@ public class ConfigLoader
     {
       try
       {
-        File f = new File(filename);
-        f = new File(f.getParentFile(), imgpath);
-        return f.toURL();
+        Path configFile = Paths.get(filename);
+        Path imageFile = configFile.resolveSibling(imgpath);
+        return imageFile.toUri().toURL();
       }
-      catch (IOException ex)
+      catch (MalformedURLException ex)
       {
         return null;
       }
@@ -114,14 +128,15 @@ public class ConfigLoader
       {
         case C_DOC:
         {
-          if (localName.equals(PLANES))
-          {
+        switch (localName)
+        {
+          case PLANES:
             cur = C_PLANES;
-          }
-          else if (localName.equals(CITIES))
-          {
+            break;
+          case CITIES:
             cur = C_CITIES;
-          }
+            break;
+        }
           break;
         }
         case C_PLANES:
@@ -209,9 +224,9 @@ public class ConfigLoader
       parserFactory.setFeature("http://xml.org/sax/features/namespace-prefixes",true);
       parserFactory.setFeature("http://apache.org/xml/features/continue-after-fatal-error",true);
       SAXParser parser = parserFactory.newSAXParser();
-      parser.parse(new InputSource(new FileReader(new File(filename))), new ConfigHandler());
+      parser.parse(new InputSource(Files.newBufferedReader(Paths.get(filename), Charset.forName("UTF-8"))), new ConfigHandler());
     }
-    catch (Exception ex)
+    catch (IOException | ParserConfigurationException | SAXException ex)
     {
       ex.printStackTrace();
     }

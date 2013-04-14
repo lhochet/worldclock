@@ -1,16 +1,31 @@
 package lh.worldclock.saver;
 
-import java.io.*;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.font.TextLayout;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lh.worldclock.core.WorldClockBoard;
+import org.jdesktop.jdic.screensaver.ScreensaverSettings;
+import org.jdesktop.jdic.screensaver.SimpleScreensaver;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import org.jdesktop.jdic.screensaver.*;
-
-import lh.worldclock.core.*;
-import java.util.logging.*;
-import java.util.*;
-import java.awt.font.*;
 
 /**
  * <p>Title: WorldClockSaver</p>
@@ -49,7 +64,7 @@ public class WorldClockSaver extends SimpleScreensaver
   private Avion[] avions = null;
   private Avion avion = null;
 
-  private java.util.List<City> cities = new java.util.ArrayList<>(0);
+  private List<City> cities = new ArrayList<>(0);
 
   private Component component = null;
   
@@ -309,24 +324,14 @@ public class WorldClockSaver extends SimpleScreensaver
   private void loadConfig(String path)
   {
     LOGGER.log(Level.INFO, "path = {0}", path);
-    if (path == null)
-    {
-      return;
-    }
-    if (path.equals(""))
-    {
-      return;
-    }
-    File f = new File(path);
-    if (!f.exists())
-    {
-      return;
-    }
+    if (path == null) {return;}
+    if (path.equals("")) {return;}
+    if (Files.notExists(Paths.get(path))) {return;}
 
     ConfigLoader cl = new ConfigLoader();
     cl.load(path);
 
-    java.util.List<Avion> lst = cl.getPlanes();
+    List<Avion> lst = cl.getPlanes();
     if (lst.isEmpty())
     {
       avions = null;
@@ -337,7 +342,6 @@ public class WorldClockSaver extends SimpleScreensaver
     }
 
     cities = cl.getCities();
-
   }
 
   /**
