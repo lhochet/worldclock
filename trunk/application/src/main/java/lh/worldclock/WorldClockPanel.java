@@ -3,8 +3,9 @@ package lh.worldclock;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -69,13 +70,9 @@ public class WorldClockPanel extends JPanel
 
   public void loadConfig(String path)
   {
-    if (path == null)
-      return;
-    if (path.equals(""))
-      return;
-    File f = new File(path);
-    if (!f.exists())
-      return;
+    if (path == null) {return;}
+    if (path.equals("")) {return;}
+    if (Files.notExists(Paths.get(path))) {return;}
 
     ConfigLoader cl = new ConfigLoader();
     cl.load(path);
