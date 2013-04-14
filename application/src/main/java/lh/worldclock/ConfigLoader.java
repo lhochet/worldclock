@@ -1,11 +1,13 @@
 package lh.worldclock;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
@@ -179,18 +181,9 @@ public class ConfigLoader
 	{
 		try
 		{
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-			parserFactory.setValidating(false);
-			parserFactory.setNamespaceAware(true);
-			parserFactory.setFeature(
-					"http://xml.org/sax/features/namespace-prefixes", true);
-			parserFactory.setFeature(
-					"http://apache.org/xml/features/continue-after-fatal-error", true);
-			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse(new InputSource(new FileReader(new File(filename))),
-					new ConfigHandler());
+			doLoad(new InputSource(Files.newBufferedReader(Paths.get(filename), Charset.forName("UTF-8"))));
 		}
-		catch (ParserConfigurationException | SAXException | IOException ex)
+		catch (IOException ex)
 		{
 			ex.printStackTrace();
 		}
@@ -198,6 +191,22 @@ public class ConfigLoader
 
 	public void load(URL url)
 	{
+		try
+		{
+      URLConnection conn = url.openConnection();
+      try (InputStream is =conn.getInputStream())
+      {
+        doLoad(new InputSource(new BufferedInputStream(is)));
+      }
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+  
+  private void doLoad(InputSource source)
+  {
 		try
 		{
 			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
@@ -208,15 +217,13 @@ public class ConfigLoader
 			parserFactory.setFeature(
 					"http://apache.org/xml/features/continue-after-fatal-error", true);
 			SAXParser parser = parserFactory.newSAXParser();
-			URLConnection conn = url.openConnection();
-			parser.parse(new InputSource(new BufferedInputStream(conn
-					.getInputStream())), new ConfigHandler());
+			parser.parse(source, new ConfigHandler());
 		}
 		catch (IOException | ParserConfigurationException | SAXException ex)
 		{
 			ex.printStackTrace();
 		}
-	}
+  }
 
 	public List<City> getCities()
 	{

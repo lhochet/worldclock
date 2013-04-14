@@ -1,10 +1,13 @@
 package lh.worldclock;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -42,76 +45,47 @@ public class PropsManager
 	public void load() throws IOException
 	{
 		String homedir = System.getProperty("user.home");
-		File dir = new File(homedir, dirname);
-		File propfile = new File(dir, filename);
+		Path dir = Paths.get(homedir, dirname);
+		Path propfile = dir.resolve(filename);
 		Properties props = new Properties();
-		FileInputStream fis = null;
-		try
+		try (InputStream is = Files.newInputStream(propfile))
 		{
-			fis = new FileInputStream(propfile);
-			props.load(fis);
+			props.load(is);
 		}
 		catch (FileNotFoundException ex)
 		{
 			// No reason to abort program loading for this.
 			System.out.println("Property file was not found: " + ex.getMessage());
 		}
-		finally
-		{
-			if (fis != null)
-			{
-				try
-				{
-					fis.close();
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}
 		configpath = props.getProperty("configpath", null);
 	}
 
 	public void save()
 	{
-		String homedir = System.getProperty("user.home");
-		File dir = new File(homedir, dirname);
-		if (!dir.exists())
-		{
-			dir.mkdirs();
-		}
-		File propfile = new File(dir, filename);
-		Properties props = new Properties();
-		if (configpath != null && !configpath.equals(""))
-		{
-			props.setProperty("configpath", configpath);
-		}
+    try
+    {
+      String homedir = System.getProperty("user.home");
+      Path dir = Paths.get(homedir, dirname);
+      if (Files.notExists(dir))
+      {
+        Files.createDirectories(dir);
+      }
+      Path propfile = dir.resolve(filename);
+      Properties props = new Properties();
+      if (configpath != null && !configpath.equals(""))
+      {
+        props.setProperty("configpath", configpath);
+      }
 
-		FileOutputStream fos = null;
-		try
-		{
-			fos = new FileOutputStream(propfile);
-			props.store(fos, "World Clock Properties");
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}
+      try (OutputStream os = Files.newOutputStream(propfile))
+      {
+        props.store(os, "World Clock Properties");
+      }
+    }
+    catch(IOException ex)
+    {
+      ex.printStackTrace();
+    }
 	}
 
 	public void setConfigPath(String configpath)
