@@ -22,7 +22,7 @@
   - file in the xscreensaver distribution, copied here for convenience:
   - https://jdic.dev.java.net/documentation/incubator/screensaver/xscreensaver-config.txt
 -->
-<screensaver name="worldclocksaver" _label="LH World Clock Saver 0.7">
+<screensaver name="worldclocksaver" _label="LH World Clock Saver 0.8">
   <command arg="-root"/>
   <command arg="-jar worldclocksaver.jar"/>
   <command arg="-class lh.worldclock.saver.WorldClockSaver"/>

@@ -9,7 +9,7 @@
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>worldclocksaver</artifactId>
-  <version>0.7.2-SNAPSHOT</version>
+  <version>0.8-SNAPSHOT</version>
   <name>WorldClock Screensaver</name>
 
   <properties>
