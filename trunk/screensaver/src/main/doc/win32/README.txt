@@ -1,7 +1,4 @@
 -------------------------------------------------------------------------------
-Copyright © 2004 Sun Microsystems, Inc. All rights reserved. Use is
-subject to license terms.
-
 This program is free software; you can redistribute it and/or modify
 it under the terms of the Lesser GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
@@ -23,8 +20,7 @@ SaverBeans Screensaver Pack Windows README
 
 Requirements:
   * Administrator access, to copy screensaver to Windows system directory
-  * Windows ME/NT/2000/XP/2003
-  * Java VM 1.4.2 or higher (Get at http://java.com/)
+  * Java VM 7 or higher (Get at http://java.com/)
 
 To Install:
   * Copy all files in this directory (except for this README) to

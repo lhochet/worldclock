@@ -1,7 +1,4 @@
 -------------------------------------------------------------------------------
-Copyright © 2004 Sun Microsystems, Inc. All rights reserved. Use is
-subject to license terms.
-
 This program is free software; you can redistribute it and/or modify
 it under the terms of the Lesser GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
@@ -27,7 +24,7 @@ Requirements:
     Any version will do - you may need an older version if you don't 
     have glibc2.3; such is the case with Java Desktop System for example.
   * xscreensaver (any version should do, 4-14 and greater is known to work)
-  * Java VM 1.5 Beta or higher (Get at http://java.sun.com/).  
+  * Java 7 or higher (Get at http://java.oracle.com/).  
 
 To Install:
   * Edit Makefile and jdkhome and xscreensaverhome to valid directories
@@ -83,33 +80,29 @@ To Run:
     For a basic example, look for BouncingLine.
 
 Release Notes:
-  * JDK 1.4 support is upcoming in a future release.
-
-  * If it does not work but you get no error, try running bouncingline 
+  * If it does not work but you get no error, try running 
     directly from the commandline and observe the output.
 
   * If you get an error containing:
       libjvm.so: cannot open shared object file: No such file or directory
-    Then the screensaver cannot find the JDK.  Pass -jdkhome as 
-    a parameter, pointing to a valid installation of J2SDK 1.5.0 or 
+    Then the screensaver cannot find the JVM.  Pass -jdkhome as 
+    a parameter, pointing to a valid installation of Java 7 or 
     greater.
 
   * If you get the error:
       Could not find class sun/awt/X11/XEmbeddedFrame
       Exception in thread "main" java.lang.NoClassDefFoundError: 
       sun/awt/X11/XEmbeddedFrame
-    Then you're not using JDK 1.5.  JDK 1.5 is currently required on
-    Linux/Solaris.  See above for how to fix this (most likely with 
+    Then you're not using Java 7. See above for how to fix this (most likely with 
     -jdkhome)
 
   * If you get the error:
       java.lang.UnsupportedClassVersionError ... 
     (unsupported major.minor version)
-    Then you're not using JDK 1.5.  JDK 1.5 is currently required on
-    Linux/Solaris.  See above for how to fix this (most likely with 
+    Then you're not using Java 7. See above for how to fix this (most likely with 
     -jdkhome)
 
-  * If "Bouncing Line" does not appear, try restarting xscreensaver 
+  * If "Worldclocksaver" does not appear, try restarting xscreensaver 
     (or log out and log back in):
       pkill xscreensaver
       xscreensaver -nosplash &
