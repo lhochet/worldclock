@@ -1,11 +1,11 @@
 package lh.worldclock.geonames4lhwc;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,9 +59,9 @@ public class GeonamesWSWrapper
     return instance.doGetGeonames(location, max);
   }
 
-  public static List<Geoname> getGeonamesFromFile(File file)
+  public static List<Geoname> getGeonamesFromPath(Path path)
   {
-    return instance.doGetGeonamesFromFile(file);
+    return instance.doGetGeonamesFromPath(path);
   }
 
 
@@ -71,7 +71,7 @@ public class GeonamesWSWrapper
     sb.append(URL_BASE);
     try
     {
-      sb.append(URLEncoder.encode(location, "UTF8"));
+      sb.append(URLEncoder.encode(location, "UTF-8"));
     }
     catch (UnsupportedEncodingException ex)
     {
@@ -82,9 +82,9 @@ public class GeonamesWSWrapper
     sb.append(URL_STYLE);
     sb.append(URL_MAX_ROWS);
     sb.append(Integer.toString(max));
-    try
+    try(InputStream is = new URL(sb.toString()).openStream())
     {
-      load(new URL(sb.toString()).openStream());
+      load(is);
     }
     catch (JAXBException | IOException ex)
     {
@@ -93,11 +93,11 @@ public class GeonamesWSWrapper
     return getGeonames();
   }
 
-  public List<Geoname> doGetGeonamesFromFile(File file)
+  public List<Geoname> doGetGeonamesFromPath(Path path)
   {
     try
     {
-      load(file);
+      load(path);
     }
     catch (JAXBException ex)
     {
@@ -117,11 +117,11 @@ public class GeonamesWSWrapper
     return ret;
   }
 
-  private void load(File file) throws JAXBException
+  private void load(Path path) throws JAXBException
   {
     JAXBContext jc = JAXBContext.newInstance(JAXB_PACKAGE);
     Unmarshaller u = jc.createUnmarshaller();
-    geonames = (Geonames) u.unmarshal(file);
+    geonames = (Geonames) u.unmarshal(path.toFile());
   }
 
   private void load(InputStream is) throws JAXBException
