@@ -1,7 +1,7 @@
 package lh.worldclock.config;
 
-import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -31,11 +31,11 @@ public class ConfigManager
     config = factory.createConfig();
   }
 
-  public void load(File file) throws JAXBException
+  public void load(Path path) throws JAXBException
   {
     JAXBContext jc = JAXBContext.newInstance(JAXB_PACKAGE);
     Unmarshaller u = jc.createUnmarshaller();
-    config = (Config)u.unmarshal(file);
+    config = (Config)u.unmarshal(path.toFile());
   }
 
   public void load(URL url) throws JAXBException
@@ -77,12 +77,12 @@ public class ConfigManager
     return factory.createPlane();
   }
 
-  public void save(File file) throws JAXBException
+  public void save(Path path) throws JAXBException
   {
     JAXBContext jc = JAXBContext.newInstance(JAXB_PACKAGE);
     Marshaller m = jc.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.marshal(config, file);
+    m.marshal(config, path.toFile());
   }
 
 }
