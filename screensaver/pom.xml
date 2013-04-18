@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.7</version>
+    <version>0.7-SNAPSHOT</version>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>worldclocksaver</artifactId>
-  <version>0.8</version>
+  <version>0.8-SNAPSHOT</version>
   <name>WorldClock Screensaver</name>
 
   <properties>
@@ -64,13 +65,13 @@
             <phase>prepare-package</phase>
             <configuration>
               <tasks>
-                <taskdef name="foreachscreensaver" classname="org.jdesktop.jdic.screensaver.autogen.ForEachScreensaver" classpath="${saverbeans-lib-path}/saverbeans-ant.jar" />
+                <taskdef name="foreachscreensaver" classname="org.jdesktop.jdic.screensaver.autogen.ForEachScreensaver" classpath="${saverbeans-lib-path}/saverbeans-ant.jar"/>
                 
-                <mkdir dir="${project.build.directory}/native-tmp/unix" />
+                <mkdir dir="${project.build.directory}/native-tmp/unix"/>
                 <foreachscreensaver confDir="src/main/conf" outDir="${project.build.directory}/native-tmp/unix" os="unix" />
                 
-                <mkdir dir="${project.build.directory}/native-tmp/win32" />
-                <foreachscreensaver confDir="src/main/conf" outDir="${project.build.directory}/native-tmp/win32" os="win32" />
+                <mkdir dir="${project.build.directory}/native-tmp/win32"/>
+                <foreachscreensaver confDir="src/main/conf" outDir="${project.build.directory}/native-tmp/win32" os="win32"/>
               </tasks>
             </configuration>
             <goals>
@@ -82,16 +83,26 @@
             <phase>package</phase>
             <configuration>
               <tasks>
-                <taskdef name="makewin32installscript" classname="org.jdesktop.jdic.screensaver.autogen.NsiGeneratorTask" classpath="${saverbeans-lib-path}/saverbeans-ant.jar" />
+                <taskdef name="makewin32installscript" classname="org.jdesktop.jdic.screensaver.autogen.NsiGeneratorTask" classpath="${saverbeans-lib-path}/saverbeans-ant.jar"/>
                 
-                <mkdir dir="${project.build.directory}/native-tmp/win32-installer" />
+                <mkdir dir="${project.build.directory}/native-tmp/win32-installer"/>
                 
-                <makewin32installscript productName="${project.name}" productVersion="${project.version}" productPublisher="${project.organization.name}" productWebSite="${project.organization.url}" licenseFile="${basedir}/COPYING" outputFilename="${project.build.directory}/dist/${project.build.finalName}-setup.exe" saverbeansSdkPath="${saverbeans-lib-path}" outFile="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi" jarDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32" scrDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32">
-                  <fileset dir="src/main/conf" includes="*.xml" />
+                <makewin32installscript
+                  productName="${project.name}"
+                  productVersion="${project.version}"
+                  productPublisher="${project.organization.name}"
+                  productWebSite="${project.organization.url}"
+                  licenseFile="${basedir}/COPYING"
+                  outputFilename="${project.build.directory}/dist/${project.build.finalName}-setup.exe"
+                  saverbeansSdkPath="${saverbeans-lib-path}"
+                  outFile="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi"
+                  jarDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32"
+                  scrDir="${project.build.directory}/native-tmp/${project.build.finalName}-win32">
+                  <fileset dir="src/main/conf" includes="*.xml"/>
                 </makewin32installscript>
                 
                 <exec executable="${nsis-path}/makensis.exe" failonerror="true">
-                  <arg line="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi" />
+                  <arg line="${project.build.directory}/native-tmp/win32-installer/${project.build.finalName}.nsi"/>
                 </exec>
               </tasks>
             </configuration>
@@ -111,7 +122,7 @@
           <classpathScope>compile</classpathScope>
           <arguments>
             <argument>-classpath</argument>
-            <classpath />
+            <classpath/>
             <argument>org.jdesktop.jdic.screensaver.ScreensaverFrame</argument>
             <argument>lh.worldclock.saver.WorldClockSaver</argument>
           </arguments>
