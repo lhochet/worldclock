@@ -52,6 +52,6 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn</connection>
+    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn/trunk</connection>
   </scm>
 </project>
