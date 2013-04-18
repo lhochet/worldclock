@@ -5,7 +5,7 @@
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   
@@ -13,6 +13,6 @@
   <artifactId>panel</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Panel</name>
-  <version>0.7</version>
+  <version>0.8-SNAPSHOT</version>
     
 </project>

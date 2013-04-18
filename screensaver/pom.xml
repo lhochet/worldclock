@@ -4,11 +4,11 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>worldclocksaver</artifactId>
-  <version>0.8</version>
+  <version>0.9-SNAPSHOT</version>
   <name>WorldClock Screensaver</name>
 
   <properties>
