@@ -37,4 +37,21 @@
     <module>editor</module>
     <module>screensaver</module>
   </modules>
+  
+  <distributionManagement>
+    <repository>
+      <id>local-releases</id>
+      <name>Release repository</name>
+      <url>http://localhost:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>local-snapshots</id>
+      <name>SNAPSHOTs repository</name>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <scm>
+    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn</connection>
+  </scm>
 </project>
