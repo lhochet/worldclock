@@ -10,7 +10,7 @@
     <url>http://worldclock-application.java.net/</url>
   </organization>
   
-  <version>0.7-SNAPSHOT</version>
+  <version>0.7</version>
   <name>Worldclock Application Java.net project</name>
   <description>Worldclock Application Java.net project</description>
     
@@ -52,6 +52,6 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn</connection>
+    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn/tags/worldclock-application-parent-0.7</connection>
   </scm>
 </project>
