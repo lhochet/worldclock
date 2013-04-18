@@ -5,20 +5,20 @@
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>application</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Application</name>
-  <version>0.8-SNAPSHOT</version>
+  <version>0.7-SNAPSHOT</version>
   
   <dependencies>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>panel</artifactId>
-      <version>0.8-SNAPSHOT</version>
+      <version>0.7-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
@@ -67,7 +67,7 @@
           <classpathScope>compile</classpathScope>
           <arguments>
             <argument>-classpath</argument>
-            <classpath />
+            <classpath/>
             <argument>lh.worldclock.WorldClock</argument>
           </arguments>
         </configuration>
@@ -137,7 +137,7 @@
                 <configuration>
                   <tasks>                
                     <exec executable="${nsis-path}/makensis.exe" failonerror="true">
-                      <arg line="src/main/nsi/worldclock.nsi" />
+                      <arg line="src/main/nsi/worldclock.nsi"/>
                     </exec>
                   </tasks>
                 </configuration>
