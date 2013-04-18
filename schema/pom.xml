@@ -4,12 +4,12 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
   </parent>
   
   <groupId>lh.worldclock</groupId>
   <artifactId>schema</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>WorldClock Schema</name>
   
   <build>
