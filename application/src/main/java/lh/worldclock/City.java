@@ -3,10 +3,10 @@ package lh.worldclock;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * <p>
@@ -26,11 +26,12 @@ import java.util.TimeZone;
  */
 public class City
 {
-	private final TimeZone tz;
+//	private final TimeZone tz;
 
-	private final Calendar cal;
+//	private final Calendar cal;
 
-	private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//	private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+  private final DateTimeFormatter formatter;
 
 	private final String name;
 
@@ -56,9 +57,10 @@ public class City
 		this.latitude = latitude;
 		this.longitude = longitude;
 
-		tz = TimeZone.getTimeZone(tzName);
-		cal = Calendar.getInstance(tz);
-		sdf.setTimeZone(tz);
+//		tz = TimeZone.getTimeZone(tzName);
+//		cal = Calendar.getInstance(tz);
+//		sdf.setTimeZone(tz);
+    formatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of(tzName));
 	}
 
 	/**
@@ -117,8 +119,9 @@ public class City
 		g.fillOval(x - 1, y - 1, 3, 3);
 		if (isFullScreen)
 		{
-      cal.setTime(new Date());
-      final String time = sdf.format(cal.getTime());
+//      cal.setTime(new Date());
+//      final String time = sdf.format(cal.getTime());
+      final String time = formatter.format(Instant.now());
       final StringBuilder sb = new StringBuilder(name.length() + 1 + time.length());
       final String stringToDraw = sb.append(name).append(' ').append(time).toString();
       

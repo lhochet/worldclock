@@ -1,9 +1,10 @@
 package lh.worldclock.saver;
 
-import java.text.*;
-import java.util.*;
 
 import java.awt.*;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * <p>Title: City</p>
@@ -21,18 +22,20 @@ public class City
   private final double latitude;
   private final double longitude;
 
-  private final TimeZone tz;
-  private Calendar cal;
-  private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//  private final TimeZone tz;
+//  private Calendar cal;
+//  private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+  private final DateTimeFormatter formatter;
   
   public City(String name, double latitude, double longitude, String tzName)
   {
     this.name = name;
     this.latitude = latitude;
     this.longitude = longitude;
-    tz = TimeZone.getTimeZone(tzName);
-    sdf.setTimeZone(tz);
-    cal = Calendar.getInstance(tz);
+//    tz = TimeZone.getTimeZone(tzName);
+//    sdf.setTimeZone(tz);
+//    cal = Calendar.getInstance(tz);
+    formatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of(tzName));
   }
   
   public String getName()
@@ -62,8 +65,9 @@ public class City
     g.fillOval(x - 1, y - 1, 3, 3);    
     if (isFullScreen)
     {
-      cal = Calendar.getInstance(tz);
-      final String time = sdf.format(cal.getTime());
+//      cal = Calendar.getInstance(tz);
+//      final String time = sdf.format(cal.getTime());
+      final String time = formatter.format(Instant.now());
       final StringBuilder sb = new StringBuilder(name.length() + 1 + time.length());
       final String stringToDraw = sb.append(name).append(' ').append(time).toString();
       

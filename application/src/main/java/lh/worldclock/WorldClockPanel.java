@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -46,13 +49,17 @@ public class WorldClockPanel extends JPanel
 
     timer = new javax.swing.Timer(250, new ActionListener()
     {
-      private long last = 0;
+//      private long last = 0;
+      private final Clock minuteClock = Clock.tickMinutes(ZoneId.systemDefault());
+      private Instant last = Instant.EPOCH;
 
       @Override
       public void actionPerformed(ActionEvent e)
       {
-        long now = System.currentTimeMillis() / 60000;
-        if (now > last)
+//        long now = System.currentTimeMillis() / 60000;
+        Instant now = minuteClock.instant();
+//        if (now > last)
+        if (now.isAfter(last))
         {
           board.updateTimeValues();
           repaint();
