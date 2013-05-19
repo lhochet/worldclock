@@ -19,8 +19,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -268,13 +268,14 @@ public class WorldClockBoard extends JComponent
   public void updateTimeValues()
   {
     // time
-    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-    int day = cal.get(Calendar.DAY_OF_MONTH);
-    int month = cal.get(Calendar.MONTH) + 1;
-    int year = cal.get(Calendar.YEAR);
-    int hours = cal.get(Calendar.HOUR_OF_DAY);
-    int minutes = cal.get(Calendar.MINUTE);
-    int seconds = cal.get(Calendar.SECOND);
+    OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
+//    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+    int day = now.getDayOfMonth(); //cal.get(Calendar.DAY_OF_MONTH);
+    int month = now.getMonthValue(); //cal.get(Calendar.MONTH) + 1;
+    int year = now.getYear(); //cal.get(Calendar.YEAR);
+    int hours = now.getHour(); //cal.get(Calendar.HOUR_OF_DAY);
+    int minutes = now.getMinute(); //cal.get(Calendar.MINUTE);
+    int seconds = now.getSecond(); //cal.get(Calendar.SECOND);
 
     double decimalHours = 1.0 * hours + minutes / 60.0 + seconds / 3600.0;
 
@@ -393,7 +394,7 @@ public void paintComponent(Graphics g)
     int x;
     int y;
 
-    int yMinShadow = 0; // top/bottom border of the screen that is in the night
+    int yMinShadow; // top/bottom border of the screen that is in the night
     if (declination > 0)
     {
       yMinShadow = height;

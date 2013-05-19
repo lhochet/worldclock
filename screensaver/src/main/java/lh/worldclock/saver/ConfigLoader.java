@@ -53,15 +53,18 @@ public class ConfigLoader
   private static final String LEFT = "gauche";
   private static final String RIGHT = "droite";
 
-  private static final int C_DOC = 0;
-  private static final int C_PLANES = 1;
-  private static final int C_PLANE = 2;
-  private static final int C_CITIES = 3;
-  private static final int C_CITY = 4;
+  private enum CurrentElement
+  {
+    DOCUMENT,
+    PLANES,
+    PLANE,
+    CITIES,
+    CITY
+  }
 
   private class ConfigHandler extends DefaultHandler
   {
-    private int cur = C_DOC;
+		private CurrentElement current = CurrentElement.DOCUMENT;
     private String name;
     private int horizontal;
     private int vertical;
@@ -124,26 +127,26 @@ public class ConfigLoader
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
     {
-      switch (cur)
+      switch (current)
       {
-        case C_DOC:
+        case DOCUMENT:
         {
         switch (localName)
         {
           case PLANES:
-            cur = C_PLANES;
+            current = CurrentElement.PLANES;
             break;
           case CITIES:
-            cur = C_CITIES;
+            current = CurrentElement.CITIES;
             break;
         }
           break;
         }
-        case C_PLANES:
+        case PLANES:
         {
           if (localName.equals(PLANE))
           {
-            cur = C_PLANE;
+            current = CurrentElement.PLANE;
             name = attributes.getValue(NAME);
             horizontal = getCodeFromString(attributes.getValue(HORIZONTAL));
             vertical = getCodeFromString(attributes.getValue(VERTICAL));
@@ -157,11 +160,11 @@ public class ConfigLoader
           }
           break;
         }
-        case C_CITIES:
+        case CITIES:
         {
           if (localName.equals(CITY))
           {
-            cur = C_CITY;
+            current = CurrentElement.CITY;
             cityName = attributes.getValue(NAME);
             latitude = getDoubleFromString(attributes.getValue(LATITUDE));
             longitude = getDoubleFromString(attributes.getValue(LONGITUDE));
@@ -181,23 +184,22 @@ public class ConfigLoader
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
-      System.out.println("end localName="+localName);
-      switch (cur)
+      switch (current)
       {
-        case C_PLANE:
-          cur = C_PLANES;
+        case PLANE:
+          current = CurrentElement.PLANES;
           break;
-        case C_PLANES:
-          cur = C_DOC;
+        case PLANES:
+          current = CurrentElement.DOCUMENT;
           break;
-        case C_CITY:
-          cur = C_CITIES;
+        case CITY:
+          current = CurrentElement.CITIES;
           break;
-        case C_CITIES:
-          cur = C_DOC;
+        case CITIES:
+          current = CurrentElement.DOCUMENT;
           break;
         default:
-          cur = C_DOC;
+          current = CurrentElement.DOCUMENT;
       }
     }
 

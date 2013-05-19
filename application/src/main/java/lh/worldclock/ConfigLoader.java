@@ -64,20 +64,20 @@ public class ConfigLoader
 	// private static final String BOTTOM = "bas";
 	// private static final String LEFT = "gauche";
 	// private static final String RIGHT = "droite";
+  
+  private enum CurrentElement
+  {
+    DOCUMENT,
+    PLANES,
+    PLANE,
+    CITIES,
+    CITY
+  }
 
-	private static final int C_DOC = 0;
-
-	private static final int C_PLANES = 1;
-
-	private static final int C_PLANE = 2;
-
-	private static final int C_CITIES = 3;
-
-	private static final int C_CITY = 4;
 
 	class ConfigHandler extends DefaultHandler
 	{
-		private int cur = C_DOC;
+		private CurrentElement current = CurrentElement.DOCUMENT;
 
 		private City city;
 
@@ -105,65 +105,65 @@ public class ConfigLoader
 		public void startElement(String uri, String localName, String qName,
 				Attributes attributes) 
 		{
-			switch (cur)
+			switch (current)
 			{
-			case C_DOC:
-				{
-          switch (localName)
+        case DOCUMENT:
           {
-            case PLANES:
-              cur = C_PLANES;
-              break;
-            case CITIES:
-              cur = C_CITIES;
-              break;
+            switch (localName)
+            {
+              case PLANES:
+                current = CurrentElement.PLANES;
+                break;
+              case CITIES:
+                current = CurrentElement.CITIES;
+                break;
+            }
+            break;
           }
-					break;
-				}
-			case C_PLANES:
-				{
-					if (localName.equals(PLANE))
-					{
-						cur = C_PLANE;
-					}
-					break;
-				}
-			case C_CITIES:
-				{
-					if (localName.equals(CITY))
-					{
-						cur = C_CITY;
-						cityName = attributes.getValue(NAME);
-						latitude = getDoubleFromString(attributes.getValue(LATITUDE));
-						longitude = getDoubleFromString(attributes.getValue(LONGITUDE));
-						timezone = attributes.getValue(TIMEZONE);
-						if (cityName != null && !cityName.equals(""))
-						{
-							city = new City(cityName, latitude, longitude, timezone);
-							cities.add(city);
-						}
-					}
-					break;
-				}
-			default:
-			}
+        case PLANES:
+          {
+            if (localName.equals(PLANE))
+            {
+              current = CurrentElement.PLANE;
+            }
+            break;
+          }
+        case CITIES:
+          {
+            if (localName.equals(CITY))
+            {
+              current = CurrentElement.CITY;
+              cityName = attributes.getValue(NAME);
+              latitude = getDoubleFromString(attributes.getValue(LATITUDE));
+              longitude = getDoubleFromString(attributes.getValue(LONGITUDE));
+              timezone = attributes.getValue(TIMEZONE);
+              if (cityName != null && !cityName.equals(""))
+              {
+                city = new City(cityName, latitude, longitude, timezone);
+                cities.add(city);
+              }
+            }
+            break;
+          }
+        default:
+      }
 		}
 
 		@Override
 		public void endElement(String uri, String localName, String qName)
 		{
-			switch (cur)
+			switch (current)
 			{
-				case C_PLANE:
-					cur = C_PLANES;
+				case PLANE:
+					current = CurrentElement.PLANES;
 					break;
 					
-				case C_CITY:
-					cur = C_CITIES;
+				case CITY:
+					current = CurrentElement.CITIES;
 					break;
 					
 				default:
-					cur = C_DOC;
+					current = CurrentElement.DOCUMENT;
 			}
 		}
 
