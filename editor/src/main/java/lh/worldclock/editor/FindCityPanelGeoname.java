@@ -228,15 +228,10 @@ public class FindCityPanelGeoname extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnFindActionPerformed
       // TODO add your handling code here:
       setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      SwingUtilities.invokeLater(new Runnable()
+      SwingUtilities.invokeLater(() ->
       {
-
-        @Override
-        public void run()
-        {
-          model.update(GeonamesWSWrapper.getGeonames(tfCity.getText(), (Integer) spMax.getValue()));
-          setCursor(Cursor.getDefaultCursor());
-        }
+        model.update(GeonamesWSWrapper.getGeonames(tfCity.getText(), (Integer) spMax.getValue()));
+        setCursor(Cursor.getDefaultCursor());
       });
 
     }//GEN-LAST:event_btnFindActionPerformed
@@ -244,14 +239,9 @@ public class FindCityPanelGeoname extends javax.swing.JPanel
     private void tfCityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCityActionPerformed
     {//GEN-HEADEREND:event_tfCityActionPerformed
       // TODO add your handling code here:
-      SwingUtilities.invokeLater(new Runnable()
+      SwingUtilities.invokeLater(() ->
       {
-
-        @Override
-        public void run()
-        {
-          btnFind.doClick();
-        }
+        btnFind.doClick();
       });
 
     }//GEN-LAST:event_tfCityActionPerformed

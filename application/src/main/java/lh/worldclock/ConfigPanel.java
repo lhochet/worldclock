@@ -52,14 +52,10 @@ public class ConfigPanel extends JPanel
 		flowLayout1.setAlignment(FlowLayout.LEFT);
 		tfPath.setColumns(30);
 		btnBrowse.setText("...");
-		btnBrowse.addActionListener(new ActionListener()
-		{
-      @Override
-			public void actionPerformed(ActionEvent e)
-			{
-				btnBrowse_actionPerformed(e);
-			}
-		});
+		btnBrowse.addActionListener((ActionEvent e) ->
+    {
+      btnBrowse_actionPerformed(e);
+    });
 		this.add(jLabel1);
 		this.add(tfPath);
 		this.add(btnBrowse);

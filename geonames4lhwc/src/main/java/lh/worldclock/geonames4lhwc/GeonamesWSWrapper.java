@@ -23,15 +23,14 @@ public class GeonamesWSWrapper
   {
     try
     {
-//      for (Geoname g : getGeonamesFromFile(new File("geonames.xml")))
-      for (Geoname g : getGeonames("Paris", 20))
+      getGeonames("Paris", 20).stream().forEach((g) ->
       {
         System.out.println("name: " + g.getName());
         System.out.println("lat: " + g.getLat());
         System.out.println("lng: " + g.getLng());
         System.out.println("country: " + g.getCountryName());
         System.out.println("timezone: " + g.getTimezone());
-      }
+     });
     }
     catch (Exception ex)
     {

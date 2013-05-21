@@ -102,11 +102,10 @@ public class WorldClockPanel extends JPanel
   public void paintComponent(Graphics graphics)
   {
     board.paintComponent(graphics);
-
-    for (City city : cities)
+    cities.stream().forEach((city) ->
     {
       city.paint(graphics, width, height, true);
-    }
+    });
   }
 
   public void updateSize(int newWidth, int newHeight)

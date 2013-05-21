@@ -9,7 +9,6 @@ import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.Timer;
 import javax.swing.Icon;
@@ -32,14 +31,9 @@ public class EditorView extends FrameView
     // status bar initialization - message timeout, idle icon and busy animation, etc
     ResourceMap resourceMap = getResourceMap();
     int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
-    messageTimer = new Timer(messageTimeout, new ActionListener()
+    messageTimer = new Timer(messageTimeout, (ActionEvent e) ->
     {
-
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        statusMessageLabel.setText("");
-      }
+      statusMessageLabel.setText("");
     });
     messageTimer.setRepeats(false);
     int busyAnimationRate = resourceMap.getInteger("StatusBar.busyAnimationRate");
@@ -47,15 +41,10 @@ public class EditorView extends FrameView
     {
       busyIcons[i] = resourceMap.getIcon("StatusBar.busyIcons[" + i + "]");
     }
-    busyIconTimer = new Timer(busyAnimationRate, new ActionListener()
+    busyIconTimer = new Timer(busyAnimationRate, (ActionEvent e) ->
     {
-
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        busyIconIndex = (busyIconIndex + 1) % busyIcons.length;
-        statusAnimationLabel.setIcon(busyIcons[busyIconIndex]);
-      }
+      busyIconIndex = (busyIconIndex + 1) % busyIcons.length;
+      statusAnimationLabel.setIcon(busyIcons[busyIconIndex]);
     });
     idleIcon = resourceMap.getIcon("StatusBar.idleIcon");
     statusAnimationLabel.setIcon(idleIcon);
@@ -63,43 +52,38 @@ public class EditorView extends FrameView
 
     // connecting action tasks to status bar via TaskMonitor
     TaskMonitor taskMonitor = new TaskMonitor(getApplication().getContext());
-    taskMonitor.addPropertyChangeListener(new java.beans.PropertyChangeListener()
+    taskMonitor.addPropertyChangeListener((java.beans.PropertyChangeEvent evt) ->
     {
-
-      @Override
-      public void propertyChange(java.beans.PropertyChangeEvent evt)
+      String propertyName = evt.getPropertyName();
+      switch (propertyName)
       {
-        String propertyName = evt.getPropertyName();
-        switch (propertyName)
-        {
-          case "started":
-            if (!busyIconTimer.isRunning())
-            {
-              statusAnimationLabel.setIcon(busyIcons[0]);
-              busyIconIndex = 0;
-              busyIconTimer.start();
-            }
-            progressBar.setVisible(true);
-            progressBar.setIndeterminate(true);
-            break;
-          case "done":
-            busyIconTimer.stop();
-            statusAnimationLabel.setIcon(idleIcon);
-            progressBar.setVisible(false);
-            progressBar.setValue(0);
-            break;
-          case "message":
-            String text = (String) (evt.getNewValue());
-            statusMessageLabel.setText((text == null) ? "" : text);
-            messageTimer.restart();
-            break;
-          case "progress":
-            int value = (Integer) (evt.getNewValue());
-            progressBar.setVisible(true);
-            progressBar.setIndeterminate(false);
-            progressBar.setValue(value);
-            break;
-        }
+        case "started":
+          if (!busyIconTimer.isRunning())
+          {
+            statusAnimationLabel.setIcon(busyIcons[0]);
+            busyIconIndex = 0;
+            busyIconTimer.start();
+          }
+          progressBar.setVisible(true);
+          progressBar.setIndeterminate(true);
+          break;
+        case "done":
+          busyIconTimer.stop();
+          statusAnimationLabel.setIcon(idleIcon);
+          progressBar.setVisible(false);
+          progressBar.setValue(0);
+          break;
+        case "message":
+          String text = (String) (evt.getNewValue());
+          statusMessageLabel.setText((text == null) ? "" : text);
+          messageTimer.restart();
+          break;
+        case "progress":
+          int value = (Integer) (evt.getNewValue());
+          progressBar.setVisible(true);
+          progressBar.setIndeterminate(false);
+          progressBar.setValue(value);
+          break;
       }
     });
   }

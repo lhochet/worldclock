@@ -208,109 +208,104 @@ public class WorldClockSaver extends SimpleScreensaver
     });
 
     // run the main initialisation sequence in it own thread to make the screen saver look 'responsive'
-    Runnable imagesCreatorRunnable = new Runnable()
+    Runnable imagesCreatorRunnable = () ->
     {
-      @Override
-      public void run()
+      LOGGER.info("loading...");
+      // init setting only when there is a valid screen
+      while (width <= 0 || height <= 0)
       {
-        LOGGER.info("loading...");
-        // init setting only when there is a valid screen
-        while (width <= 0 || height <= 0)
+        width = component.getWidth();
+        height = component.getHeight();
+
+        try
         {
-          width = component.getWidth();
-          height = component.getHeight();
-
-          try
-          {
-            Thread.sleep(25);
-          }
-          catch (InterruptedException ex)
-          {
-          }
+          Thread.sleep(25);
         }
-
-        // load the config file
-        loadConfig(settings.getProperty("planespath"));
-
-        // initialise the speed, sleep time used to delay the showing of the next frame (decrease CPU usage)
-        String sspeed = settings.getProperty("speed");
-        LOGGER.log(Level.INFO, "base speed = {0}", sspeed);
-        if (sspeed != null && !sspeed.equals(""))
+        catch (InterruptedException ex)
         {
-          try
-          {
-            sleep = Integer.parseInt(sspeed);
-          }
-          catch (NumberFormatException ex)
-          {
-            LOGGER.log(Level.FINE, ex.getMessage(), ex);
-          }
         }
-        LOGGER.log(Level.INFO, "sleep = {0}ms", sleep);
-
-        // random or sequencial planes
-        if (null != settings.getProperty("random"))
-        {
-          isRandom = true;
-        }
-        LOGGER.log(Level.INFO, "isRandom: {0}", isRandom);
-
-        // shows current plane and loading plane names
-        if (null != settings.getProperty("info"))
-        {
-          isShowingPlaneInfo = true;
-        }
-        LOGGER.log(Level.INFO, "isShowingPlaneInfo: {0}", isShowingPlaneInfo);
-
-        // shows debug info, time between 2 frames
-        if (null != settings.getProperty("debug"))
-        {
-          isDebug = true;
-        }
-        LOGGER.log(Level.INFO, "isDebug: {0}", isDebug);
-        
-        // check for special 'effects'
-        special = Special.NOTHING;
-        if (null != settings.getProperty("xmas"))
-        {
-          special = Special.XMAS;
-        }
-        else if (null != settings.getProperty("stpaddy"))
-        {
-          special = Special.STPADDY;
-        }
-        else if (null != settings.getProperty("debugshadow"))
-        {
-          special = Special.DEBUG;
-        }
-        LOGGER.log(Level.INFO, "special: {0}", special.toString());
-
-        // set the elements location on the board
-        board.updateSizeValues(width, height);
-
-        // board
-        offScreenBoard = getContext().getComponent().createImage(width, height);
-        offScreenBoardGraphics = offScreenBoard.getGraphics();
-        board.updateTimeValues();
-        board.paintComponent(offScreenBoardGraphics);
-        // main
-        offScreenStatic = getContext().getComponent().createImage(width, height);
-        offScreenStaticGraphics = offScreenStatic.getGraphics();
-        // painter
-        offScreenPainter = getContext().getComponent().createImage(width, height);
-        offScreenPainterGraphics = (Graphics2D)offScreenPainter.getGraphics();
-
-        renderOffscreenStatic(offScreenStaticGraphics);
-        offScreenPainterGraphics.drawImage(offScreenStatic, 0, 0, null);
-
-        LOGGER.info("static board loaded");
-        isLoaded = true;
-        isLoading = false;
-        
-        Thread asynchRendererThread = new Thread(asynchRenderer);
-        asynchRendererThread.start();
-
       }
+
+      // load the config file
+      loadConfig(settings.getProperty("planespath"));
+
+      // initialise the speed, sleep time used to delay the showing of the next frame (decrease CPU usage)
+      String sspeed = settings.getProperty("speed");
+      LOGGER.log(Level.INFO, "base speed = {0}", sspeed);
+      if (sspeed != null && !sspeed.equals(""))
+      {
+        try
+        {
+          sleep = Integer.parseInt(sspeed);
+        }
+        catch (NumberFormatException ex)
+        {
+          LOGGER.log(Level.FINE, ex.getMessage(), ex);
+        }
+      }
+      LOGGER.log(Level.INFO, "sleep = {0}ms", sleep);
+
+      // random or sequencial planes
+      if (null != settings.getProperty("random"))
+      {
+        isRandom = true;
+      }
+      LOGGER.log(Level.INFO, "isRandom: {0}", isRandom);
+
+      // shows current plane and loading plane names
+      if (null != settings.getProperty("info"))
+      {
+        isShowingPlaneInfo = true;
+      }
+      LOGGER.log(Level.INFO, "isShowingPlaneInfo: {0}", isShowingPlaneInfo);
+
+      // shows debug info, time between 2 frames
+      if (null != settings.getProperty("debug"))
+      {
+        isDebug = true;
+      }
+      LOGGER.log(Level.INFO, "isDebug: {0}", isDebug);
+      
+      // check for special 'effects'
+      special = Special.NOTHING;
+      if (null != settings.getProperty("xmas"))
+      {
+        special = Special.XMAS;
+      }
+      else if (null != settings.getProperty("stpaddy"))
+      {
+        special = Special.STPADDY;
+      }
+      else if (null != settings.getProperty("debugshadow"))
+      {
+        special = Special.DEBUG;
+      }
+      LOGGER.log(Level.INFO, "special: {0}", special.toString());
+
+      // set the elements location on the board
+      board.updateSizeValues(width, height);
+
+      // board
+      offScreenBoard = getContext().getComponent().createImage(width, height);
+      offScreenBoardGraphics = offScreenBoard.getGraphics();
+      board.updateTimeValues();
+      board.paintComponent(offScreenBoardGraphics);
+      // main
+      offScreenStatic = getContext().getComponent().createImage(width, height);
+      offScreenStaticGraphics = offScreenStatic.getGraphics();
+      // painter
+      offScreenPainter = getContext().getComponent().createImage(width, height);
+      offScreenPainterGraphics = (Graphics2D)offScreenPainter.getGraphics();
+
+      renderOffscreenStatic(offScreenStaticGraphics);
+      offScreenPainterGraphics.drawImage(offScreenStatic, 0, 0, null);
+
+      LOGGER.info("static board loaded");
+      isLoaded = true;
+      isLoading = false;
+      
+      Thread asynchRendererThread = new Thread(asynchRenderer);
+      asynchRendererThread.start();
     };
     Thread staticBoardLoader = new Thread(imagesCreatorRunnable);
     staticBoardLoader.start();
@@ -608,11 +603,10 @@ public class WorldClockSaver extends SimpleScreensaver
     {
       g.drawImage(offScreenBoard, 0, 0, null);
     }
-
-    for (City city : cities)
+    cities.stream().forEach((city) ->
     {
       city.paint(g, width, height, isFullScreen);
-    }
+    });
   }
 
   /**
@@ -762,17 +756,13 @@ public class WorldClockSaver extends SimpleScreensaver
         if (loadingPlane == null)
         {
           loadingPlane = nextPlane;
-          new Thread(new Runnable()
+          new Thread(() ->
           {
-            @Override
-            public void run()
-            {
-              LOGGER.log(Level.INFO, "loading {0}", loadingPlane.getName());
-              loadingPlane.loadImage(width, height);
-              LOGGER.log(Level.INFO, "loaded {0}", loadingPlane.getName());
-              loadingPlane = null;
-              ++nbLoaded;
-            }
+            LOGGER.log(Level.INFO, "loading {0}", loadingPlane.getName());
+            loadingPlane.loadImage(width, height);
+            LOGGER.log(Level.INFO, "loaded {0}", loadingPlane.getName());
+            loadingPlane = null;
+            ++nbLoaded;
           }).start();
         }
       }

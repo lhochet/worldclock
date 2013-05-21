@@ -169,57 +169,41 @@ public class WorldClock
     PopupMenu popup = new PopupMenu();
 
     MenuItem mnuiShow = new MenuItem(res.getString("SHOW_LBL"));
-    mnuiShow.addActionListener(new ActionListener()
+    mnuiShow.addActionListener((ActionEvent e) ->
     {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        showWindow();
-      }
+      showWindow();
     });
     popup.add(mnuiShow);
 
     MenuItem mnuiShowOptions = new MenuItem(res.getString("OPTIONS_LBL"));
-    mnuiShowOptions.addActionListener(new ActionListener()
+    mnuiShowOptions.addActionListener((ActionEvent e) ->
     {
-      @Override
-      public void actionPerformed(ActionEvent e)
+      PropsManager props = PropsManager.getInstance();
+      ConfigPanel panel = new ConfigPanel();
+      panel.setConfigPath(props.getConfigPath());
+      if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, panel,
+        res.getString("OPTIONS_LBL"), JOptionPane.OK_CANCEL_OPTION))
       {
-        PropsManager props = PropsManager.getInstance();
-        ConfigPanel panel = new ConfigPanel();
-        panel.setConfigPath(props.getConfigPath());
-        if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null, panel,
-          res.getString("OPTIONS_LBL"), JOptionPane.OK_CANCEL_OPTION))
-        {
-          props.setConfigPath(panel.getConfigPath());
-          props.save();
-          frame = null;
-        }
+        props.setConfigPath(panel.getConfigPath());
+        props.save();
+        frame = null;
       }
     });
     popup.add(mnuiShowOptions);
 
     MenuItem mnuiAbout = new MenuItem(res.getString("ABOUT_LBL"));
-    mnuiAbout.addActionListener(new ActionListener()
+    mnuiAbout.addActionListener((ActionEvent e) ->
     {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
-      }
+      JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
     });
     popup.add(mnuiAbout);
 
     popup.addSeparator();
 
     MenuItem mnuiExit = new MenuItem(res.getString("EXIT_LBL"));
-    mnuiExit.addActionListener(new ActionListener()
+    mnuiExit.addActionListener((ActionEvent e) ->
     {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        System.exit(0);
-      }
+      System.exit(0);
     });
     popup.add(mnuiExit);
 
