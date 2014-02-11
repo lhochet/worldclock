@@ -5,7 +5,6 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -168,14 +167,14 @@ public class WorldClock
     PopupMenu popup = new PopupMenu();
 
     MenuItem mnuiShow = new MenuItem(res.getString("SHOW_LBL"));
-    mnuiShow.addActionListener((ActionEvent e) ->
+    mnuiShow.addActionListener(e ->
     {
       showWindow();
     });
     popup.add(mnuiShow);
 
     MenuItem mnuiShowOptions = new MenuItem(res.getString("OPTIONS_LBL"));
-    mnuiShowOptions.addActionListener((ActionEvent e) ->
+    mnuiShowOptions.addActionListener(e ->
     {
       PropsManager props = PropsManager.getInstance();
       ConfigPanel panel = new ConfigPanel();
@@ -191,7 +190,7 @@ public class WorldClock
     popup.add(mnuiShowOptions);
 
     MenuItem mnuiAbout = new MenuItem(res.getString("ABOUT_LBL"));
-    mnuiAbout.addActionListener((ActionEvent e) ->
+    mnuiAbout.addActionListener(e ->
     {
       JOptionPane.showMessageDialog(null, APP_NAME + " " + APP_VERSION, res.getString("ABOUT_LBL"), JOptionPane.INFORMATION_MESSAGE);
     });
@@ -200,7 +199,7 @@ public class WorldClock
     popup.addSeparator();
 
     MenuItem mnuiExit = new MenuItem(res.getString("EXIT_LBL"));
-    mnuiExit.addActionListener((ActionEvent e) ->
+    mnuiExit.addActionListener(e ->
     {
       System.exit(0);
     });
