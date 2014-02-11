@@ -117,27 +117,22 @@ public class WorldClockSaver extends SimpleScreensaver
   private long lastBoardUpdate = System.currentTimeMillis();
   
   // renders the board in a separate thread every 30s (this is for the 'special effects' rather than to update the daylight which could be less often)
-  private final Runnable asynchRenderer = new Runnable()
+  private final Runnable asynchRenderer = () ->
   {
-    private final boolean isRunning = true;
-    @Override
-    public void run()
+    while (true)
     {
-      while (isRunning)
+      try
       {
-        try
-        {
-          Thread.sleep(30000);
-        } 
-        catch (InterruptedException ex)
-        {
-          LOGGER.log(Level.FINE, null, ex);
-        }
-
-        updateBoard();
-        lastBoardUpdate = System.currentTimeMillis();
-        boardUpdated = true;
+        Thread.sleep(30000);
       }
+      catch (InterruptedException ex)
+      {
+        LOGGER.log(Level.FINE, null, ex);
+      }
+      
+      updateBoard();
+      lastBoardUpdate = System.currentTimeMillis();
+      boardUpdated = true;
     }
   };
   
