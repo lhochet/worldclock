@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <planes>
+    <plane name="ufo" horizontal="gauche" vertical="haut" image="pathto/ufo.png"/>
+  </planes>
+  <cities>
+    <!-- lat +: north, -: south, long: +: east, -: west -->
+    <city name="Tours" lat="47.27" long="0.43" timezone ="Europe/Paris" />
+    <city name="London" lat="51.517" long="-0.105" timezone ="Europe/London" />
+    <city name="New York" lat="40.05" long="-75.30" timezone ="America/New_York" />
+    <city name="Los Angeles" lat="33.45" long="-118.11" timezone ="America/Los_Angeles" />
+    <city name="Tokyo" lat="35.41" long="139.44" timezone ="Asia/Tokyo" />
+    <city name="Johannesburg" lat="-26.08" long="2754" timezone ="Africa/Johannesburg" />
+    <city name="Rio de Janeiro" lat="-22.54" long="-43.14" timezone ="America/Sao_Paulo" />    
+    <city name="Papeete" lat="-17.32" long="-149.34" timezone ="Pacific/Tahiti" />
+    <city name="Sydney" lat="-33.53" long="151.13" timezone ="Australia/Sydney" />    
+  </cities>
+</config>
