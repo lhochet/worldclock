@@ -33,7 +33,7 @@ import javax.swing.JComponent;
  * <p>
  * Description: Draws the Earth day and night
  * </p>
- * This part is directly based on Jürgen Giesen's <a
+ * This part is directly based on JÃ¼rgen Giesen's <a
  * href="http://www.geoastro.de/TNApplet/DN/index.html">Day & Night Applet</a><br/>
  * Images are from <a href="http://visibleearth.nasa.gov/">NASA's Visible Earth</a>
  * website !
@@ -491,9 +491,9 @@ public class WorldClockBoard extends JComponent
    * equator. Therefore, points north of the celestial equator have positive
    * declination, while those to the south have negative declination.
    * 
-   * An object on the celestial equator has a dec of 0°. An object above the
-   * north pole has a dec of +90°. An object above the south pole has a dec of
-   * ?90°.
+   * An object on the celestial equator has a dec of 0Â°. An object above the
+   * north pole has a dec of +90Â°. An object above the south pole has a dec of
+   * ?90Â°.
    * 
    * The declination of the Sun (?) is the angle between the rays of the sun and
    * the plane of the earth equator. Since the angle between the earth axis and
