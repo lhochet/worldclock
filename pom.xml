@@ -35,7 +35,6 @@
     <module>config</module>
     <module>geonames4lhwc</module>
     <module>editor</module>
-    <module>screensaver</module>
   </modules>
   
 </project>

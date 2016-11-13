@@ -27,34 +27,10 @@ Double click on worldclok(.jar) in the extraction directory or java -jar worldcl
 
 *   see the [application](application) subproject
 
-## Screensaver
-
-A World clock screen saver based on the Java SaverBean Screensaver 
-SDK. In addition to the clocks, the screen saver also allows for UFOs.
-
-### Downloads
-
-* for "unix" plateforms:
-
-    *   [worldclocksaver-0.8-unix.tar.gz](https://dl.bintray.com/lhochet/Worldclock/worldclocksaver-0.8-unix.tar.gz)
-*   for "windows" plateforms:
-
-    *   [worldclocksaver-0.8-win32.zip](https://dl.bintray.com/lhochet/Worldclock/worldclocksaver-0.8-win32.zip)
-    *   [worldclocksaver-0.8-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclocksaver-0.8-setup.exe) (installer)
-
-### Troubleshooting
-
-On Windows, if the screen saver complain of a missing msvcr100.dll, 
-then copy the one that's in C:\Programs Files\Java\jre7\bin to 
-C:\windows\system32
-
-### Sources
-
-*   see the [screensaver](screensaver) subproject
 
 ## Configuration
 
-Both the application and the screensaver require a configuration file.
+The application requires a configuration file.
 That file is a simple XML file that can be easily edited via a text editor or via the [editor](#editor) application.
 Basic structure of the file:
 
@@ -149,5 +125,7 @@ In the attic:
 *   a module for Netbeans
 
 *   a plugin for Eclipse
+
+*   a screensaver
 
 see the [attic](attic) for the source code
