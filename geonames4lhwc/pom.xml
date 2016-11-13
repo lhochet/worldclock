@@ -28,6 +28,16 @@
           <schemaDirectory>src/main/schema</schemaDirectory>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>
+            <arg>--add-modules</arg>
+            <arg>java.xml.bind</arg>
+          </compilerArgs>        
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

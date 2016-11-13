@@ -29,6 +29,16 @@
           <generatePackage>lh.worldclock.config.schema</generatePackage>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>
+            <arg>--add-modules</arg>
+            <arg>java.annotations.common,java.xml.bind</arg>
+          </compilerArgs>        
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
