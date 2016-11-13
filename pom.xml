@@ -7,12 +7,12 @@
   
   <organization>
     <name>WorldClock Team</name>
-    <url>http://worldclock-application.java.net/</url>
+    <url>https://github.com/lhochet/worldclock/</url>
   </organization>
   
   <version>0.8-SNAPSHOT</version>
-  <name>Worldclock Application Java.net project</name>
-  <description>Worldclock Application Java.net project</description>
+  <name>Worldclock Parent</name>
+  <description>Worldclock set of projects</description>
     
   <build>
     <plugins>
@@ -38,20 +38,4 @@
     <module>screensaver</module>
   </modules>
   
-  <distributionManagement>
-    <repository>
-      <id>local-releases</id>
-      <name>Release repository</name>
-      <url>http://localhost:8081/nexus/content/repositories/releases</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>local-snapshots</id>
-      <name>SNAPSHOTs repository</name>
-      <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-  <scm>
-    <connection>scm:svn:https://svn.java.net/svn/worldclock-application~svn/trunk</connection>
-  </scm>
 </project>
