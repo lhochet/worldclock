@@ -78,6 +78,8 @@
           <executable>xjc</executable>
           <arguments>
             <argument>-enableIntrospection</argument>
+            <argument>-encoding</argument>
+            <argument>UTF-8</argument>
             <argument>-p</argument>
             <argument>lh.worldclock.geonames.schema</argument>
             <argument>-extension</argument>

@@ -106,6 +106,8 @@
           <executable>xjc</executable>
           <arguments>
             <argument>-enableIntrospection</argument>
+            <argument>-encoding</argument>
+            <argument>UTF-8</argument>
             <argument>-p</argument>
             <argument>lh.worldclock.config.schema</argument>
             <argument>-extension</argument>
