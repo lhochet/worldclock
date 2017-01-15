@@ -10,9 +10,10 @@
   <artifactId>geonames4lhwc</artifactId>
   <version>1.1-SNAPSHOT</version>
   <name>geonames4lhwc</name>
+
   <build>
     <plugins>
-      <plugin>
+<!--      <plugin>
         <groupId>com.sun.tools.xjc.maven2</groupId>
         <artifactId>maven-jaxb-plugin</artifactId>
         <version>1.1</version>
@@ -27,7 +28,7 @@
           <generatePackage>lh.worldclock.geonames.schema</generatePackage>
           <schemaDirectory>src/main/schema</schemaDirectory>
         </configuration>
-      </plugin>
+      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -37,6 +38,76 @@
             <arg>java.xml.bind</arg>
           </compilerArgs>        
         </configuration>
+      </plugin>
+      <!-- https://github.com/mojohaus/jaxb2-maven-plugin/issues/43 -->
+      <!-- Create target dir -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <configuration>
+              <tasks>
+                <echo message="Creating target/generated-sources/jaxb"/>
+                <mkdir dir="./target/generated-sources/jaxb"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Invoke xjc -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate schema types</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>xjc</executable>
+          <arguments>
+            <argument>-enableIntrospection</argument>
+            <argument>-p</argument>
+            <argument>lh.worldclock.geonames.schema</argument>
+            <argument>-extension</argument>
+            <argument>-target</argument>
+            <argument>2.1</argument>
+            <argument>-d</argument>
+            <argument>target/generated-sources/jaxb</argument>
+            <argument>src/main/schema/geonames.xsd</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+      <!-- Add target dir to compilation -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>target/generated-sources/jaxb</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

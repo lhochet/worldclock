@@ -14,6 +14,7 @@
   
   <build>
     <plugins>
+<!-- https://github.com/mojohaus/jaxb2-maven-plugin/issues/43
       <plugin>
         <groupId>com.sun.tools.xjc.maven2</groupId>
         <artifactId>maven-jaxb-plugin</artifactId>
@@ -28,7 +29,34 @@
         <configuration>
           <generatePackage>lh.worldclock.config.schema</generatePackage>
         </configuration>
-      </plugin>
+        <dependencies>
+          <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>codemodel</artifactId>
+            <version>2.2.11</version>
+          </dependency>
+          <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>txw2</artifactId>
+            <version>2.2.11</version>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.xsom</groupId>
+            <artifactId>xsom</artifactId>
+            <version>20140925</version>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.istack</groupId>
+            <version>2.21</version>
+            <artifactId>istack-commons-runtime</artifactId>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.xml.bind.external</groupId>
+            <artifactId>rngom</artifactId>
+            <version>2.2.11</version>
+          </dependency>
+        </dependencies>
+      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -38,6 +66,76 @@
             <arg>java.annotations.common,java.xml.bind</arg>
           </compilerArgs>        
         </configuration>
+      </plugin>
+      <!-- https://github.com/mojohaus/jaxb2-maven-plugin/issues/43 -->
+      <!-- Create target dir -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <configuration>
+              <tasks>
+                <echo message="Creating target/generated-sources/jaxb"/>
+                <mkdir dir="./target/generated-sources/jaxb"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Invoke xjc -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate schema types</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>xjc</executable>
+          <arguments>
+            <argument>-enableIntrospection</argument>
+            <argument>-p</argument>
+            <argument>lh.worldclock.config.schema</argument>
+            <argument>-extension</argument>
+            <argument>-target</argument>
+            <argument>2.1</argument>
+            <argument>-d</argument>
+            <argument>target/generated-sources/jaxb</argument>
+            <argument>src/main/resources/worldclock.xsd</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+      <!-- Add target dir to compilation -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>target/generated-sources/jaxb</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
