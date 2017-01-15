@@ -89,6 +89,8 @@
           <mainClass>lh.worldclock.editor.EditorApp</mainClass>
           <classpathScope>compile</classpathScope>
           <arguments>
+            <argument>--add-modules</argument>
+            <argument>java.xml.bind</argument>
             <argument>-classpath</argument>
             <classpath />
             <argument>lh.worldclock.editor.EditorApp</argument>
