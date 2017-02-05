@@ -1,5 +1,6 @@
-module lh.worldclock.editor 
+open module lh.worldclock.editor 
 {
+  exports lh.worldclock.editor to appframework;
   requires lh.worldclock.schema;
   requires lh.worldclock.config;
   requires lh.worldclock.geonames4lhwc;
