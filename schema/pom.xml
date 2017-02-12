@@ -63,7 +63,7 @@
         <configuration>
           <compilerArgs>
             <arg>--add-modules</arg>
-            <arg>java.annotations.common,java.xml.bind</arg>
+            <arg>java.xml.ws.annotation,java.xml.bind</arg>
           </compilerArgs>        
         </configuration>
       </plugin>
