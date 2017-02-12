@@ -43,7 +43,8 @@ public class GeonamesWSWrapper
   private static final String URL_BASE = "http://ws.geonames.org/search?q=";
   private static final String URL_STYLE = "&style=full";
   private static final String URL_MAX_ROWS = "&maxRows=";
-  
+   private static final String URL_USER = "&username=demo";
+ 
   private static final GeonamesWSWrapper instance = new GeonamesWSWrapper();
 
   private final ObjectFactory factory = new ObjectFactory();
@@ -81,6 +82,7 @@ public class GeonamesWSWrapper
     sb.append(URL_STYLE);
     sb.append(URL_MAX_ROWS);
     sb.append(Integer.toString(max));
+    sb.append(URL_USER);
     try(InputStream is = new URL(sb.toString()).openStream())
     {
       load(is);
