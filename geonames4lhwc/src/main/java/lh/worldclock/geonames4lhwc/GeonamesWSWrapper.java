@@ -40,7 +40,7 @@ public class GeonamesWSWrapper
   
   
   private static final String JAXB_PACKAGE = ObjectFactory.class.getPackage().getName();
-  private static final String URL_BASE = "http://ws.geonames.org/search?q=";
+  private static final String URL_BASE = "http://api.geonames.org/search?q=";
   private static final String URL_STYLE = "&style=full";
   private static final String URL_MAX_ROWS = "&maxRows=";
    private static final String URL_USER = "&username=demo";
