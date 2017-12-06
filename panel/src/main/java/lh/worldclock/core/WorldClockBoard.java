@@ -34,7 +34,7 @@ import javax.swing.JComponent;
  * Description: Draws the Earth day and night
  * </p>
  * This part is directly based on Jürgen Giesen's <a
- * href="http://www.geoastro.de/TNApplet/DN/index.html">Day & Night Applet</a><br/>
+ * href="http://www.geoastro.de/TNApplet/DN/index.html">Day &amp; Night Applet</a><br><br/>
  * Images are from <a href="http://visibleearth.nasa.gov/">NASA's Visible Earth</a>
  * website !
  * 
