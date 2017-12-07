@@ -43,7 +43,7 @@ public class WorldClockPanel extends JPanel
 
   /**
    * Paint the panel
-   * @param graphics graphics to paint on
+   * @param graphics the graphics to paint up on
    */
   @Override
   public void paintComponent(Graphics graphics)

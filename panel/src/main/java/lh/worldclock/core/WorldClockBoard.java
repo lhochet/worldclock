@@ -33,13 +33,14 @@ import javax.swing.JComponent;
  * <p>
  * Description: Draws the Earth day and night
  * </p>
- * This part is directly based on Jürgen Giesen's <a
- * href="http://www.geoastro.de/TNApplet/DN/index.html">Day &amp; Night Applet</a><br><br/>
+ * This part is directly based on Jurgen Giesen's <a
+ * href="http://www.geoastro.de/TNApplet/DN/index.html">Day &amp; Night Applet</a>
+ * 
  * Images are from <a href="http://visibleearth.nasa.gov/">NASA's Visible Earth</a>
  * website !
  * 
  * <p>
- * Copyright: Copyright (c) 2004-2007 The WorldClock Application Team
+ * Copyright: Copyright (c) 2004-20017 The WorldClock Application Team
  * </p>
  * 
  * @author Ludovic HOCHET
@@ -706,7 +707,7 @@ public class WorldClockBoard extends JComponent
     }
     catch (InterruptedException e)
     {
-    	// ignore
+      // ignore
     }
 
     // Get the image's color model
