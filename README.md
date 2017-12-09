@@ -112,6 +112,7 @@ A World day and night JPanel to be used in Swing applications.
   <version>0.8</version>
 </dependency>
 ```
+
     * Java 7:  [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
 
 ### Sources
