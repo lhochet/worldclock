@@ -4,18 +4,18 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.8</version>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>config</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>config</name>
   
   <dependencies>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>schema</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <version>1.1</version>
     </dependency>
   </dependencies>
 </project>

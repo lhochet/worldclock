@@ -4,11 +4,11 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.8</version>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>geonames4lhwc</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>geonames4lhwc</name>
   <build>
     <plugins>

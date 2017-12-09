@@ -10,7 +10,7 @@
     <url>https://github.com/lhochet/worldclock/</url>
   </organization>
   
-  <version>0.8-SNAPSHOT</version>
+  <version>0.8</version>
   <name>Worldclock Parent</name>
   <description>Worldclock set of projects</description>
     
@@ -84,6 +84,6 @@
     <connection>scm:git:file:///.</connection>
     <developerConnection>scm:git:file:///.</developerConnection>
     <url>scm:git:file:///.</url>
-    <tag>HEAD</tag>
+    <tag>worldclock-application-parent-0.8</tag>
   </scm>
 </project>
