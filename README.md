@@ -102,9 +102,7 @@ A World day and night JPanel to be used in Swing applications.
 
 ### Downloads
 
-*   Jar:
-
-    * Java 8:  [panel-0.8.jar](https://dl.bintray.com/lhochet/maven/lh/worldclock/panel/0.8/:panel-0.8.jar)
+*   Java 8:  [panel-0.8.jar](https://dl.bintray.com/lhochet/maven/lh/worldclock/panel/0.8/:panel-0.8.jar)
 ```xml
 <dependency>
   <groupId>lh.worldclock</groupId>
@@ -113,7 +111,7 @@ A World day and night JPanel to be used in Swing applications.
 </dependency>
 ```
 
-   * Java 7:  [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
+* Java 7:  [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
 
 ### Sources
 
