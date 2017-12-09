@@ -4,7 +4,7 @@
 
 [application](#application) -  [screensaver](#screensaver) - [configuration](#configuration) - [editor](#editor) - [panel](#panel) - [credits](#credits) - [attic](#attic)
 
-Requires Java 7 or above.
+Requires Java 7 or above depending on the download.
 
 ## Application
 
@@ -12,11 +12,16 @@ A simple World Clock accessible from the system tray. Shows the time in cities a
 
 ### Downloads
 
-* Zip:
+* Java 8: [application-0.8.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/application/0.8/:application-0.8.zip)
+```xml
+<dependency>
+  <groupId>lh.worldclock</groupId>
+  <artifactId>application</artifactId>
+  <version>0.8</version>
+</dependency>
+```
 
- - [worldclockapplication-0.7.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7.zip)
-* Installer:
-  - [worldclockapplication-0.7-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7-setup.exe)
+* Java 7: [worldclockapplication-0.7.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7.zip) - [worldclockapplication-0.7-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7-setup.exe)
 
 
 ### Run
@@ -72,12 +77,16 @@ An editor for the above configuration file.
 
 ### Downloads
 
-*   Zip:
+*   Java 8: [editor-1.1.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/editor/1.1/:editor-1.1.zip)
+```xml
+<dependency>
+  <groupId>lh.worldclock</groupId>
+  <artifactId>editor</artifactId>
+  <version>1.1</version>
+</dependency>
+```
 
-    *   [worldclockeditor-1.0.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0.zip)
-*   Installer
-
-    *   [worldclockeditor-1.0-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0-setup.exe)
+*   Java 7: [worldclockeditor-1.0.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0.zip) - [worldclockeditor-1.0-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0-setup.exe)
 
 ### Run
 
@@ -95,7 +104,15 @@ A World day and night JPanel to be used in Swing applications.
 
 *   Jar:
 
-    *   [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
+    * Java 8:  [panel-0.8.jar](https://dl.bintray.com/lhochet/maven/lh/worldclock/panel/0.8/:panel-0.8.jar)
+```xml
+<dependency>
+  <groupId>lh.worldclock</groupId>
+  <artifactId>panel</artifactId>
+  <version>0.8</version>
+</dependency>
+```
+    * Java 7:  [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
 
 ### Sources
 
