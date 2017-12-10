@@ -31,8 +31,11 @@
     <dependency>
       <groupId>org.jdesktop</groupId>
       <artifactId>appframework</artifactId>
-      <version>1.0.3</version>
     </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>  
   </dependencies>
   
   <build>
@@ -71,7 +74,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.2.1</version>
         <configuration>
           <executable>java</executable>
           <mainClass>lh.worldclock.editor.EditorApp</mainClass>
