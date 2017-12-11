@@ -58,14 +58,16 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
         <configuration>
           <executable>java</executable>
           <mainClass>lh.worldclock.WorldClock</mainClass>
           <classpathScope>compile</classpathScope>
           <arguments>
-            <argument>-classpath</argument>
-            <classpath />
-            <argument>lh.worldclock.WorldClock</argument>
+            <argument>--module-path</argument>
+            <modulepath />
+            <argument>--module</argument>
+            <argument>lh.worldclock.application/lh.worldclock.WorldClock</argument>
           </arguments>
         </configuration>
       </plugin>      

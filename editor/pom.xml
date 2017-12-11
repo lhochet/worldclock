@@ -74,16 +74,16 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
         <configuration>
           <executable>java</executable>
           <mainClass>lh.worldclock.editor.EditorApp</mainClass>
           <classpathScope>compile</classpathScope>
           <arguments>
-            <argument>--add-modules</argument>
-            <argument>java.xml.bind</argument>
-            <argument>-classpath</argument>
-            <classpath />
-            <argument>lh.worldclock.editor.EditorApp</argument>
+            <argument>--module-path</argument>
+            <modulepath />
+            <argument>--module</argument>
+            <argument>lh.worldclock.editor/lh.worldclock.editor.EditorApp</argument>
           </arguments>
         </configuration>
       </plugin>      
