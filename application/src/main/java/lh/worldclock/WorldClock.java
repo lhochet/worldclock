@@ -39,7 +39,7 @@ public class WorldClock
 {
   public static final String APP_NAME = "World Clock";
 
-  public static final String APP_VERSION = "0.8-SNAPSHOT";
+  public static final String APP_VERSION = "0.9";
 
   private static ImageIcon icon = null;
 
