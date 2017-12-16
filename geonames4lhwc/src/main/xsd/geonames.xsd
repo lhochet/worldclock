@@ -7,11 +7,26 @@
           The schema is only targetted for the use within WorldClock editor
           
           1.0, 2009-06-03: initial version
+          1.1, 2017-12-16: added a status element that is returned when credit limits are reached, also added totalResultsCount
         </xsd:documentation>
     </xsd:annotation>
     <xsd:element name="geonames">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element name="status" maxOccurs="1" minOccurs="0">
+                  <xsd:complexType>
+                    <xsd:attribute name="message">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string"/>
+                      </xsd:simpleType>
+                    </xsd:attribute>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="totalResultsCount" maxOccurs="1" minOccurs="0">
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:positiveInteger"/>
+                    </xsd:simpleType>
+                </xsd:element>
                 <xsd:element name="geoname" maxOccurs="unbounded" minOccurs="0">
                     <xsd:complexType>
                         <xsd:sequence>
