@@ -14,6 +14,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import lh.worldclock.geonames.schema.Geonames;
 import lh.worldclock.geonames.schema.Geonames.Geoname;
+import lh.worldclock.geonames.schema.Geonames.Status;
 import lh.worldclock.geonames.schema.ObjectFactory;
 
 public class GeonamesWSWrapper
@@ -43,9 +44,9 @@ public class GeonamesWSWrapper
   private static final String URL_BASE = "http://api.geonames.org/search?q=";
   private static final String URL_STYLE = "&style=full";
   private static final String URL_MAX_ROWS = "&maxRows=";
-   private static final String URL_USER = "&username=demo";
+   private static final String URL_USER = "&username=worldclockeditor";
  
-  private static final GeonamesWSWrapper instance = new GeonamesWSWrapper();
+  private static final GeonamesWSWrapper INSTANCE = new GeonamesWSWrapper();
 
   private final ObjectFactory factory = new ObjectFactory();
   private Geonames geonames = null;
@@ -56,12 +57,12 @@ public class GeonamesWSWrapper
 
   public static List<Geoname> getGeonames(String location, int max)
   {
-    return instance.doGetGeonames(location, max);
+    return INSTANCE.doGetGeonames(location, max);
   }
 
   public static List<Geoname> getGeonamesFromPath(Path path)
   {
-    return instance.doGetGeonamesFromPath(path);
+    return INSTANCE.doGetGeonamesFromPath(path);
   }
 
 
@@ -90,6 +91,9 @@ public class GeonamesWSWrapper
     catch (JAXBException | IOException ex)
     {
       Logger.getLogger(GeonamesWSWrapper.class.getName()).log(Level.FINE, null, ex);
+      Geoname g = new Geoname();
+      g.setName(ex.getMessage());
+      return List.of(g);
     }
     return getGeonames();
   }
@@ -114,6 +118,16 @@ public class GeonamesWSWrapper
       geonames = factory.createGeonames();
     }
     List<Geoname> ret = geonames.getGeoname();
+    if (ret.isEmpty())
+    {
+      Status status = geonames.getStatus();
+      if (status != null)
+      {
+        Geoname g = new Geoname();
+        g.setName(status.getMessage());
+        ret = List.of(g);
+      }
+    }
     geonames = null;
     return ret;
   }
@@ -130,5 +144,6 @@ public class GeonamesWSWrapper
     JAXBContext jc = JAXBContext.newInstance(JAXB_PACKAGE);
     Unmarshaller u = jc.createUnmarshaller();
     geonames = (Geonames) u.unmarshal(is);
+    System.out.println("geonames="+geonames.getTotalResultsCount());
   }
 }
