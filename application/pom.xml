@@ -5,20 +5,20 @@
   <parent>
     <groupId>lh.worldclock</groupId>
     <artifactId>worldclock-application-parent</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.9</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>lh.worldclock</groupId>
   <artifactId>application</artifactId>
   <packaging>jar</packaging>
   <name>Worldclock Application</name>
-  <version>0.9-SNAPSHOT</version>
+  <version>0.9</version>
   
   <dependencies>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>panel</artifactId>
-      <version>0.9-SNAPSHOT</version>
+      <version>0.9</version>
     </dependency>
   </dependencies>
 

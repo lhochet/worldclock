@@ -4,12 +4,12 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.9</version>
   </parent>
   
   <groupId>lh.worldclock</groupId>
   <artifactId>schema</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <name>WorldClock Schema</name>
   
   <build>
@@ -41,8 +41,8 @@
             <phase>generate-sources</phase>
             <configuration>
               <tasks>
-                <echo message="Creating target/generated-sources/jaxb"/>
-                <mkdir dir="./target/generated-sources/jaxb"/>
+                <echo message="Creating target/generated-sources/jaxb" />
+                <mkdir dir="./target/generated-sources/jaxb" />
               </tasks>
             </configuration>
             <goals>
