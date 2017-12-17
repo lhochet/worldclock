@@ -12,14 +12,9 @@ A simple World Clock accessible from the system tray. Shows the time in cities a
 
 ### Downloads
 
+* Java 9: [application-0.9.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/application/0.9/:application-0.9.zip) - [jlinked](https://dl.bintray.com/lhochet/Worldclock/:worldclock-application-selfcontained-0.9.zip)
+
 * Java 8: [application-0.8.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/application/0.8/:application-0.8.zip)
-```xml
-<dependency>
-  <groupId>lh.worldclock</groupId>
-  <artifactId>application</artifactId>
-  <version>0.8</version>
-</dependency>
-```
 
 * Java 7: [worldclockapplication-0.7.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7.zip) - [worldclockapplication-0.7-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockapplication-0.7-setup.exe)
 
@@ -77,14 +72,9 @@ An editor for the above configuration file.
 
 ### Downloads
 
+*   Java 9: [editor-1.2.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/editor/1.2/:editor-1.2.zip) - [jlinked](https://dl.bintray.com/lhochet/Worldclock/:worldclock-editor-selfcontained-1.2.zip)
+
 *   Java 8: [editor-1.1.zip](https://dl.bintray.com/lhochet/maven/lh/worldclock/editor/1.1/:editor-1.1.zip)
-```xml
-<dependency>
-  <groupId>lh.worldclock</groupId>
-  <artifactId>editor</artifactId>
-  <version>1.1</version>
-</dependency>
-```
 
 *   Java 7: [worldclockeditor-1.0.zip](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0.zip) - [worldclockeditor-1.0-setup.exe](https://dl.bintray.com/lhochet/Worldclock/worldclockeditor-1.0-setup.exe)
 
@@ -102,6 +92,16 @@ A World day and night JPanel to be used in Swing applications.
 
 ### Downloads
 
+*   Java 9:  [panel-0.9.jar](https://dl.bintray.com/lhochet/maven/lh/worldclock/panel/0.9/:panel-0.9.jar)
+```xml
+<dependency>
+  <groupId>lh.worldclock</groupId>
+  <artifactId>panel</artifactId>
+  <version>0.9</version>
+</dependency>
+```
+on [Bintray](https://dl.bintray.com/lhochet/maven/)
+
 *   Java 8:  [panel-0.8.jar](https://dl.bintray.com/lhochet/maven/lh/worldclock/panel/0.8/:panel-0.8.jar)
 ```xml
 <dependency>
@@ -110,6 +110,7 @@ A World day and night JPanel to be used in Swing applications.
   <version>0.8</version>
 </dependency>
 ```
+on [Bintray](https://dl.bintray.com/lhochet/maven/)
 
 * Java 7:  [panel-0.7.jar](https://dl.bintray.com/lhochet/Worldclock/panel-0.7.jar)
 
