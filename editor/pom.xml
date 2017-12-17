@@ -4,29 +4,29 @@
   <parent>
     <artifactId>worldclock-application-parent</artifactId>
     <groupId>lh.worldclock</groupId>
-    <version>0.9</version>
+    <version>0.10-SNAPSHOT</version>
   </parent>
   
   <groupId>lh.worldclock</groupId>
   <artifactId>editor</artifactId>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
   <name>WorldClock Editor</name>
     
   <dependencies>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>schema</artifactId>
-      <version>1.2</version>
+      <version>1.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>config</artifactId>
-      <version>1.2</version>
+      <version>1.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>lh.worldclock</groupId>
       <artifactId>geonames4lhwc</artifactId>
-      <version>1.2</version>
+      <version>1.3-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.jdesktop</groupId>
